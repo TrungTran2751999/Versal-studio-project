@@ -1,0 +1,205 @@
+<style>
+    .nav-font {
+        color: white;
+        font-weight: bolder;
+        user-select: none;
+    }
+    .nav-font:hover{
+        cursor: pointer;
+    }
+    .menu-dropdown{
+        padding-right: 50px;
+        font-weight: bold;
+    }
+    .menu-dropdown-container:hover{
+        background-color: aliceblue;
+        cursor: pointer;
+    }
+    .hidden{
+        display: none;
+    }
+    .visible{
+        display: flex;
+    }
+    .chidren-nav-font-hamburg{
+        font-size: 12px;
+    }
+    @media (max-width: 900px) {
+        .hidden{
+            display: block;
+        }
+        .visible{
+            display: none;
+        }
+    }
+</style>
+<template>
+    <v-app>
+        <v-sheet>
+            <v-app-bar :elevation="2" style="background-color: black;" class="pa-1">
+                <template v-slot:prepend>
+                    <v-app-bar-nav-icon @click="showHamburgMenu()" class="nav-font hidden"></v-app-bar-nav-icon>
+                    <v-row style="gap:20px; margin-left: 20px;" class="visible">
+                        <div class="nav-font">VERSAL-STUDIO</div>
+                        <div class="nav-font" :id=child.id v-for="child in listChildrenNav" :key="child">
+                            {{ child.name }} <span><v-icon>mdi-chevron-down</v-icon></span>
+                        </div>
+                    </v-row>
+                </template>
+                    <v-menu v-for="child in listChildrenNav" :activator=child.idActivator :key="child">
+                        <v-list>
+                            <div v-for="item in child.children" :key="item">
+                                <v-list-item class="menu-dropdown-container">
+                                    <v-list-item-title class="menu-dropdown">{{ item.name }}</v-list-item-title>
+                                </v-list-item>
+                                <v-divider></v-divider>
+                            </div>
+                        </v-list>
+                    </v-menu>
+                
+
+                <v-app-bar-title>
+                    <router-link to="/admin" style="text-decoration: none;">
+
+                    </router-link>
+                </v-app-bar-title>
+                <!-- <template v-slot:append>
+                    <v-btn icon="mdi-heart"></v-btn>
+
+                    <v-btn icon="mdi-magnify"></v-btn>
+
+                    <v-btn icon="mdi-dots-vertical"></v-btn>
+                </template> -->
+            </v-app-bar>
+            <v-navigation-drawer v-model="drawer" class="hidden" style="z-index: 99999999999; background-color: black;">
+                <v-divider></v-divider>
+                <v-list density="compact" nav>
+                    <div v-for="nav in listChildrenNav" :key="nav">
+                        <v-list-item
+                                     @click="showChidrenTreeView(nav.idHambug)" 
+                                     class="nav-font" 
+                                     :id="nav.idHambug" 
+                                     :title="nav.name" 
+                                     :append-icon="!nav.isShowChildren ? 'mdi-chevron-right' : 'mdi-chevron-down'" 
+                                     :value="nav.name">
+                        </v-list-item>
+                        <v-list-item :id="nav.idChidren" v-show="nav.isShowChildren">
+                            <v-list density="compact" nav >
+                                <v-list-item class="nav-font chidren-nav-font-hamburg" v-for="navChildren in nav.children" :key="navChildren">
+                                    {{ navChildren.name }}
+                                </v-list-item>
+                            </v-list>
+                        </v-list-item>
+                    </div>
+                    
+                    <!-- <v-list-item class="nav-font" :append-icon="iconListItem" title="Cộng đồng" value="CongDong"></v-list-item>
+                    <v-list-item class="nav-font" :append-icon="iconListItem" title="Giải đấu" value="GiaiDau"></v-list-item>
+                    <v-list-item class="nav-font" :append-icon="iconListItem" title="Việc làm" value="ViecLam"></v-list-item>
+                    <v-list-item class="nav-font" :append-icon="iconListItem" title="Versal-studio" value="VersalStudio"></v-list-item> -->
+                </v-list>
+            </v-navigation-drawer>
+        </v-sheet>
+        <div style="margin-top: 60px;">
+            <slot></slot>
+        </div>
+    </v-app>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            drawer: false,
+            invisibleHamgurg: false,
+            showListItem:{
+                "nav-tin-tuc":false
+            },
+            iconListItem:"mdi-chevron-right",
+            listChildrenNav:[
+                {
+                    name: "TIN TỨC",
+                    id:"nav-tin-tuc-bigger",
+                    idHambug:"nav-tin-tuc",
+                    idActivator:"#nav-tin-tuc-bigger",
+                    isShowChildren: false,
+                    idChidren: "nav-tin-tuc-chidren",
+                    children:[
+                        {name: "Esport 360", link:""},
+                        {name: "Tin cộng đồng", link:""},
+                        {name: "Kiến thức và đào tạo", link:""},
+                        {name: "Diễn đàn eTalk", link:""},
+                        {name: "Human of Esport", link:""},
+                        {name: "Hoạt động Versal-studio", link:""}
+                    ]
+                },
+                {
+                    name: "CỘNG ĐỒNG",
+                    id:"nav-cong-dong-bigger",
+                    idHambug:"nav-cong-dong",
+                    idActivator:"#nav-cong-dong-bigger",
+                    isShowChildren: false,
+                    idChidren: "nav-cong-dong-chidren",
+                    children:[
+                        {name: "Hỗ trợ giải đấu", link:""},
+                        {name: "Chương trình Hội viên", link:""},
+                        {name: "Hệ thống giải đấu", link:""},
+                        {name: "Kênh Discord<", link:""}
+                    ]
+                },
+                {
+                    name: "GIẢI ĐẤU",
+                    id:"nav-giai-dau-bigger",
+                    isShowChildren: false,
+                    idHambug:"nav-giai-dau",
+                    idActivator:"",
+                    idChidren: "nav-giai-dau-chidren",
+                    children:[]
+                },
+                {
+                    name: "VIỆC LÀM",
+                    id:"nav-viec-lam-bigger",
+                    isShowChildren: false,
+                    idHambug:"nav-viec-lam",
+                    idActivator:"#nav-viec-lam-bigger",
+                    idChidren: "nav-viec-lam-chidren",
+                    children:[
+                        {name: "Việc làm Esport", link:""},
+                        {name: "Versal-studio tuyển dụng", link:""}
+                    ]
+                },
+                {
+                    name: "VERSAL-STUDIO",
+                    id:"nav-project-bigger",
+                    idHambug:"nav-project",
+                    idActivator:"#nav-project-bigger",
+                    isShowChildren: false,
+                    idChidren: "nav-project-chidren",
+                    children:[
+                        {name: "Giới thiệu chung", link:""},
+                        {name: "Lĩnh vực hoạt động", link:""},
+                        {name: "Đội ngũ nhân sự", link:""},
+                        {name: "Đối tác & khách hàng", link:""},
+                        {name: "Tuyển dụng", link:""},
+                        {name: "Liên hệ hợp tác", link:""}
+                    ]
+                },
+            ]
+        }
+    },
+    methods:{
+        showChidrenTreeView(value){
+            let obj = this.listChildrenNav.filter(x=>x.idHambug==value)[0]
+            if(obj.children.length > 0){
+                obj.isShowChildren = !obj.isShowChildren
+            }
+            // this.showListItem[value] = !this.showListItem[value]
+            // !this.showListItem[value] ? this.iconListItem = "mdi-chevron-right" : this.iconListItem = "mdi-chevron-down"
+        },
+        showHamburgMenu(){
+            this.drawer = !this.drawer
+            this.listChildrenNav.map(child=>{
+                child.isShowChildren = false
+            })
+        }
+    }
+}
+</script>
