@@ -10,6 +10,7 @@ import NguoiChoiTrongNgay from "./pages/clmm/admin/NguoiChoiTrongNgay.vue";
 import DoanhThuTrongNgay from "./pages/clmm/admin/DoanhThuTrongNgay.vue";
 import TaiKhoanNganHang from "./pages/clmm/admin/TaiKhoanNganHang.vue";
 import Home from "./pages/versal-studio/Home.vue";
+import TinTuc from "./pages/versal-studio/TinTuc.vue";
 const checkBefore = (to, from ,next)=>{
     let result = util.checkJWTToken();
     if(result){
@@ -23,6 +24,12 @@ const routes = [
         path: "/",
         name: "home-route",
         component: Home,
+        //beforeEnter: checkBefore
+    },
+    {
+        path: "/tin-tuc",
+        name: "tin-tuc",
+        component: TinTuc,
         //beforeEnter: checkBefore
     },
     {

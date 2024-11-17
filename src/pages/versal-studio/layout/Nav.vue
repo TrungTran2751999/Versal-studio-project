@@ -40,22 +40,28 @@
                 <template v-slot:prepend>
                     <v-app-bar-nav-icon @click="showHamburgMenu()" class="nav-font hidden"></v-app-bar-nav-icon>
                     <v-row style="gap:20px; margin-left: 20px;" class="visible">
-                        <div class="nav-font">VERSAL-STUDIO</div>
-                        <div class="nav-font" :id=child.id v-for="child in listChildrenNav" :key="child">
+                        <div class="nav-font">
+                            <a href="/">
+                                <v-img :src="require('@/assets/logo-2.png')" style="width: 100px; height: 50px;"></v-img>
+                            </a>
+                        </div>
+                        <div class="nav-font" :id=child.id v-for="child in listChildrenNav" :key="child" style="margin-top: 15px;">
                             {{ child.name }} <span><v-icon>mdi-chevron-down</v-icon></span>
                         </div>
                     </v-row>
                 </template>
-                    <v-menu v-for="child in listChildrenNav" :activator=child.idActivator :key="child">
-                        <v-list>
-                            <div v-for="item in child.children" :key="item">
+                <v-menu v-for="child in listChildrenNav" :activator=child.idActivator :key="child">
+                    <v-list>
+                        <div v-for="item in child.children" :key="item">
+                            <a :href="item.link">
                                 <v-list-item class="menu-dropdown-container">
                                     <v-list-item-title class="menu-dropdown">{{ item.name }}</v-list-item-title>
                                 </v-list-item>
-                                <v-divider></v-divider>
-                            </div>
-                        </v-list>
-                    </v-menu>
+                            </a>
+                            <v-divider></v-divider>
+                        </div>
+                    </v-list>
+                </v-menu>
                 
 
                 <v-app-bar-title>
@@ -80,14 +86,16 @@
                                      class="nav-font" 
                                      :id="nav.idHambug" 
                                      :title="nav.name" 
-                                     :append-icon="!nav.isShowChildren ? 'mdi-chevron-right' : 'mdi-chevron-down'" 
+                                     :append-icon="!nav.isShowChildren ? 'mdi-chevron-right' : 'mdi-chevron-down'"
                                      :value="nav.name">
                         </v-list-item>
                         <v-list-item :id="nav.idChidren" v-show="nav.isShowChildren">
                             <v-list density="compact" nav >
-                                <v-list-item class="nav-font chidren-nav-font-hamburg" v-for="navChildren in nav.children" :key="navChildren">
-                                    {{ navChildren.name }}
-                                </v-list-item>
+                                <a :href="navChildren.link" v-for="navChildren in nav.children" :key="navChildren">
+                                    <v-list-item class="nav-font chidren-nav-font-hamburg">
+                                        {{ navChildren.name }}
+                                    </v-list-item>
+                                </a>
                             </v-list>
                         </v-list-item>
                     </div>
@@ -123,12 +131,12 @@ export default {
                     isShowChildren: false,
                     idChidren: "nav-tin-tuc-chidren",
                     children:[
-                        {name: "Esport 360", link:""},
-                        {name: "Tin cộng đồng", link:""},
-                        {name: "Kiến thức và đào tạo", link:""},
-                        {name: "Diễn đàn eTalk", link:""},
-                        {name: "Human of Esport", link:""},
-                        {name: "Hoạt động Versal-studio", link:""}
+                        {name: "Esport 360", link:"/tin-tuc?main=tin-tuc&child=esport-360"},
+                        {name: "Tin cộng đồng", link:"/tin-tuc?main=tin-tuc&child=tin-cong-dong"},
+                        {name: "Kiến thức và đào tạo", link:"/tin-tuc?main=tin-tuc&child=kien-thuc-dao-tao"},
+                        {name: "Diễn đàn eTalk", link:"/tin-tuc?main=tin-tuc&child=dien-dan-etalk"},
+                        {name: "Human of Esport", link:"/tin-tuc?main=tin-tuc&child=human-of-esport"},
+                        {name: "Hoạt động Versal-studio", link:"/tin-tuc?main=tin-tuc&child=hoat-dong"}
                     ]
                 },
                 {
