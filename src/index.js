@@ -78,6 +78,7 @@ const routes = [
 ]
 const router = createRouter({
     history: createWebHistory(),
+    base: '/Versal-studio-page/',
     routes
 })
 export default router
