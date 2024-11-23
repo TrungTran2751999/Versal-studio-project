@@ -40,7 +40,7 @@
                     <v-col cols="12" md="6">
                         <v-card style="margin-bottom: 25px; height: 725px;">
                             <v-card-actions class="container-mg-su-kien">
-                                <v-img src="https://esca.vn/images/2024/09/13/back-to-school-dn_large.png" class="img-su-kien"></v-img>
+                                <v-img :src="listImg[0]" class="img-su-kien"></v-img>
                             </v-card-actions>
                             <v-card-actions class="justify-center">
                                 <div>
@@ -65,7 +65,7 @@
                     <v-col cols="12" md="3">
                         <v-card class="card-child">
                             <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                <v-img src="https://esca.vn/images/2024/09/13/back-to-school-dn_large.png" class="img-su-kien"></v-img>
+                                <v-img :src="listImg[0]" class="img-su-kien"></v-img>
                             </v-card-actions>
                             <v-card-actions class="justify-center">
                                 <div>
@@ -82,7 +82,7 @@
 
                         <v-card class="card-child">
                             <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                <v-img src="https://esca.vn/images/2024/09/13/back-to-school-dn_large.png" class="img-su-kien"></v-img>
+                                <v-img :src="listImg[0]" class="img-su-kien"></v-img>
                             </v-card-actions>
                             <v-card-actions class="justify-center">
                                 <div>
@@ -101,7 +101,7 @@
                     <v-col cols="12" md="3">
                         <v-card class="card-child">
                             <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                <v-img src="https://esca.vn/images/2024/09/13/back-to-school-dn_large.png" class="img-su-kien"></v-img>
+                                <v-img :src="listImg[0]" class="img-su-kien"></v-img>
                             </v-card-actions>
                             <v-card-actions class="justify-center">
                                 <div>
@@ -118,7 +118,7 @@
 
                         <v-card class="card-child">
                             <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                <v-img src="https://esca.vn/images/2024/09/13/back-to-school-dn_large.png" class="img-su-kien"></v-img>
+                                <v-img :src="listImg[0]" class="img-su-kien"></v-img>
                             </v-card-actions>
                             <v-card-actions class="justify-center">
                                 <div>
@@ -147,7 +147,7 @@
                     <slide v-for="slide in 10" :key="slide">
                         <v-card class="card-child-su-kien" style="background-color: #2a2a2a;">
                             <v-card-actions style="background-color: white;" class="container-mg-su-kien">
-                                <v-img src="https://esca.vn/images/2024/09/13/back-to-school-dn_large.png" class="img-su-kien"></v-img>
+                                <v-img :src="listImg[0]" class="img-su-kien"></v-img>
                             </v-card-actions>
                             <v-card-actions class="justify-center">
                                 <div>
@@ -200,128 +200,10 @@
          <v-card>
             <v-card-actions class="pa-12" style="background-color: rgb(42,42,42);;">
                 <v-row>
-                    <v-col cols="12" sm="3">
-                        <v-card class="card-child">
+                    <v-col cols="12" sm="3" v-for="n in 4" :key="n">
+                        <v-card class="card-child" v-for="m in 2" :key="m">
                             <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                <v-img src="https://esca.vn/images/2024/09/13/back-to-school-dn_large.png" class="img-su-kien"></v-img>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="loai-su-kien">SỰ KIỆN ESPORTSs </span> 
-                                    <span>16/07/2024</span>
-                                </div>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="">ESCA và FPT Polytechnic đồng hành cùng giải đấu của CLB Esport Trần Quốc Toản ESCA và FPT Polytechnic đồng hành cùng giải đấu của CLB Esport Trần Quốc Toản </span> 
-                                </div>
-                            </v-card-actions>
-                        </v-card>
-                        <v-card class="card-child">
-                            <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                <v-img src="https://esca.vn/images/2024/09/13/back-to-school-dn_large.png" class="img-su-kien"></v-img>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="loai-su-kien">SỰ KIỆN ESPORTSs </span> 
-                                    <span>16/07/2024</span>
-                                </div>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="">ESCA và FPT Polytechnic đồng hành cùng giải đấu của CLB Esport Trần Quốc Toản ESCA và FPT Polytechnic đồng hành cùng giải đấu của CLB Esport Trần Quốc Toản </span> 
-                                </div>
-                            </v-card-actions>
-                        </v-card>
-                    </v-col>
-                    <v-col cols="12" sm="3">
-                        <v-card class="card-child">
-                            <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                <v-img src="https://esca.vn/images/2024/09/13/back-to-school-dn_large.png" class="img-su-kien"></v-img>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="loai-su-kien">SỰ KIỆN ESPORTSs </span> 
-                                    <span>16/07/2024</span>
-                                </div>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="">ESCA và FPT Polytechnic đồng hành cùng giải đấu của CLB Esport Trần Quốc Toản ESCA và FPT Polytechnic đồng hành cùng giải đấu của CLB Esport Trần Quốc Toản </span> 
-                                </div>
-                            </v-card-actions>
-                        </v-card>
-                        <v-card class="card-child">
-                            <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                <v-img src="https://esca.vn/images/2024/09/13/back-to-school-dn_large.png" class="img-su-kien"></v-img>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="loai-su-kien">SỰ KIỆN ESPORTSs </span> 
-                                    <span>16/07/2024</span>
-                                </div>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="">ESCA và FPT Polytechnic đồng hành cùng giải đấu của CLB Esport Trần Quốc Toản ESCA và FPT Polytechnic đồng hành cùng giải đấu của CLB Esport Trần Quốc Toản </span> 
-                                </div>
-                            </v-card-actions>
-                        </v-card>
-                    </v-col>
-                    <v-col cols="12" sm="3">
-                        <v-card class="card-child">
-                            <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                <v-img src="https://esca.vn/images/2024/09/13/back-to-school-dn_large.png" class="img-su-kien"></v-img>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="loai-su-kien">SỰ KIỆN ESPORTSs </span> 
-                                    <span>16/07/2024</span>
-                                </div>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="">ESCA và FPT Polytechnic đồng hành cùng giải đấu của CLB Esport Trần Quốc Toản ESCA và FPT Polytechnic đồng hành cùng giải đấu của CLB Esport Trần Quốc Toản </span> 
-                                </div>
-                            </v-card-actions>
-                        </v-card>
-                        <v-card class="card-child">
-                            <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                <v-img src="https://esca.vn/images/2024/09/13/back-to-school-dn_large.png" class="img-su-kien"></v-img>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="loai-su-kien">SỰ KIỆN ESPORTSs </span> 
-                                    <span>16/07/2024</span>
-                                </div>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="">ESCA và FPT Polytechnic đồng hành cùng giải đấu của CLB Esport Trần Quốc Toản ESCA và FPT Polytechnic đồng hành cùng giải đấu của CLB Esport Trần Quốc Toản </span> 
-                                </div>
-                            </v-card-actions>
-                        </v-card>
-                    </v-col>
-                    <v-col cols="12" sm="3">
-                        <v-card class="card-child">
-                            <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                <v-img src="https://esca.vn/images/2024/09/13/back-to-school-dn_large.png" class="img-su-kien"></v-img>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="loai-su-kien">SỰ KIỆN ESPORTSs </span> 
-                                    <span>16/07/2024</span>
-                                </div>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="">ESCA và FPT Polytechnic đồng hành cùng giải đấu của CLB Esport Trần Quốc Toản ESCA và FPT Polytechnic đồng hành cùng giải đấu của CLB Esport Trần Quốc Toản </span> 
-                                </div>
-                            </v-card-actions>
-                        </v-card>
-                        <v-card class="card-child">
-                            <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                <v-img src="https://esca.vn/images/2024/09/13/back-to-school-dn_large.png" class="img-su-kien"></v-img>
+                                <v-img :src="listImg[0]" class="img-su-kien"></v-img>
                             </v-card-actions>
                             <v-card-actions class="justify-center">
                                 <div>
@@ -359,7 +241,10 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
                     autoplay: 2000,
                     wrapAround: true,
                     pauseAutoplayOnHover: true
-                }
+                },
+                listImg:[
+                    require("../../assets/img-event.png")
+                ]
             }
         },
         components:{

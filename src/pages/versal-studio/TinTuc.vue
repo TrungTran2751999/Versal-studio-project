@@ -39,6 +39,18 @@
     .card-child-su-kien{
        width: 300px;
     }
+    @media (max-width: 900px) {
+        .hidden{
+            display: block;
+        }
+        .visible{
+            display: none;
+        }
+        .title{
+            margin-top: 40px;
+            font-size: 30px;
+        }
+    }
 </style>
 <template>
     <Nav>
@@ -47,7 +59,7 @@
                 <v-card-actions class="pa-8">
                     <v-col>
                         <div class="title">{{ title }}</div>
-                        <div style="color: white; font-weight: bolder; font-size: 15px;">{{ description }}</div>
+                        <div class="visible" style="color: white; font-weight: bolder; font-size: 15px;">{{ description }}</div>
                     </v-col>
                 </v-card-actions>
             </v-img>
@@ -56,25 +68,9 @@
             <v-card-actions class="pa-12">
                 <v-row>
                     <v-col cols="12" sm="3" v-for="n in 4" :key="n">
-                        <v-card class="card-child">
+                        <v-card class="card-child" v-for="m in 2" :key="m">
                             <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                <v-img src="https://esca.vn/images/2024/09/13/back-to-school-dn_large.png" class="img-su-kien"></v-img>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="loai-su-kien">SỰ KIỆN ESPORTSs </span> 
-                                    <span>16/07/2024</span>
-                                </div>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="">ESCA và FPT Polytechnic đồng hành cùng giải đấu của CLB Esport Trần Quốc Toản ESCA và FPT Polytechnic đồng hành cùng giải đấu của CLB Esport Trần Quốc Toản </span> 
-                                </div>
-                            </v-card-actions>
-                        </v-card>
-                        <v-card class="card-child">
-                            <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                <v-img src="https://esca.vn/images/2024/09/13/back-to-school-dn_large.png" class="img-su-kien"></v-img>
+                                <v-img :src="listImg[0]" class="img-su-kien"></v-img>
                             </v-card-actions>
                             <v-card-actions class="justify-center">
                                 <div>
@@ -152,6 +148,9 @@ import Footer from './layout/Footer.vue';
                            },           
                         ]   
                     }
+                ],
+                listImg:[
+                    require("../../assets/img-event.png")
                 ]
             }
         },
