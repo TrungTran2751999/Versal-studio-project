@@ -49,6 +49,7 @@
         .title{
             margin-top: 40px;
             font-size: 30px;
+            text-align: center;
         }
     }
 </style>
@@ -166,7 +167,6 @@ import Footer from './layout/Footer.vue';
                 const child = params.get('child');
                 const childrenParam = this.listTitle.filter(x=>x[main].length > 0)
                 let listChildrenParam = childrenParam[0][main];
-                console.log(listChildrenParam)
                 if(listChildrenParam){
                     const childParam = listChildrenParam.filter(x=>x.name==child)
                     this.title = childParam[0].title

@@ -1,44 +1,105 @@
+<style>
+    .bg-card{
+        font-size: 20px;
+        font-weight: 900;
+        background-image: url("../../../assets/bg-card-footer.jpg");
+        background-size: cover;
+        background-position:center;
+        background-repeat: no-repeat;
+    }
+    .title{
+        color: white;
+    }
+    .children{
+        color: white;
+        font-weight: 100;
+    }
+    .children:hover{
+        color: brown;
+    }
+    .icon:hover{
+        cursor: pointer;
+        color: white; 
+        font-size: larger;
+    }
+    .icon-facebook{
+        font-size: larger;
+        color: white;
+    }
+    .icon-facebook:hover{
+        cursor: pointer;
+        color: blue;
+    }
+    .icon-youtube{
+        font-size: larger;
+        color: white;
+    }
+    .icon-youtube:hover{
+        cursor: pointer;
+        color: red;
+    }
+    .icon-discord{
+        font-size: larger;
+        color: white;
+    }
+    .icon-discord:hover{
+        cursor: pointer;
+        color: #6781d6;
+    }
+</style>
 <template>
-    <v-card style="background-color: white;">
-            <v-card-actions class="pa-8 justify-center">
-                <v-row>
-                    <v-col cols="12" sm="6">
-                        <v-row>
-                            <v-col cols="12" sm="3">
-                                <div style="color: rgb(42,42,42); font-size: 20px;">
-                                    <v-img src="@/assets/logo-2.png" max-height="70"></v-img>
-                                </div>
-                            </v-col>
-                            <v-col cols="12" sm="9" style="margin-top: 18px;">
-                                <div style="color: rgb(42,42,42); font-size: 14px; font-weight: bold">CTY TNHH VERSAL STUDIO VIETNAM</div>
-                                <div style="color: rgb(42,42,42); font-size: 14px;">TP.HCM: PARC MALL, Tạ Quang Bửu, Q8</div>
-                            </v-col>
-                        </v-row>
-                    </v-col>
-                    <v-col cols="12" sm="6" style="margin-top: 18px;">
-                        <v-row>
-                            <v-col cols="12" sm="10"></v-col>
-                            <v-col cols="12" sm="2">
-                                <v-row>
-                                    <v-col cols="4">
-                                        <div style="color: rgb(42,42,42); font-size: larger;"><v-icon>mdi-discord</v-icon></div>
-                                    </v-col>
-                                    <v-col cols="4">
-                                        <div style="color: rgb(42,42,42); font-size: larger;"><v-icon>mdi-facebook</v-icon></div>
-                                    </v-col>
-                                    <v-col cols="4">
-                                        <div style="color: rgb(42,42,42); font-size: larger;"><v-icon>mdi-youtube</v-icon></div>
-                                    </v-col>
-                                </v-row>
-                            </v-col>
-                        </v-row>
-                    </v-col>
-                </v-row>
-            </v-card-actions>
-        </v-card>
+    <v-card class="bg-card">
+        <v-card-actions style="width: 100%;">
+            <v-row justify="center">
+                <v-col cols="12" sm="3" v-for="child in listChildrenNav" :key="child" style="text-align: center;">
+                    <div class="title" style="margin-top: 10px;">{{ child.name }}</div>
+                    <div style="margin-top: 10px;"  v-for="childOfChild in child.children" :key="childOfChild">
+                        <a class="children"  :href="childOfChild.link">{{ childOfChild.name }}</a>
+                    </div>
+                </v-col>
+            </v-row>
+        </v-card-actions>
+        <v-card-actions class="pa-8 justify-center">
+            <v-row>
+                <v-col cols="12" sm="6">
+                    <v-row>
+                        <v-col cols="12" sm="3">
+                            <div style="color: rgb(42,42,42); font-size: 20px;">
+                                <v-img src="@/assets/logo-2.png" max-height="70"></v-img>
+                            </div>
+                        </v-col>
+                        <v-col cols="12" sm="5" style="margin-top: 18px; text-align: center">
+                            <div style="color: white; font-size: 14px; font-weight: 500">CTY TNHH VERSAL STUDIO VIETNAM</div>
+                            <div style="color: white; font-size: 14px; font-weight: 100">TP.HCM: PARC MALL, Tạ Quang Bửu, Q8</div>
+                        </v-col>
+                    </v-row>
+                </v-col>
+                <v-col cols="12" sm="6" style="margin-top: 18px;">
+                    <v-row>
+                        <v-col cols="12" sm="9"></v-col>
+                        <v-col cols="12" sm="3">
+                            <v-row>
+                                <v-col cols="4" style="text-align: center">
+                                    <div class="icon-discord"><v-icon>mdi-discord</v-icon></div>
+                                </v-col>
+                                <v-col cols="4" style="text-align: center">
+                                    <a target="_blank" class="icon-facebook" href="https://www.facebook.com/versalesports"><v-icon>mdi-facebook</v-icon></a>
+                                </v-col>
+                                <v-col cols="4" style="text-align: center">
+                                    <div class="icon-youtube"><v-icon>mdi-youtube</v-icon></div>
+                                </v-col>
+                            </v-row>
+                        </v-col>
+                    </v-row>
+                </v-col>
+            </v-row>
+        </v-card-actions>
+    </v-card>
 </template>
 
 <script>
+import { listChildrenNav } from '../util/GlobalVariable';
+
      export default{
         data(){
             return{
@@ -47,8 +108,9 @@
                     snapAlign: 'center',
                     autoplay: 2000,
                     wrapAround: true,
-                    pauseAutoplayOnHover: true
-                }
+                    pauseAutoplayOnHover: true,
+                },
+                listChildrenNav: listChildrenNav.filter(x=>x.children.length>0)
             }
         }
     }
