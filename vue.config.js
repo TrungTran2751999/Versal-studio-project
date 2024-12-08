@@ -16,7 +16,7 @@ module.exports = {
       'Cache-Control': null,
       'X-Requested-With': null,
       'Content-Type': 'text/html'
-      }
+    }
   },
 
   pluginOptions: {

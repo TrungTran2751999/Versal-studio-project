@@ -1,4 +1,4 @@
-<style>
+<style scoped>
     .bg-card{
         font-size: 20px;
         font-weight: 900;
@@ -46,6 +46,9 @@
         cursor: pointer;
         color: #6781d6;
     }
+    a{
+        text-decoration: none
+    }
 </style>
 <template>
     <v-card class="bg-card">
@@ -54,7 +57,7 @@
                 <v-col cols="12" sm="3" v-for="child in listChildrenNav" :key="child" style="text-align: center;">
                     <div class="title" style="margin-top: 10px;">{{ child.name }}</div>
                     <div style="margin-top: 10px;"  v-for="childOfChild in child.children" :key="childOfChild">
-                        <a class="children"  :href="childOfChild.link">{{ childOfChild.name }}</a>
+                        <RouterLink class="children" :to="childOfChild.link">{{ childOfChild.name }}</RouterLink>
                     </div>
                 </v-col>
             </v-row>
@@ -98,6 +101,7 @@
 </template>
 
 <script>
+import { RouterLink } from 'vue-router';
 import { listChildrenNav } from '../util/GlobalVariable';
 
      export default{
@@ -112,6 +116,13 @@ import { listChildrenNav } from '../util/GlobalVariable';
                 },
                 listChildrenNav: listChildrenNav.filter(x=>x.children.length>0)
             }
-        }
+        },
+        mounted(){
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // Thêm 'smooth' để cuộn mượt mà
+            });
+        },
+        
     }
 </script>

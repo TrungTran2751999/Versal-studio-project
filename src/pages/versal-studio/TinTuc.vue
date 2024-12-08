@@ -155,8 +155,16 @@ import Footer from './layout/Footer.vue';
                 ]
             }
         },
-        created(){
+        mounted(){
             this.setTitle();
+        },
+        updated(){
+            this.setTitle();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // Thêm 'smooth' để cuộn mượt mà
+            });
+
         },
         methods:{
             setTitle(){
@@ -171,7 +179,6 @@ import Footer from './layout/Footer.vue';
                     const childParam = listChildrenParam.filter(x=>x.name==child)
                     this.title = childParam[0].title
                     this.description = childParam[0].des
-                
                 }
             }
         },

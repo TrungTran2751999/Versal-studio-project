@@ -1,4 +1,4 @@
-<style>
+<style scoped>
     .nav-font {
         color: white;
         font-weight: bolder;
@@ -32,6 +32,9 @@
             display: none;
         }
     }
+    a{
+        text-decoration: none;
+    }
 </style>
 <template>
     <v-app>
@@ -41,34 +44,38 @@
                     <v-app-bar-nav-icon @click="showHamburgMenu()" class="nav-font hidden"></v-app-bar-nav-icon>
                     <v-row style="gap:20px; margin-left: 20px;" class="visible">
                         <div class="nav-font">
-                            <a href="/">
+                            <RouterLink to="/">
                                 <v-img :src="require('@/assets/logo-2.png')" style="width: 100px; height: 50px;"></v-img>
-                            </a>
+                            </RouterLink>
                         </div>
                         <div class="nav-font" :id=child.id v-for="child in listChildrenNav" :key="child" style="margin-top: 15px;">
                             {{ child.name }} <span><v-icon>mdi-chevron-down</v-icon></span>
                         </div>
                     </v-row>
                 </template>
+                <template v-slot:append>
+                    <div class="visible">
+                        <RouterLink to="/dang-nhap">
+                            <v-btn style="background-color: green; margin-right: 20px; color: white;">ĐĂNG NHẬP</v-btn>
+                        </RouterLink>
+                        <RouterLink to="/dang-ky">
+                            <v-btn style="background-color: wheat;">ĐĂNG KÝ</v-btn>
+                        </RouterLink>RouterLink>
+                    </div>
+                </template>
                 <v-menu v-for="child in listChildrenNav" :activator=child.idActivator :key="child">
                     <v-list>
                         <div v-for="item in child.children" :key="item">
-                            <a :href="item.link">
+                            <RouterLink :to="item.link">
                                 <v-list-item class="menu-dropdown-container">
                                     <v-list-item-title class="menu-dropdown">{{ item.name }}</v-list-item-title>
                                 </v-list-item>
-                            </a>
+                            </RouterLink>
                             <v-divider></v-divider>
                         </div>
                     </v-list>
                 </v-menu>
-                
 
-                <v-app-bar-title>
-                    <router-link to="/admin" style="text-decoration: none;">
-
-                    </router-link>
-                </v-app-bar-title>
                 <!-- <template v-slot:append>
                     <v-btn icon="mdi-heart"></v-btn>
 
@@ -77,6 +84,7 @@
                     <v-btn icon="mdi-dots-vertical"></v-btn>
                 </template> -->
             </v-app-bar>
+
             <v-navigation-drawer v-model="drawer" class="hidden" style="z-index: 99999999999; background-color: black;">
                 <v-divider></v-divider>
                 <v-list density="compact" nav>
@@ -91,11 +99,11 @@
                         </v-list-item>
                         <v-list-item :id="nav.idChidren" v-show="nav.isShowChildren">
                             <v-list density="compact" nav >
-                                <a :href="navChildren.link" v-for="navChildren in nav.children" :key="navChildren">
+                                <RouterLink :to="navChildren.link" v-for="navChildren in nav.children" :key="navChildren">
                                     <v-list-item class="nav-font chidren-nav-font-hamburg">
                                         {{ navChildren.name }}
                                     </v-list-item>
-                                </a>
+                                </RouterLink>
                             </v-list>
                         </v-list-item>
                     </div>
@@ -113,6 +121,7 @@
     </v-app>
 </template>
 <script>
+import { RouterLink } from 'vue-router';
 import { listChildrenNav } from '../util/GlobalVariable';
 
 export default {

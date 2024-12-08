@@ -254,6 +254,6 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
            Slide,
            Pagination,
            Navigation,
-        }
+        },
     }
 </script>
