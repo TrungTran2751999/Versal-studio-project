@@ -44,7 +44,7 @@
                     <v-app-bar-nav-icon @click="showHamburgMenu()" class="nav-font hidden"></v-app-bar-nav-icon>
                     <v-row style="gap:20px; margin-left: 20px;" class="visible">
                         <div class="nav-font">
-                            <RouterLink to="/">
+                            <RouterLink to="/admin">
                                 <v-img :src="require('@/assets/logo-2.png')" style="width: 100px; height: 50px;"></v-img>
                             </RouterLink>
                         </div>
@@ -54,37 +54,9 @@
                     </v-row>
                 </template>
                 <template v-slot:append>
-                    <div class="visible">
-                        <RouterLink to="/dang-nhap">
-                            <v-btn style="background-color: green; margin-right: 20px; color: white;">ĐĂNG NHẬP</v-btn>
-                        </RouterLink>
-                        <RouterLink to="/dang-ky">
-                            <v-btn style="background-color: wheat;">ĐĂNG KÝ</v-btn>
-                        </RouterLink>RouterLink>
-                        <v-btn style="background-color: wheat;" id="btn-tai-khoan">
-                            <span><v-icon>mdi-account</v-icon></span>
-                            TÀI KHOẢN <span><v-icon>mdi-chevron-down</v-icon></span>
-                        </v-btn>
-                    </div>
+                    
                 </template>
-                <v-menu activator="#btn-tai-khoan">
-                    <v-list>
-                        <v-list-item>
-                            <RouterLink to="/ho-so">
-                                <v-list-item class="menu-dropdown-container">
-                                    <v-list-item-title><span style="margin-right: 7px;"><v-icon>mdi-account</v-icon></span>HỒ SƠ CÁ NHÂN</v-list-item-title>
-                                </v-list-item>
-                            </RouterLink>
-                            <v-divider></v-divider>
-                            <RouterLink to="/">
-                                <v-list-item class="menu-dropdown-container">
-                                    <v-list-item-title><span style="margin-right: 7px;"><v-icon>mdi-power</v-icon></span>ĐĂNG XUẤT</v-list-item-title>
-                                </v-list-item>
-                            </RouterLink>
-                            <v-divider></v-divider>
-                        </v-list-item>
-                    </v-list>
-                </v-menu>
+               
                 <v-menu v-for="child in listChildrenNav" :activator=child.idActivator :key="child">
                     <v-list>
                         <div v-for="item in child.children" :key="item">
@@ -98,13 +70,6 @@
                     </v-list>
                 </v-menu>
 
-                <!-- <template v-slot:append>
-                    <v-btn icon="mdi-heart"></v-btn>
-
-                    <v-btn icon="mdi-magnify"></v-btn>
-
-                    <v-btn icon="mdi-dots-vertical"></v-btn>
-                </template> -->
             </v-app-bar>
 
             <v-navigation-drawer v-model="drawer" class="hidden" style="z-index: 99999999999; background-color: black;">
@@ -130,10 +95,6 @@
                         </v-list-item>
                     </div>
                     
-                    <!-- <v-list-item class="nav-font" :append-icon="iconListItem" title="Cộng đồng" value="CongDong"></v-list-item>
-                    <v-list-item class="nav-font" :append-icon="iconListItem" title="Giải đấu" value="GiaiDau"></v-list-item>
-                    <v-list-item class="nav-font" :append-icon="iconListItem" title="Việc làm" value="ViecLam"></v-list-item>
-                    <v-list-item class="nav-font" :append-icon="iconListItem" title="Versal-studio" value="VersalStudio"></v-list-item> -->
                 </v-list>
             </v-navigation-drawer>
         </v-sheet>
@@ -143,8 +104,8 @@
     </v-app>
 </template>
 <script>
-import { RouterLink } from 'vue-router';
-import { listChildrenNav } from '../util/GlobalVariable';
+// import { RouterLink } from 'vue-router';
+import { listChildrenNavAdmin } from '../../util/GlobalVariable';
 
 export default {
     data() {
@@ -155,7 +116,7 @@ export default {
                 "nav-tin-tuc":false
             },
             iconListItem:"mdi-chevron-right",
-            listChildrenNav: listChildrenNav
+            listChildrenNav: listChildrenNavAdmin
         }
     },
     methods:{
@@ -164,8 +125,8 @@ export default {
             if(obj.children.length > 0){
                 obj.isShowChildren = !obj.isShowChildren
             }
-            // this.showListItem[value] = !this.showListItem[value]
-            // !this.showListItem[value] ? this.iconListItem = "mdi-chevron-right" : this.iconListItem = "mdi-chevron-down"
+            this.showListItem[value] = !this.showListItem[value]
+            !this.showListItem[value] ? this.iconListItem = "mdi-chevron-right" : this.iconListItem = "mdi-chevron-down"
         },
         showHamburgMenu(){
             this.drawer = !this.drawer

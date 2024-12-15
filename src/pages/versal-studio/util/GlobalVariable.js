@@ -67,3 +67,18 @@ export let listChildrenNav = [
         ]
     },
 ]
+export let listChildrenNavAdmin = [
+    {
+        name: "Quản lý data",
+        id: "nav-quan-ly-bigger",
+        idHambug: "nav-quan-ly",
+        idActivator:"#nav-quan-ly-bigger",
+        isShowChildren: false,
+        idChidren: "nav-quan-ly-children",
+        children:[
+            {name: "Quản lý người dùng", link:"/admin/quan-ly-user"},
+            {name: "Quản lý tin tức", link:"/admin/quan-ly-tin-tuc"},
+            {name: "Quản lý giải đấu", link:"/admin/quan-ly-giai-dau"},
+        ]
+    }
+]
