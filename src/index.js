@@ -8,6 +8,7 @@ import News from "./pages/versal-studio/ChiTietTinTuc.vue";
 import GiaiDau from "./pages/versal-studio/GiaiDau.vue";
 import HoSoTaiKhoan from "./pages/versal-studio/HoSoTaiKhoan.vue";
 import Dashboard from "./pages/versal-studio/admin/Dashboard.vue";
+import QuanLyNguoiDung from "./pages/versal-studio/admin/QuanLyNguoiDung.vue";
 const checkBefore = (to, from ,next)=>{
     let result = util.checkJWTToken();
     if(result){
@@ -58,6 +59,11 @@ const routes = [
         path: "/admin",
         name:"admin",
         component: Dashboard
+    },
+    {
+        path: "/admin/quan-ly-user",
+        name:"admin-quan-ly-nguoi-dung",
+        component: QuanLyNguoiDung
     }
 ]
 const router = createRouter({
