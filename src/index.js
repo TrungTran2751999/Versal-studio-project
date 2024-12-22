@@ -8,7 +8,10 @@ import News from "./pages/versal-studio/ChiTietTinTuc.vue";
 import GiaiDau from "./pages/versal-studio/GiaiDau.vue";
 import HoSoTaiKhoan from "./pages/versal-studio/HoSoTaiKhoan.vue";
 import Dashboard from "./pages/versal-studio/admin/Dashboard.vue";
-import QuanLyNguoiDung from "./pages/versal-studio/admin/QuanLyNguoiDung.vue";
+import QuanLyNguoiDung from "./pages/versal-studio/admin/QuanLyNguoidung/QuanLyNguoiDung.vue";
+import ChiTietQuanLyNguoiDung from "./pages/versal-studio/admin/QuanLyNguoidung/ChiTietQuanLyNguoiDung.vue";
+import QuanLyTinTuc from "./pages/versal-studio/admin/QuanLyTinTuc/QuanLyTinTuc.vue";
+import ChiTietQuanLyTinTuc from "./pages/versal-studio/admin/QuanLyTinTuc/ChiTietQuanLyTinTuc.vue";
 const checkBefore = (to, from ,next)=>{
     let result = util.checkJWTToken();
     if(result){
@@ -64,6 +67,21 @@ const routes = [
         path: "/admin/quan-ly-user",
         name:"admin-quan-ly-nguoi-dung",
         component: QuanLyNguoiDung
+    },
+    {
+        path: "/admin/chi-tiet-quan-ly-user",
+        name:"admin-chi-tiet-quan-ly-nguoi-dung",
+        component: ChiTietQuanLyNguoiDung
+    },
+    {
+        path: "/admin/quan-ly-tin-tuc",
+        name:"admin-quan-ly-tin-tuc",
+        component: QuanLyTinTuc
+    },
+    {
+        path: "/admin/chi-tiet-quan-ly-tin-tuc",
+        name:"admin-chi-tiet-quan-ly-tin-tuc",
+        component: ChiTietQuanLyTinTuc
     }
 ]
 const router = createRouter({

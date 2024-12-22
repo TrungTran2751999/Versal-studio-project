@@ -21,26 +21,6 @@
                         label="Tìm kiếm"
                         ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="3">
-                        <v-select
-                        density="compact"
-                        variant="outlined"
-                        label="Tỉnh/thành phố"
-                        :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
-                        ></v-select>
-                    </v-col>
-                    <v-col cols="12" md="2">
-                        <v-select
-                            density="compact"
-                            variant="outlined"
-                            label="Loại tài khoản"
-                            :items="itemLoaiTaiKhoan"
-                            v-model="itemSelectLoai"
-                            item-title="name"
-                            item-value="value"
-                            return-object
-                        ></v-select>
-                    </v-col>
                 </v-row>
                 <v-row style="margin-top: -40px;">
                     <v-col cols="12" md="12">
@@ -62,30 +42,20 @@
             >
             <template v-slot:[`headers`]>
                 <tr>
-                    <th style="min-width: 50px;">IdUser</th>
-                    <th style="min-width: 200px;">Tên đăng nhập</th>
-                    <th style="min-width: 200px;">Email</th>
-                    <th style="min-width: 200px;">Tên đầy đủ</th>
-                    <th style="min-width: 200px;">Điện thoại</th>
-                    <th style="min-width: 200px;">Ngày sinh</th>
-                    <th style="min-width: 200px;">Chức vụ</th>
-                    <th style="min-width: 200px;">Tỉnh/thành phố</th>
-                    <th style="min-width: 200px;">Câu lạc bộ</th>
-                    <th style="min-width: 200px;">Trường</th>
+                    <th style="min-width: 50px;">STT</th>
+                    <th style="min-width: 200px;">Tiêu đề</th>
+                    <th style="min-width: 200px;">Ngày tạo</th>
+                    <th style="min-width: 200px;">Ngày cập nhật</th>
+                    <th style="min-width: 200px;">Người tạo</th>
                 </tr>
             </template>
             <template v-slot:[`item`] = "{item}">
-                <tr>
+                <tr @click="xemChiTiet(item.IdUser)">
                     <td>{{ item.IdUser }}</td>
-                    <td>{{ item.TenDangNhap }}</td>
-                    <td>{{ item.Email }}</td>
-                    <td>{{ item.TenDayDu }}</td>
-                    <td>{{ item.DienThoai }}</td>
-                    <td>{{ item.NgaySinh }}</td>
-                    <td>{{ item.ChucVu }}</td>
-                    <td>{{ item.TinhThanhPho }}</td>
-                    <td>{{ item.CauLacBo }}</td>
-                    <td>{{ item.Truong }}</td>
+                    <td>{{ item.TieuDe }}</td>
+                    <td>{{ item.NgayTao }}</td>
+                    <td>{{ item.NgayCapNhat }}</td>
+                    <td>{{ item.NguoiCapNhat }}</td>
                 </tr>
             </template>
             </v-data-table-server>
@@ -95,8 +65,8 @@
     </NavAdmin>
 </template>
 <script>
-import Loading from './layout/TableLoading.vue';
-import NavAdmin from './layout/NavAdmin.vue';
+import Loading from '../layout/TableLoading.vue';
+import NavAdmin from '../layout/NavAdmin.vue';
 
     export default{
         data(){
@@ -128,10 +98,11 @@ import NavAdmin from './layout/NavAdmin.vue';
                 this.tableNguoiDung.loading = false
                 for(let i=1; i<=100; i++){
                     let item = {
-                        IdUser: "1",
-                        TenDangNhap: "ahaha",
-                        Email: "gggg@gmail.com",
-                        DienThoai: "0999"
+                        IdUser: i,
+                        TieuDe: "ahaha",
+                        NgayTao: "21/12/2024",
+                        NgayCapNhat: "21/12/2024",
+                        NguoiCapNhat: "user"
                     }
                     this.tableNguoiDung.serverItems.push(item)
                 }
@@ -139,6 +110,9 @@ import NavAdmin from './layout/NavAdmin.vue';
                 this.tableNguoiDung.itemsPerPage = itemsPerPage
                 this.tableNguoiDung.totalItems= this.tableNguoiDung.serverItems.length
             },
+            xemChiTiet(id){
+                this.$router.push(`/admin/chi-tiet-quan-ly-tin-tuc?id=${id}`);
+            }
         }
     }
 </script>
