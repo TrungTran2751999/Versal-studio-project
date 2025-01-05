@@ -7,22 +7,32 @@
                     <v-container fuild>
                         <!-- Loại tài khoản -->
                         <v-row>
-                            <v-col cols="4" class="justify-center">
+                            <v-col cols="12" md="4" class="justify-center">
                                 <v-list-subheader style="text-align: center;" >Loại tài khoản</v-list-subheader>
                             </v-col>
-                            <v-col col="8">
+                            <v-col col="12" md="4">
                                 <v-radio-group
                                     inline
-                                    v-model="loaiTaiKhoan"
-                                    disabled
+                                    v-model="loaiTaiKhoanId"
+                                >
+                                    <v-radio
+                                        label="Quản trị"
+                                        value="1"
+                                    ></v-radio>
+                                </v-radio-group>
+                            </v-col>
+                            <v-col col="12" md="4">
+                                <v-radio-group
+                                    inline
+                                    v-model="loaiTaiKhoanId"
                                 >
                                     <v-radio
                                         label="Câu lạc bộ Esport"
-                                        value="clb"
+                                        value="2"
                                     ></v-radio>
                                     <v-radio
                                         label="Cá nhân"
-                                        value="caNhan"
+                                        value="3"
                                     ></v-radio>
                                 </v-radio-group>
                             </v-col>
@@ -37,6 +47,7 @@
                                  density="compact"
                                  variant="outlined"
                                  placeholder="Tên đăng nhập"
+                                 v-model="userName"
                                 ></v-text-field>
                             </v-col>
                         </v-row>
@@ -50,6 +61,7 @@
                                  density="compact"
                                  variant="outlined"
                                  placeholder="Email"
+                                 v-model="email"
                                 ></v-text-field>
                             </v-col>
                         </v-row>
@@ -64,6 +76,7 @@
                                  variant="outlined"
                                  placeholder="Mật khẩu"
                                  type="password"
+                                 v-model="password"
                                 ></v-text-field>
                             </v-col>
                         </v-row>
@@ -78,16 +91,32 @@
                                  variant="outlined"
                                  placeholder="Nhập lại mật khẩu"
                                  type="password"
+                                 v-model="nhapLaiPassword"
+                                ></v-text-field>
+                            </v-col>
+                        </v-row>
+                        
+                        <!-- Tên người dùng -->
+                        <v-row>
+                            <v-col cols="4" class="justify-center">
+                                <v-list-subheader style="text-align: center;" >Tên người dùng</v-list-subheader>
+                            </v-col>
+                            <v-col col="8">
+                                <v-text-field
+                                 density="compact"
+                                 variant="outlined"
+                                 placeholder="Tên người dùng"
+                                 v-model="name"
                                 ></v-text-field>
                             </v-col>
                         </v-row>
 
                         <!-- Dang ky theo CLB -->
-                        <v-sheet v-show="loaiTaiKhoan=='clb' ? true : false">
+                        <v-sheet v-show="loaiTaiKhoanId=='2' ? true : false">
                             <v-divider>
                                 <div style="font-size: 15px;">THÔNG TIN CÂU LẠC BỘ</div>
                             </v-divider>
-
+                            <!-- Ten clb -->
                             <v-row style="margin-top: 20px;">
                                 <v-col cols="4" class="justify-center">
                                     <v-list-subheader style="text-align: center;" >Tên đầy đủ</v-list-subheader>
@@ -97,10 +126,12 @@
                                     density="compact"
                                     variant="outlined"
                                     placeholder="Tên đầy đủ"
+                                    v-model="clb.tenClb"
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
 
+                            <!-- Viet tat clb -->
                             <v-row>
                                 <v-col cols="4" class="justify-center">
                                     <v-list-subheader style="text-align: center;" >Viết tắt</v-list-subheader>
@@ -110,10 +141,12 @@
                                     density="compact"
                                     variant="outlined"
                                     placeholder="Viết tắt"
+                                    v-model="clb.vietTatClb"
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
 
+                            <!-- To chuc clb -->
                             <v-row>
                                 <v-col cols="4" class="justify-center">
                                     <v-list-subheader style="text-align: center;" >Tổ chức</v-list-subheader>
@@ -123,9 +156,11 @@
                                     density="compact"
                                     variant="outlined"
                                     placeholder="Tổ chức"
+                                    v-model="clb.toChucClb"
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
+                            
 
                             <v-row>
                                 <v-col cols="4" class="justify-center">
@@ -136,6 +171,7 @@
                                     density="compact"
                                     variant="outlined"
                                     placeholder="Link fanpage"
+                                    v-model="clb.linkFanpageClb"
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
@@ -153,6 +189,7 @@
                                     density="compact"
                                     variant="outlined"
                                     placeholder="Họ và tên"
+                                    v-model="clb.hoTenDaiDienClb"
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
@@ -166,6 +203,7 @@
                                     density="compact"
                                     variant="outlined"
                                     placeholder="Chức vụ"
+                                    v-model="clb.chucVuDaiDienClb"
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
@@ -180,30 +218,33 @@
                                     variant="outlined"
                                     placeholder="Tỉnh/thành phố"
                                     :items="itemsTinh"
+                                    v-model="clb.tinhThanhPhoDaiDienClb"
                                     ></v-select>
                                 </v-col>
                             </v-row>
                         </v-sheet>
 
-                        <!-- Dang ky theo ca nhan -->
-                        <v-sheet  v-show="loaiTaiKhoan=='caNhan' ? true : false">
+                        <!-- Quyen tai khoan -->
+                        <v-sheet v-show="loaiTaiKhoanId=='1' ? true : false">
                             <v-divider>
-                                <div style="font-size: 15px;">THÔNG TIN CÁ NHÂN</div>
+                                <div style="font-size: 15px;">QUYỀN TÀI KHOẢN</div>
                             </v-divider>
 
-                            <v-row style="margin-top: 20px;">
-                                <v-col cols="4" class="justify-center">
-                                    <v-list-subheader style="text-align: center;" >Tên đầy đủ</v-list-subheader>
-                                </v-col>
-                                <v-col col="8">
-                                    <v-text-field
-                                    density="compact"
-                                    variant="outlined"
-                                    placeholder="Tên đầy đủ"
-                                    ></v-text-field>
+                            <v-row style="margin-top: 20px;" v-for="listQuyenSelecte in listQuyen" :key="listQuyenSelecte">
+                                <v-col cols="12" md="4" v-for="quyenSelected in listQuyenSelecte" :key="quyenSelected">
+                                    <v-switch
+                                    v-model="listQuyenSelected"
+                                    :label="quyenSelected.label"
+                                    :value="quyenSelected.value"
+                                    color="primary"
+                                    hide-details
+                                    inset
+                                    ></v-switch>
                                 </v-col>
                             </v-row>
-
+                        </v-sheet>
+                        <!-- Dang ky theo ca nhan -->
+                        <v-sheet v-show="loaiTaiKhoanId=='3' ? true : false">
                             <v-row>
                                 <v-col cols="4" class="justify-center">
                                     <v-list-subheader style="text-align: center;" >Điện thoại</v-list-subheader>
@@ -213,6 +254,7 @@
                                     density="compact"
                                     variant="outlined"
                                     placeholder="Điện thoại"
+                                    v-model="caNhan.dienThoaiCaNhan"
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
@@ -226,6 +268,7 @@
                                     density="compact" 
                                     variant="outlined"
                                     type="date" 
+                                    v-model="caNhan.ngaySinhCaNhan"
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
@@ -239,6 +282,7 @@
                                     density="compact"
                                     variant="outlined"
                                     placeholder="Chức vụ"
+                                    v-model="caNhan.chucVuCaNhan"
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
@@ -253,6 +297,7 @@
                                     variant="outlined"
                                     placeholder="Tỉnh/thành phố"
                                     :items="itemsTinh"
+                                    v-model="caNhan.tinhThanhPhoCaNhan"
                                     ></v-select>
                                 </v-col>
                             </v-row>
@@ -266,6 +311,7 @@
                                     density="compact"
                                     variant="outlined"
                                     placeholder="Câu lạc bộ"
+                                    v-model="caNhan.clbCaNhan"
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
@@ -279,27 +325,116 @@
                                     density="compact"
                                     variant="outlined"
                                     placeholder="Trường"
+                                    v-model="caNhan.truongCaNhan"
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
                         </v-sheet>
 
+                        <!-- Danh sach quyen -->
+
+
                     </v-container>
                 </v-card-actions>
                 <v-card-actions class="justify-center">
-                    <v-btn style="background-color: green; color: white; margin-bottom: 20px;">XÁC NHẬN</v-btn>
+                    <v-btn @click="createNewAccount" style="background-color: green; color: white; margin-bottom: 20px;">XÁC NHẬN</v-btn>
                 </v-card-actions>
             </v-card>
         </v-container>
     </NavAdmin>
 </template>
 <script>
+import roleController from '@/services/RoleController';
 import NavAdmin from '../layout/NavAdmin.vue';
+import { userController } from '@/services/UserController';
+import { forEach } from 'lodash';
     export default{
         data(){
             return {
-                loaiTaiKhoan:"caNhan" 
+                loaiTaiKhoanId:"1" ,
+                listQuyenSelected:[],
+                listQuyen:[],
+
+                userName: "",
+                name:"",
+                email:"",
+                password: "",
+                nhapLaiPassword: "",
+
+                caNhan: {
+                    dienThoaiCaNhan:"",
+                    ngaySinhCaNhan: "",
+                    chucVuCaNhan: "",
+                    tinhThanhPhoCaNhan:"",
+                    clbCaNhan: "",
+                    truongCaNhan:"",
+                },
+
+                clb:{
+                    tenClb:"",
+                    vietTatClb:"",
+                    toChucClb:"",
+                    linkFanpageClb:"",
+                    hoTenDaiDienClb: "",
+                    chucVuDaiDienClb:"",
+                    tinhThanhPhoDaiDienClb:""
+                }
+
             }
+        },
+        created(){
+            this.setRole()
+        },
+        methods:{
+            setRole(){
+                let arrChild = []
+                roleController.getAll()
+                .then(res=>{
+                    res.data.forEach(e => {
+                        let role = {
+                            "label": e.role_name,
+                            "value": e.id
+                        }
+                        if(this.listQuyen.length % 3==0){
+                            arrChild = []
+                            arrChild.push(role)
+                            this.listQuyen.push(arrChild)
+                        }else{
+                            arrChild.push(role)
+                        }
+                        
+                    });
+                })
+            },
+            createNewAccount(){
+                let obj = {}
+                obj.userName = this.userName
+                obj.name = this.name
+                obj.email = this.email
+                obj.passWord = this.password
+                obj.nhapLaiPassword = this.nhapLaiPassword
+                obj.loaiTaiKhoanId = this.loaiTaiKhoanId
+                if(this.loaiTaiKhoanId == "1"){
+                    obj.listRoleId = this.listQuyenSelected
+                }else if(this.loaiTaiKhoanId == "2"){
+                    for(let key of Object.keys(this.clb)){
+                        obj[key] = this.clb[key]
+                    }
+                }else if(this.loaiTaiKhoanId == "3"){
+                    for(let key of Object.keys(this.caNhan)){
+                        obj[key] = this.caNhan[key]
+                    }
+                }
+                userController.create(obj)
+                .then(res=>{
+                    console.log(res.data)
+                    alert("SUCCESS")
+                })
+                .catch(err=>{
+                    console.log(err)
+                    alert(err.response.data)
+                })
+            }      
         },
         components:{
             NavAdmin

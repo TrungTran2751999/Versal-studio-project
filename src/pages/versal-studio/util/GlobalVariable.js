@@ -82,3 +82,15 @@ export let listChildrenNavAdmin = [
         ]
     }
 ]
+let domainApi = "http://127.0.0.1:8000"
+export const API = {
+    ADMIN:{
+        user:{
+            login: `${domainApi}/api/admin/login`,
+            register: `${domainApi}/api/admin/register`,
+        },
+        role:{
+            getAll: `${domainApi}/api/admin/role`
+        }
+    }
+}   

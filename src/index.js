@@ -12,6 +12,7 @@ import QuanLyNguoiDung from "./pages/versal-studio/admin/QuanLyNguoidung/QuanLyN
 import ChiTietQuanLyNguoiDung from "./pages/versal-studio/admin/QuanLyNguoidung/ChiTietQuanLyNguoiDung.vue";
 import QuanLyTinTuc from "./pages/versal-studio/admin/QuanLyTinTuc/QuanLyTinTuc.vue";
 import ChiTietQuanLyTinTuc from "./pages/versal-studio/admin/QuanLyTinTuc/ChiTietQuanLyTinTuc.vue";
+import Login from "./pages/versal-studio/admin/Login.vue";
 const checkBefore = (to, from ,next)=>{
     let result = util.checkJWTToken();
     if(result){
@@ -82,7 +83,12 @@ const routes = [
         path: "/admin/chi-tiet-quan-ly-tin-tuc",
         name:"admin-chi-tiet-quan-ly-tin-tuc",
         component: ChiTietQuanLyTinTuc
-    }
+    },
+    {
+        path: "/admin/login",
+        name:"admin-login",
+        component: Login
+    },
 ]
 const router = createRouter({
     history: createWebHistory(),
