@@ -95,7 +95,6 @@
                                 ></v-text-field>
                             </v-col>
                         </v-row>
-                        
                         <!-- Tên người dùng -->
                         <v-row>
                             <v-col cols="4" class="justify-center">
@@ -110,7 +109,48 @@
                                 ></v-text-field>
                             </v-col>
                         </v-row>
-
+                        <!-- Tên người dùng -->
+                        <v-row>
+                            <v-col cols="4" class="justify-center">
+                                <v-list-subheader style="text-align: center;" >Tên người dùng</v-list-subheader>
+                            </v-col>
+                            <v-col col="8">
+                                <v-text-field
+                                 density="compact"
+                                 variant="outlined"
+                                 placeholder="Tên người dùng"
+                                 v-model="name"
+                                ></v-text-field>
+                            </v-col>
+                        </v-row>
+                        <!-- Ngay sinh -->
+                        <v-row style="margin-top: 20px;">
+                                <v-col cols="4" class="justify-center">
+                                    <v-list-subheader style="text-align: center;" >Ngày sinh</v-list-subheader>
+                                </v-col>
+                                <v-col col="8">
+                                    <v-text-field
+                                    density="compact" 
+                                    variant="outlined"
+                                    type="date" 
+                                    v-model="caNhan.ngaySinhCaNhan"
+                                    ></v-text-field>
+                                </v-col>
+                        </v-row>
+                        <!-- Dien-thoai -->
+                        <v-row>
+                                <v-col cols="4" class="justify-center">
+                                    <v-list-subheader style="text-align: center;" >Điện thoại</v-list-subheader>
+                                </v-col>
+                                <v-col col="8">
+                                    <v-text-field
+                                    density="compact"
+                                    variant="outlined"
+                                    placeholder="Điện thoại"
+                                    v-model="caNhan.dienThoaiCaNhan"
+                                    ></v-text-field>
+                                </v-col>
+                            </v-row>
                         <!-- Dang ky theo CLB -->
                         <v-sheet v-show="loaiTaiKhoanId=='2' ? true : false">
                             <v-divider>
@@ -247,34 +287,6 @@
                         <v-sheet v-show="loaiTaiKhoanId=='3' ? true : false">
                             <v-row>
                                 <v-col cols="4" class="justify-center">
-                                    <v-list-subheader style="text-align: center;" >Điện thoại</v-list-subheader>
-                                </v-col>
-                                <v-col col="8">
-                                    <v-text-field
-                                    density="compact"
-                                    variant="outlined"
-                                    placeholder="Điện thoại"
-                                    v-model="caNhan.dienThoaiCaNhan"
-                                    ></v-text-field>
-                                </v-col>
-                            </v-row>
-
-                            <v-row style="margin-top: 20px;">
-                                <v-col cols="4" class="justify-center">
-                                    <v-list-subheader style="text-align: center;" >Ngày sinh</v-list-subheader>
-                                </v-col>
-                                <v-col col="8">
-                                    <v-text-field
-                                    density="compact" 
-                                    variant="outlined"
-                                    type="date" 
-                                    v-model="caNhan.ngaySinhCaNhan"
-                                    ></v-text-field>
-                                </v-col>
-                            </v-row>
-
-                            <v-row>
-                                <v-col cols="4" class="justify-center">
                                     <v-list-subheader style="text-align: center;" >Chức vụ</v-list-subheader>
                                 </v-col>
                                 <v-col col="8">
@@ -337,7 +349,7 @@
                     </v-container>
                 </v-card-actions>
                 <v-card-actions class="justify-center">
-                    <v-btn @click="createNewAccount" style="background-color: green; color: white; margin-bottom: 20px;">XÁC NHẬN</v-btn>
+                    <v-btn :loading="loadingBtn" @click="!isCreate ? update() : createNewAccount()" style="background-color: green; color: white; margin-bottom: 20px;">XÁC NHẬN</v-btn>
                 </v-card-actions>
             </v-card>
         </v-container>
@@ -351,10 +363,15 @@ import { forEach } from 'lodash';
     export default{
         data(){
             return {
+                isCreate: true,
+                loadingBtn: false,
                 loaiTaiKhoanId:"1" ,
                 listQuyenSelected:[],
                 listQuyen:[],
+                listAllQuyen:[],
 
+                idUser: "",
+                guidUser:"",
                 userName: "",
                 name:"",
                 email:"",
@@ -383,7 +400,9 @@ import { forEach } from 'lodash';
             }
         },
         created(){
-            this.setRole()
+            
+            this.setRole(),
+            this.setData()
         },
         methods:{
             setRole(){
@@ -395,6 +414,7 @@ import { forEach } from 'lodash';
                             "label": e.role_name,
                             "value": e.id
                         }
+                        this.listAllQuyen.push(role)
                         if(this.listQuyen.length % 3==0){
                             arrChild = []
                             arrChild.push(role)
@@ -407,6 +427,7 @@ import { forEach } from 'lodash';
                 })
             },
             createNewAccount(){
+                this.loadingBtn = true
                 let obj = {}
                 obj.userName = this.userName
                 obj.name = this.name
@@ -414,6 +435,9 @@ import { forEach } from 'lodash';
                 obj.passWord = this.password
                 obj.nhapLaiPassword = this.nhapLaiPassword
                 obj.loaiTaiKhoanId = this.loaiTaiKhoanId
+                obj.ngaySinhCaNhan = this.caNhan.ngaySinhCaNhan
+                obj.dienThoaiCaNhan = this.caNhan.dienThoaiCaNhan
+
                 if(this.loaiTaiKhoanId == "1"){
                     obj.listRoleId = this.listQuyenSelected
                 }else if(this.loaiTaiKhoanId == "2"){
@@ -427,12 +451,109 @@ import { forEach } from 'lodash';
                 }
                 userController.create(obj)
                 .then(res=>{
-                    console.log(res.data)
+                    this.loadingBtn = false
                     alert("SUCCESS")
                 })
                 .catch(err=>{
-                    console.log(err)
+                    this.loadingBtn = false
                     alert(err.response.data)
+                })
+            },
+            setData(){
+                const urlParams = new URLSearchParams(window.location.search)
+                const id = urlParams.get("id")
+                if(id){
+                    this.isCreate = false
+                    userController.getById(id)
+                    .then(res=>{
+                        if(res!=null){
+                            res = res.data
+                            this.loaiTaiKhoanId = `${res.loaiTaiKhoanId}`;
+                            this.idUser = res.id;
+                            this.guidUser = res.guid;
+                            this.userName = res.userName;
+                            this.name = res.name;
+                            this.email = res.email;
+                            this.caNhan.ngaySinhCaNhan = res.ngaySinhCaNhan.split(" ")[0];
+                            this.caNhan.dienThoaiCaNhan = res.dienThoaiCaNhan;
+                            if(this.loaiTaiKhoanId=="2"){
+                                this.caNhan.dienThoaiCaNhan = res.dienThoaiCaNhan;
+                               
+                                this.caNhan.chucVuCaNhan = res.chucVuCaNhan;
+                                this.caNhan.tinhThanhPhoCaNhan = res.tinhThanhPhoCaNhan;
+                                this.caNhan.clbCaNhan = res.clbCaNhan;
+                                this.caNhan.truongCaNhan = res.truongCaNhan;
+                            }
+                            if(this.loaiTaiKhoanId == "3"){
+                                this.clb.tenClb = res.tenClb;
+                                this.clb.vietTatClb = res.vietTatClb;
+                                this.clb.toChucClb = res.toChucClb;
+                                this.clb.linkFanpageClb = res.linkFanpageClb;
+                                this.clb.hoTenDaiDienClb = res.hoTenDaiDienClb;
+                                this.clb.chucVuDaiDienClb = res.chucVuDaiDienClb;
+                                this.clb.tinhThanhPhoDaiDienClb = res.tinhThanhPhoDaiDienClb;
+                            }
+                            for(let quyen of res.listRole){
+                                this.listQuyenSelected.push(quyen.roleId)
+                            }
+                        }
+                    })
+                    .catch(err=>{
+                        console.log(err)
+                    })
+                }
+            },
+            update(){
+                this.loadingBtn = true
+                let obj = {
+                    loaiTaiKhoanId: this.loaiTaiKhoanId,
+                    id: this.idUser,
+                    guid: this.guidUser,
+                    userName: this.userName,
+                    name: this.name,
+                    email: this.email,
+                    password: this.password,
+                    nhapLaiPassword: this.nhapLaiPassword,
+
+                    dienThoaiCaNhan: this.caNhan.dienThoaiCaNhan,
+                    ngaySinhCaNhan: this.caNhan.ngaySinhCaNhan,
+                    chucVuCaNhan: this.caNhan.chucVuCaNhan,
+                    tinhThanhPhoCaNhan: this.caNhan.tinhThanhPhoCaNhan,
+                    clbCaNhan: this.caNhan.clbCaNhan,
+                    truongCaNhan: this.caNhan.truongCaNhan,
+
+                    tenClb: this.clb.tenClb,
+                    vietTatClb: this.clb.vietTatClb,
+                    toChucClb: this.clb.toChucClb,
+                    linkFanpageClb: this.clb.linkFanpageClb,
+                    hoTenDaiDienClb: this.clb.hoTenDaiDienClb,
+                    chucVuDaiDienClb: this.clb.chucVuDaiDienClb,
+                    tinhThanhPhoDaiDienClb: this.clb.tinhThanhPhoDaiDienClb,
+
+                    listRole:[]
+                }
+
+                for(let i=0; i<this.listAllQuyen.length; i++){
+                    let quyenSelected = this.listQuyenSelected.filter(x=>x==this.listAllQuyen[i].value)[0];
+                    let objQuyenSelected = {
+                        roleId: quyenSelected || this.listAllQuyen[i].value,
+                        userId: this.idUser
+                    }
+                    if(quyenSelected){
+                        objQuyenSelected.isDeleted = null;
+                    }else{
+                        objQuyenSelected.isDeleted = true;
+                    }
+                    obj.listRole.push(objQuyenSelected)
+                }
+                userController.update(obj)
+                .then(res=>{
+                    this.loadingBtn = false
+                    this.$toast.success("cập nhật thành công!")
+                })
+                .catch(err=>{
+                    this.loadingBtn = false
+                    this.$toast.error("cập nhật lỗi!")
                 })
             }      
         },

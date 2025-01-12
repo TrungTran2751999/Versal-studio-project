@@ -88,6 +88,9 @@ export const API = {
         user:{
             login: `${domainApi}/api/admin/login`,
             register: `${domainApi}/api/admin/register`,
+            getAll: `${domainApi}/api/admin/user`,
+            getByUid: `${domainApi}/api/admin/user/chi-tiet`,
+            update: `${domainApi}/api/admin/user/update`,
         },
         role:{
             getAll: `${domainApi}/api/admin/role`

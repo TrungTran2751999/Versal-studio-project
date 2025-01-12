@@ -1,5 +1,19 @@
-<style>
-
+<style scoped>
+    .hover-row:hover{
+        background-color: beige;
+    }
+    .row-quan-tri{
+        background-color: antiquewhite; 
+        color: red; 
+    }
+    .row-ca-nhan{
+        background-color: greenyellow; 
+        color: red; 
+    }   
+    .row-clb{
+        background-color: aquamarine; 
+        color: red; 
+    }
 </style>
 <template>
     <NavAdmin>
@@ -73,24 +87,29 @@
                     <th style="min-width: 200px;">Tên đầy đủ</th>
                     <th style="min-width: 200px;">Điện thoại</th>
                     <th style="min-width: 200px;">Ngày sinh</th>
-                    <th style="min-width: 200px;">Chức vụ</th>
-                    <th style="min-width: 200px;">Tỉnh/thành phố</th>
-                    <th style="min-width: 200px;">Câu lạc bộ</th>
-                    <th style="min-width: 200px;">Trường</th>
+                    <th style="min-width: 200px;">Loại tài khoản</th>
                 </tr>
             </template>
             <template v-slot:[`item`] = "{item}">
-                <tr @click="xemChiTiet(item.IdUser)">
+                <tr @click="xemChiTiet(item.GuidUser)" class="hover-row">
                     <td>{{ item.IdUser }}</td>
                     <td>{{ item.TenDangNhap }}</td>
                     <td>{{ item.Email }}</td>
                     <td>{{ item.TenDayDu }}</td>
                     <td>{{ item.DienThoai }}</td>
                     <td>{{ item.NgaySinh }}</td>
-                    <td>{{ item.ChucVu }}</td>
-                    <td>{{ item.TinhThanhPho }}</td>
-                    <td>{{ item.CauLacBo }}</td>
-                    <td>{{ item.Truong }}</td>
+                    <td>
+                        <div style="
+                        width: fit-content;
+                        padding: 8px;
+                        font-size: smaller;
+                        font-weight: bolder;
+                        border-radius: 10px;"
+                        :class="item.LoaiTaiKhoanId == '1' ? 'row-quan-tri' 
+                        : item.LoaiTaiKhoanId == '2' ? 'row-ca-nhan' 
+                        : item.LoaiTaiKhoanId == '3' ? 'row-clb': ''"
+                        >{{ item.LoaiTaiKhoan }}</div>
+                    </td>
                 </tr>
             </template>
             </v-data-table-server>
@@ -103,6 +122,7 @@
 import Loading from '../layout/TableLoading.vue';
 import NavAdmin from '../layout/NavAdmin.vue';
 import { RouterLink } from 'vue-router';
+import { userController } from '@/services/UserController';
 
     export default{
         data(){
@@ -128,22 +148,53 @@ import { RouterLink } from 'vue-router';
         },
         methods:{
             loadItemsNguoiDung({ page, itemsPerPage }){
-                setTimeout(()=>{
-                    this.tableNguoiDung.loading = true
-                },3000)
-                this.tableNguoiDung.loading = false
-                for(let i=1; i<=100; i++){
-                    let item = {
-                        IdUser: i,
-                        TenDangNhap: "ahaha",
-                        Email: "gggg@gmail.com",
-                        DienThoai: "0999"
-                    }
-                    this.tableNguoiDung.serverItems.push(item)
+                this.tableNguoiDung.serverItems = []
+                let obj = {
+                    start: page-1,
+                    limit: itemsPerPage
                 }
-                this.tableNguoiDung.page = page
-                this.tableNguoiDung.itemsPerPage = itemsPerPage
-                this.tableNguoiDung.totalItems= this.tableNguoiDung.serverItems.length
+                this.tableNguoiDung.loading = false
+                userController.getAll(obj)
+                .then(res=>{
+                    this.tableNguoiDung.loading = true
+                    res.data.map(item=>{
+                        let obj = {
+                            IdUser: item.id,
+                            GuidUser: item.guid,
+                            TenDangNhap: item.userName,
+                            TenDayDu: item.name,
+                            Email: item.email,
+                            DienThoai: item.dienThoaiCaNhan,
+                            NgaySinh: item.ngaySinhCaNhan,
+                            LoaiTaiKhoanId: item.loaiTaiKhoanId,
+                            LoaiTaiKhoan: item.loaiTaiKhoanId == "1" ? "QUẢN TRỊ" : item.loaiTaiKhoanId == "2" ? "CÁ NHÂN" : item.loaiTaiKhoanId == "3"? "CÂU LẠC BỘ" :""
+                        }
+                        this.tableNguoiDung.serverItems.push(obj)
+                        
+                    })
+                    this.tableNguoiDung.itemsPerPage = itemsPerPage
+                    this.tableNguoiDung.totalItems= this.tableNguoiDung.serverItems.length
+                })
+                .catch(err=>{
+
+                })
+                
+                // setTimeout(()=>{
+                //     this.tableNguoiDung.loading = true
+                // },3000)
+                // this.tableNguoiDung.loading = false
+                // for(let i=1; i<=100; i++){
+                //     let item = {
+                //         IdUser: i,
+                //         TenDangNhap: "ahaha",
+                //         Email: "gggg@gmail.com",
+                //         DienThoai: "0999"
+                //     }
+                //     this.tableNguoiDung.serverItems.push(item)
+                // }
+                // this.tableNguoiDung.page = page
+                // this.tableNguoiDung.itemsPerPage = itemsPerPage
+                // this.tableNguoiDung.totalItems= this.tableNguoiDung.serverItems.length
             },
             xemChiTiet(id){
                 this.$router.push(`/admin/chi-tiet-quan-ly-user?id=${id}`);
