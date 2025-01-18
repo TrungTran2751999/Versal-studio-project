@@ -20,19 +20,20 @@
         <div class="pa-8">
             <div>
                 <v-row>
-                    <v-col cols="12" md="2">
+                    <!-- <v-col cols="12" md="2">
                         <v-text-field
                         density="compact"
                         variant="outlined"
                         label="Ngày tạo"
                         type="date"
                         ></v-text-field>
-                    </v-col>
+                    </v-col> -->
                     <v-col cols="12" md="3">
                         <v-text-field
                         density="compact"
                         variant="outlined"
                         label="Tìm kiếm"
+                        v-model="filter.search"
                         ></v-text-field>
                     </v-col>
                     <v-col cols="12" md="3">
@@ -40,7 +41,9 @@
                         density="compact"
                         variant="outlined"
                         label="Tỉnh/thành phố"
-                        :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
+                        :items="filter.listProvince"
+                        v-model="filter.tinhThanhPhoSelected"
+                        @update:modelValue="onSelectedChange"
                         ></v-select>
                     </v-col>
                     <v-col cols="12" md="2">
@@ -58,11 +61,11 @@
                 </v-row>
                 <v-row style="margin-top: -40px;">
                     <v-col cols="6" md="11">
-                        <v-btn style="background-color: #dc3545;">LỌC</v-btn>
+                        <v-btn @click="filterNguoiDung" style="background-color: #dc3545;">LỌC</v-btn>
                     </v-col>
                     <v-col cols="6" md="1">
                         <RouterLink to="/admin/chi-tiet-quan-ly-user">
-                            <v-btn style="background-color: green; margin-left: 15px;">Thêm mới</v-btn>
+                            <v-btn  style="background-color: green; margin-left: 15px;">Thêm mới</v-btn>
                         </RouterLink>
                     </v-col>
                 </v-row>
@@ -127,6 +130,11 @@ import { userController } from '@/services/UserController';
     export default{
         data(){
             return{
+                filter:{
+                    search:"",
+                    listProvince:["hihi", "hhhhh"],
+                    tinhThanhPhoSelected:""
+                },
                 tableNguoiDung:{
                     itemsPerPage: 10,
                     serverItems: [],
@@ -136,10 +144,12 @@ import { userController } from '@/services/UserController';
                     headers: []
                 },
                 itemLoaiTaiKhoan:[
-                    {name: 'Cá nhân', value: 'CaNhan'},
-                    {name: 'Câu lạc bộ', value: 'CLB'}
+                    {name: 'Tất cả', value: 0},
+                    {name: 'Cá nhân', value: 2},
+                    {name: 'Câu lạc bộ', value: 3},
+                    {name: 'Admin', value: 1}
                 ],
-                itemSelectLoai: {name: 'Câu lạc bộ', value: 'CLB'}
+                itemSelectLoai:  {name: 'Tất cả', value: ''}
             }
         },
         components:{
@@ -149,12 +159,17 @@ import { userController } from '@/services/UserController';
         methods:{
             loadItemsNguoiDung({ page, itemsPerPage }){
                 this.tableNguoiDung.serverItems = []
-                let obj = {
+                let filter = {
                     start: page-1,
-                    limit: itemsPerPage
+                    limit: itemsPerPage,
+                    filter:{
+                        keyWord: this.filter.search,
+                        tinhThanhPho: this.filter.tinhThanhPhoSelected, 
+                        loaiTaiKhoan: this.itemSelectLoai.value
+                    }
                 }
                 this.tableNguoiDung.loading = false
-                userController.getAll(obj)
+                userController.filter(filter)
                 .then(res=>{
                     this.tableNguoiDung.loading = true
                     res.data.map(item=>{
@@ -176,7 +191,7 @@ import { userController } from '@/services/UserController';
                     this.tableNguoiDung.totalItems= this.tableNguoiDung.serverItems.length
                 })
                 .catch(err=>{
-
+                    
                 })
                 
                 // setTimeout(()=>{
@@ -198,6 +213,12 @@ import { userController } from '@/services/UserController';
             },
             xemChiTiet(id){
                 this.$router.push(`/admin/chi-tiet-quan-ly-user?id=${id}`);
+            },
+            filterNguoiDung(){
+                this.loadItemsNguoiDung({page:1, itemsPerPage:10})
+            },
+            onSelectedChange(){
+                console.log(this.filter.tinhThanhPhoSelected)
             }
         }
     }

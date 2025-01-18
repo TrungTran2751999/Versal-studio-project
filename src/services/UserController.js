@@ -29,9 +29,17 @@ function create(postData){
         }
     })
 }
+function filter(postData){
+    return axios.post(API.ADMIN.user.filter, postData, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
 export const userController = {
     getAll,
     getById,
     update,
-    create
+    create,
+    filter
 }
