@@ -1,3 +1,5 @@
+import { API } from '@/pages/versal-studio/util/GlobalVariable';
+import axios from 'axios';
 import Cookies from 'js-cookie';
 import VueJwtDecode from 'vue-jwt-decode';
 import * as XLSX from 'xlsx';
@@ -50,11 +52,14 @@ function exportExcel(data){
     let month = new Date().getMonth();
     XLSX.writeFile(workbook, `DanhSachKhConNo-${new Date().toISOString()}.xlsx`);
 }
-const util = {
+function getListProvince(){
+    return axios.get(API.UTIL.getProvince)
+}
+export const utilController = {
     debouceComplete,
     checkJWTToken,
     removeJWTToken,
     getCookie,
-    exportExcel
+    exportExcel,
+    getListProvince
 }
-export {util}

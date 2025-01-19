@@ -91,13 +91,14 @@ export const API = {
             getAll: `${domainApi}/api/admin/user`,
             getByUid: `${domainApi}/api/admin/user/chi-tiet`,
             update: `${domainApi}/api/admin/user/update`,
-            filter: `${domainApi}/api/admin/user/filter`
+            filter: `${domainApi}/api/admin/user/filter`,
+            count: `${domainApi}/api/admin/user/count`,
         },
         role:{
             getAll: `${domainApi}/api/admin/role`
-        },
-        util:{
-            getAll: "https://provinces.open-api.vn/api/" 
         }
+    },
+    UTIL:{
+        getProvince: "https://provinces.open-api.vn/api/" 
     }
 }   

@@ -37,14 +37,14 @@
                         ></v-text-field>
                     </v-col>
                     <v-col cols="12" md="3">
-                        <v-select
+                        <v-autocomplete
                         density="compact"
                         variant="outlined"
                         label="Tỉnh/thành phố"
                         :items="filter.listProvince"
                         v-model="filter.tinhThanhPhoSelected"
                         @update:modelValue="onSelectedChange"
-                        ></v-select>
+                        ></v-autocomplete>
                     </v-col>
                     <v-col cols="12" md="2">
                         <v-select
@@ -126,13 +126,14 @@ import Loading from '../layout/TableLoading.vue';
 import NavAdmin from '../layout/NavAdmin.vue';
 import { RouterLink } from 'vue-router';
 import { userController } from '@/services/UserController';
+import { utilController } from '@/services/Util';
 
     export default{
         data(){
             return{
                 filter:{
                     search:"",
-                    listProvince:["hihi", "hhhhh"],
+                    listProvince:[],
                     tinhThanhPhoSelected:""
                 },
                 tableNguoiDung:{
@@ -156,11 +157,22 @@ import { userController } from '@/services/UserController';
             NavAdmin,
             Loading
         },
+        created(){
+            this.setListProvince()
+        },
         methods:{
+            setListProvince(){
+                utilController.getListProvince()
+                .then(res=>{
+                    res.data.map(item=>{
+                        this.filter.listProvince.push(item.name)
+                    })
+                })
+            },
             loadItemsNguoiDung({ page, itemsPerPage }){
                 this.tableNguoiDung.serverItems = []
                 let filter = {
-                    start: page-1,
+                    start: (page-1)*itemsPerPage,
                     limit: itemsPerPage,
                     filter:{
                         keyWord: this.filter.search,
@@ -188,7 +200,10 @@ import { userController } from '@/services/UserController';
                         
                     })
                     this.tableNguoiDung.itemsPerPage = itemsPerPage
-                    this.tableNguoiDung.totalItems= this.tableNguoiDung.serverItems.length
+                    userController.getCount()
+                    .then(res=>{
+                        this.tableNguoiDung.totalItems= res.data
+                    })
                 })
                 .catch(err=>{
                     

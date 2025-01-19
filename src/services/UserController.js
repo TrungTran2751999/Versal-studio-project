@@ -36,10 +36,14 @@ function filter(postData){
         }
     })
 }
+function getCount(){
+    return axios.get(API.ADMIN.user.count)
+}
 export const userController = {
     getAll,
     getById,
     update,
     create,
-    filter
+    filter,
+    getCount
 }

@@ -253,13 +253,13 @@
                                     <v-list-subheader style="text-align: center;" >Tỉnh/thành phố</v-list-subheader>
                                 </v-col>
                                 <v-col col="8">
-                                    <v-select
+                                    <v-autocomplete
                                     density="compact"
                                     variant="outlined"
                                     placeholder="Tỉnh/thành phố"
                                     :items="itemsTinh"
                                     v-model="clb.tinhThanhPhoDaiDienClb"
-                                    ></v-select>
+                                    ></v-autocomplete>
                                 </v-col>
                             </v-row>
                         </v-sheet>
@@ -304,13 +304,13 @@
                                     <v-list-subheader style="text-align: center;" >Tỉnh/thành phố</v-list-subheader>
                                 </v-col>
                                 <v-col col="8">
-                                    <v-select
+                                    <v-autocomplete
                                     density="compact"
                                     variant="outlined"
                                     placeholder="Tỉnh/thành phố"
                                     :items="itemsTinh"
                                     v-model="caNhan.tinhThanhPhoCaNhan"
-                                    ></v-select>
+                                    ></v-autocomplete>
                                 </v-col>
                             </v-row>
 
@@ -360,6 +360,7 @@ import roleController from '@/services/RoleController';
 import NavAdmin from '../layout/NavAdmin.vue';
 import { userController } from '@/services/UserController';
 import { forEach } from 'lodash';
+import { utilController } from '@/services/Util';
     export default{
         data(){
             return {
@@ -377,6 +378,8 @@ import { forEach } from 'lodash';
                 email:"",
                 password: "",
                 nhapLaiPassword: "",
+
+                itemsTinh:[],
 
                 caNhan: {
                     dienThoaiCaNhan:"",
@@ -400,11 +403,19 @@ import { forEach } from 'lodash';
             }
         },
         created(){
-            
             this.setRole(),
-            this.setData()
+            this.setData(),
+            this.setListProvince()
         },
         methods:{
+            setListProvince(){
+                utilController.getListProvince()
+                .then(res=>{
+                    res.data.map(item=>{
+                        this.itemsTinh.push(item.name)
+                    })
+                })
+            },
             setRole(){
                 let arrChild = []
                 roleController.getAll()
@@ -476,7 +487,7 @@ import { forEach } from 'lodash';
                             this.email = res.email;
                             this.caNhan.ngaySinhCaNhan = res.ngaySinhCaNhan.split(" ")[0];
                             this.caNhan.dienThoaiCaNhan = res.dienThoaiCaNhan;
-                            if(this.loaiTaiKhoanId=="2"){
+                            if(this.loaiTaiKhoanId=="3"){
                                 this.caNhan.dienThoaiCaNhan = res.dienThoaiCaNhan;
                                
                                 this.caNhan.chucVuCaNhan = res.chucVuCaNhan;
@@ -484,7 +495,7 @@ import { forEach } from 'lodash';
                                 this.caNhan.clbCaNhan = res.clbCaNhan;
                                 this.caNhan.truongCaNhan = res.truongCaNhan;
                             }
-                            if(this.loaiTaiKhoanId == "3"){
+                            if(this.loaiTaiKhoanId == "2"){
                                 this.clb.tenClb = res.tenClb;
                                 this.clb.vietTatClb = res.vietTatClb;
                                 this.clb.toChucClb = res.toChucClb;
@@ -555,7 +566,7 @@ import { forEach } from 'lodash';
                     this.loadingBtn = false
                     this.$toast.error("cập nhật lỗi!")
                 })
-            }      
+            },
         },
         components:{
             NavAdmin
