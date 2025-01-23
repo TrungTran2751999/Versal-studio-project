@@ -23,8 +23,13 @@
                     </v-col>
                 </v-row>
                 <v-row style="margin-top: -40px;">
-                    <v-col cols="12" md="12">
+                    <v-col cols="6" md="11">
                         <v-btn style="background-color: #dc3545;">LỌC</v-btn>
+                    </v-col>
+                    <v-col cols="6" md="1">
+                        <RouterLink to="/admin/chi-tiet-quan-ly-tin-tuc">
+                            <v-btn  style="background-color: green; margin-left: 15px;">Thêm mới</v-btn>
+                        </RouterLink>
                     </v-col>
                 </v-row>
             </div>
@@ -113,6 +118,7 @@ import NavAdmin from '../layout/NavAdmin.vue';
             xemChiTiet(id){
                 this.$router.push(`/admin/chi-tiet-quan-ly-tin-tuc?id=${id}`);
             }
+            
         }
     }
 </script>
