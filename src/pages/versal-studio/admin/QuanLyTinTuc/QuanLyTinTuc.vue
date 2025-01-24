@@ -23,12 +23,17 @@
                     </v-col>
                 </v-row>
                 <v-row style="margin-top: -40px;">
-                    <v-col cols="6" md="11">
-                        <v-btn style="background-color: #dc3545;">LỌC</v-btn>
+                    <v-col cols="6" md="10">
+                        <v-btn style="background-color: #dc3545; ">LỌC</v-btn>
                     </v-col>
                     <v-col cols="6" md="1">
                         <RouterLink to="/admin/chi-tiet-quan-ly-tin-tuc">
                             <v-btn  style="background-color: green; margin-left: 15px;">Thêm mới</v-btn>
+                        </RouterLink>
+                    </v-col>
+                    <v-col cols="6" md="1">
+                        <RouterLink to="/admin/quan-ly-loai-tin-tuc">
+                            <v-btn style="background-color: #dc3545;">Loại tin tức</v-btn>
                         </RouterLink>
                     </v-col>
                 </v-row>

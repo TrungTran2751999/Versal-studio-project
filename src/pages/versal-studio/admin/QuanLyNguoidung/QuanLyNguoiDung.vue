@@ -200,9 +200,9 @@ import { utilController } from '@/services/Util';
                         
                     })
                     this.tableNguoiDung.itemsPerPage = itemsPerPage
-                    userController.getCount()
+                    userController.getCount(filter)
                     .then(res=>{
-                        this.tableNguoiDung.totalItems= res.data
+                        this.tableNguoiDung.totalItems= res.data[0].count
                     })
                 })
                 .catch(err=>{

@@ -13,6 +13,8 @@ import ChiTietQuanLyNguoiDung from "./pages/versal-studio/admin/QuanLyNguoidung/
 import QuanLyTinTuc from "./pages/versal-studio/admin/QuanLyTinTuc/QuanLyTinTuc.vue";
 import ChiTietQuanLyTinTuc from "./pages/versal-studio/admin/QuanLyTinTuc/ChiTietQuanLyTinTuc.vue";
 import Login from "./pages/versal-studio/admin/Login.vue";
+import QuanLyLoaiTinTuc from "./pages/versal-studio/admin/QuanLyTinTuc/QuanLyLoaiTinTuc/QuanLyLoaiTinTuc.vue";
+import ChiTietQuanLyLoaiTinTuc from "./pages/versal-studio/admin/QuanLyTinTuc/QuanLyLoaiTinTuc/ChiTietQuanLyLoaiTinTuc.vue";
 const checkBefore = (to, from ,next)=>{
     let result = util.checkJWTToken();
     if(result){
@@ -83,6 +85,16 @@ const routes = [
         path: "/admin/chi-tiet-quan-ly-tin-tuc",
         name:"admin-chi-tiet-quan-ly-tin-tuc",
         component: ChiTietQuanLyTinTuc
+    },
+    {
+        path: "/admin/quan-ly-loai-tin-tuc",
+        name:"admin-quan-ly-loai-tin-tuc",
+        component: QuanLyLoaiTinTuc
+    },
+    {
+        path: "/admin/chi-tiet-quan-ly-loai-tin-tuc",
+        name:"chi-tiet-admin-quan-ly-loai-tin-tuc",
+        component: ChiTietQuanLyLoaiTinTuc
     },
     {
         path: "/admin/login",

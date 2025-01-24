@@ -36,8 +36,12 @@ function filter(postData){
         }
     })
 }
-function getCount(){
-    return axios.get(API.ADMIN.user.count)
+function getCount(postData){
+    return axios.post(API.ADMIN.user.count, postData, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
 }
 export const userController = {
     getAll,

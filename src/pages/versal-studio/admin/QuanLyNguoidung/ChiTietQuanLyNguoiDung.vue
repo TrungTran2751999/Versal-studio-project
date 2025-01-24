@@ -109,20 +109,6 @@
                                 ></v-text-field>
                             </v-col>
                         </v-row>
-                        <!-- Tên người dùng -->
-                        <v-row>
-                            <v-col cols="4" class="justify-center">
-                                <v-list-subheader style="text-align: center;" >Tên người dùng</v-list-subheader>
-                            </v-col>
-                            <v-col col="8">
-                                <v-text-field
-                                 density="compact"
-                                 variant="outlined"
-                                 placeholder="Tên người dùng"
-                                 v-model="name"
-                                ></v-text-field>
-                            </v-col>
-                        </v-row>
                         <!-- Ngay sinh -->
                         <v-row style="margin-top: 20px;">
                                 <v-col cols="4" class="justify-center">

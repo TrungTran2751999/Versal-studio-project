@@ -22,18 +22,20 @@
                     </RouterLink>
                 </v-col>
                 <v-col cols="12" md="4">
-                    <v-card style="background-color: #ffc107;">
-                        <v-card-actions>
-                            <v-row>
-                                <v-col col="12" md="4">
-                                    <v-icon style="font-size: 70px;">mdi-note-text</v-icon>
-                                </v-col>
-                                <v-col col="12" md="8">
-                                    <span style="font-size: 40px;">12000</span> <span> tin tức</span>
-                                </v-col>
-                            </v-row>
-                        </v-card-actions>
-                    </v-card>
+                    <RouterLink to="/admin/quan-ly-tin-tuc" style="text-decoration: none;">
+                        <v-card style="background-color: #ffc107;">
+                            <v-card-actions>
+                                <v-row>
+                                    <v-col col="12" md="4">
+                                        <v-icon style="font-size: 70px;">mdi-note-text</v-icon>
+                                    </v-col>
+                                    <v-col col="12" md="8">
+                                        <span style="font-size: 40px;">12000</span> <span> tin tức</span>
+                                    </v-col>
+                                </v-row>
+                            </v-card-actions>
+                        </v-card>
+                    </RouterLink>
                 </v-col>
                 <v-col cols="12" md="4">
                     <v-card style="background-color: #6c757d;">
