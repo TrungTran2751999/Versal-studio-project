@@ -36,7 +36,7 @@
                 </v-row>
                 <v-row style="margin-top: -40px;">
                     <v-col cols="6" md="10">
-                        <v-btn style="background-color: #dc3545; ">LỌC</v-btn>
+                        <v-btn style="background-color: #dc3545;" @click="filter">LỌC</v-btn>
                     </v-col>
                     <v-col cols="6" md="1">
                         <RouterLink to="/admin/chi-tiet-quan-ly-loai-tin-tuc">
@@ -99,8 +99,8 @@ import Loading from '../../layout/TableLoading.vue';
         data(){
             return{
                 search:"",
-                statusSelected:-1,
-                listStatus:[{title:"Tất cả", value:-1},{title:"Đã hủy", value:0}, {title:"Đang hoạt động", value:1}],
+                statusSelected:0,
+                listStatus:[{title:"Tất cả", value:-1},{title:"Đã hủy", value:1}, {title:"Đang hoạt động", value:0}],
                 tableNguoiDung:{
                     itemsPerPage: 10,
                     serverItems: [],
@@ -117,20 +117,7 @@ import Loading from '../../layout/TableLoading.vue';
         },
         methods:{
             loadItemsNguoiDung({ page, itemsPerPage }){
-                // setTimeout(()=>{
-                //     this.tableNguoiDung.loading = true
-                // },3000)
-                // this.tableNguoiDung.loading = false
-                // for(let i=1; i<=100; i++){
-                //     let item = {
-                //         IdUser: i,
-                //         TieuDe: "ahaha",
-                //         NgayTao: "21/12/2024",
-                //         NgayCapNhat: "21/12/2024",
-                //         NguoiCapNhat: "user"
-                //     }
-                //     this.tableNguoiDung.serverItems.push(item)
-                // }
+                this.tableNguoiDung.serverItems = []
                 this.tableNguoiDung.loading = false;
                 let obj = {
                     filter:{
@@ -167,8 +154,10 @@ import Loading from '../../layout/TableLoading.vue';
             },
             xemChiTiet(id){
                 this.$router.push(`/admin/chi-tiet-quan-ly-loai-tin-tuc?id=${id}`);
+            },
+            filter(){
+                this.loadItemsNguoiDung({page:1, itemsPerPage:10})
             }
-            
         }
     }
 </script>

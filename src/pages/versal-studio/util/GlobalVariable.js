@@ -98,11 +98,15 @@ export const API = {
             getAll: `${domainApi}/api/admin/role`
         },
         tinTuc:{
+            getAllTinTuc: `${domainApi}/api/admin/tin-tuc`,
+
+            
             getAllLoaiTinTuc: `${domainApi}/api/admin/tin-tuc/loai-tin-tuc`, 
             createLoaiTinTuc: `${domainApi}/api/admin/tin-tuc/loai-tin-tuc/create`,
             getLoaiTinTucById: `${domainApi}/api/admin/tin-tuc/loai-tin-tuc/chi-tiet`,
             updateLoaiTinTuc: `${domainApi}/api/admin/tin-tuc/loai-tin-tuc/update`,
-            getCountLoaiTinTuc: `${domainApi}/api/admin/tin-tuc/loai-tin-tuc/count`
+            getCountLoaiTinTuc: `${domainApi}/api/admin/tin-tuc/loai-tin-tuc/count`,
+            
         }
     },
     UTIL:{

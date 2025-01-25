@@ -54,11 +54,7 @@ import NavAdmin from '../../layout/NavAdmin.vue';
                 name:"",
                 statusSelected:0,
                 isCreate: true,
-                listStatus:[{title:"Đang hoạt động", value:0}, {title:"Đã hủy", value:1}],
-                itemLoaiTaiKhoan:[
-                    {name: 'Cá nhân', value: 'CaNhan'},
-                    {name: 'Câu lạc bộ', value: 'CLB'}
-                ],
+                listStatus:[{title:"Đang hoạt động", value:0}, {title:"Đã hủy", value:1}]
             }
         },
         created(){
@@ -103,7 +99,8 @@ import NavAdmin from '../../layout/NavAdmin.vue';
                     this.$toast.success("Cập nhật thành công")
                 })
                 .catch(err=>{
-                    this.$toast.error("Cập nhật lỗi")
+                    console.log(err)
+                    this.$toast.error(err.response.data)
                 })   
            }
         },

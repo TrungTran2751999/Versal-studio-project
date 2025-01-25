@@ -550,7 +550,7 @@ import { utilController } from '@/services/Util';
                 })
                 .catch(err=>{
                     this.loadingBtn = false
-                    this.$toast.error("cập nhật lỗi!")
+                    this.$toast.error(err.response.data)
                 })
             },
         },

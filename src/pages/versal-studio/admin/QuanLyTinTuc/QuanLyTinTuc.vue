@@ -6,20 +6,22 @@
         <div class="pa-8">
             <div>
                 <v-row>
-                    <v-col cols="12" md="2">
-                        <v-text-field
-                        density="compact"
-                        variant="outlined"
-                        label="Ngày tạo"
-                        type="date"
-                        ></v-text-field>
-                    </v-col>
                     <v-col cols="12" md="3">
                         <v-text-field
                         density="compact"
                         variant="outlined"
                         label="Tìm kiếm"
+                        v-model="search"
                         ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="2">
+                        <v-select
+                        density="compact"
+                        variant="outlined"
+                        label="Loại tin tức"
+                        :items = "listStatus"
+                        v-model="statusSelected"
+                        ></v-select>
                     </v-col>
                 </v-row>
                 <v-row style="margin-top: -40px;">
@@ -61,7 +63,7 @@
             </template>
             <template v-slot:[`item`] = "{item}">
                 <tr @click="xemChiTiet(item.IdUser)">
-                    <td>{{ item.IdUser }}</td>
+                    <td>{{ item.Id }}</td>
                     <td>{{ item.TieuDe }}</td>
                     <td>{{ item.NgayTao }}</td>
                     <td>{{ item.NgayCapNhat }}</td>
@@ -77,6 +79,7 @@
 <script>
 import Loading from '../layout/TableLoading.vue';
 import NavAdmin from '../layout/NavAdmin.vue';
+import { tinTucController } from '@/services/TinTucController';
 
     export default{
         data(){
@@ -89,11 +92,9 @@ import NavAdmin from '../layout/NavAdmin.vue';
                     loading:true,
                     headers: []
                 },
-                itemLoaiTaiKhoan:[
-                    {name: 'Cá nhân', value: 'CaNhan'},
-                    {name: 'Câu lạc bộ', value: 'CLB'}
-                ],
-                itemSelectLoai: {name: 'Câu lạc bộ', value: 'CLB'}
+                listStatus:[{title:"Tất cả", value:-1},{title:"Đã hủy", value:1}, {title:"Đang hoạt động", value:0}],
+                statusSelected:0,
+                search:""
             }
         },
         components:{
@@ -102,20 +103,27 @@ import NavAdmin from '../layout/NavAdmin.vue';
         },
         methods:{
             loadItemsNguoiDung({ page, itemsPerPage }){
-                setTimeout(()=>{
-                    this.tableNguoiDung.loading = true
-                },3000)
-                this.tableNguoiDung.loading = false
-                for(let i=1; i<=100; i++){
-                    let item = {
-                        IdUser: i,
-                        TieuDe: "ahaha",
-                        NgayTao: "21/12/2024",
-                        NgayCapNhat: "21/12/2024",
-                        NguoiCapNhat: "user"
-                    }
-                    this.tableNguoiDung.serverItems.push(item)
+                let obj = {
+                    filter:{
+                        keyWord: this.search,
+                        status: this.statusSelected
+                    },
+                    start: (page-1)*itemsPerPage,
+                    limit: itemsPerPage
                 }
+                tinTucController.getAll(obj)
+                .then(res=>{
+                    this.tableNguoiDung.loading = true;
+                    res.data.map(item=>{
+                        let obj = {
+                            Id: item.id,
+                            TieuDe: item.name,
+                            //TrangThai: item.isDeleted == 0 ? "Đang hoạt động" : item.isDeleted == 1 ? "Đã hủy" :""
+                        }
+                        this.tableNguoiDung.serverItems.push(obj)
+                    })
+                    this.tableNguoiDung.page = page
+                })
                 this.tableNguoiDung.page = page
                 this.tableNguoiDung.itemsPerPage = itemsPerPage
                 this.tableNguoiDung.totalItems= this.tableNguoiDung.serverItems.length

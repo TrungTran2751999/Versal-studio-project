@@ -1,6 +1,13 @@
 import { API } from "@/pages/versal-studio/util/GlobalVariable"
 import axios from "axios"
 
+function getAll(postData){
+    return axios.post(API.ADMIN.tinTuc.getAllTinTuc, postData,{
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
 function getAllLoaiTintuc(postData){
     return axios.post(API.ADMIN.tinTuc.getAllLoaiTinTuc, postData,{
         headers: {
@@ -38,6 +45,7 @@ function updateLoaiTinTuc(postData){
     })
 }
 export const tinTucController = {
+    getAll,
     getAllLoaiTintuc,
     createLoaiTinTuc,
     getCountLoaiTinTuc,
