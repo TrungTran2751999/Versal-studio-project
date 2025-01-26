@@ -8,12 +8,41 @@ function getAll(postData){
         }
     })
 }
+function create(postData){
+    return axios.post(API.ADMIN.tinTuc.createTinTuc, postData,{
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+function update(postData){
+    return axios.post(API.ADMIN.tinTuc.updateTinTuc, postData,{
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+function getCount(postData){
+    return axios.post(API.ADMIN.tinTuc.getCount, postData,{
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
 function getAllLoaiTintuc(postData){
     return axios.post(API.ADMIN.tinTuc.getAllLoaiTinTuc, postData,{
         headers: {
             'Content-Type': 'application/json'
         }
     })
+}
+function getAllLoaiTinTucActive(){
+    return axios.get(API.ADMIN.tinTuc.getAllLoaiTinTucActive);
+}
+function getById(id){
+    return axios.get(API.ADMIN.tinTuc.getById, {
+        params:{id:id}
+    });
 }
 function getLoaiTinTucById(id){
     return axios.get(API.ADMIN.tinTuc.getLoaiTinTucById,{
@@ -46,7 +75,12 @@ function updateLoaiTinTuc(postData){
 }
 export const tinTucController = {
     getAll,
+    create,
+    update,
+    getCount,
+    getById,
     getAllLoaiTintuc,
+    getAllLoaiTinTucActive,
     createLoaiTinTuc,
     getCountLoaiTinTuc,
     updateLoaiTinTuc,

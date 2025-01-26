@@ -99,9 +99,13 @@ export const API = {
         },
         tinTuc:{
             getAllTinTuc: `${domainApi}/api/admin/tin-tuc`,
+            createTinTuc: `${domainApi}/api/admin/tin-tuc/create`,
+            updateTinTuc: `${domainApi}/api/admin/tin-tuc/update`,
+            getById: `${domainApi}/api/admin/tin-tuc/chi-tiet`,
+            getCount: `${domainApi}/api/admin/tin-tuc/count`,
 
-            
             getAllLoaiTinTuc: `${domainApi}/api/admin/tin-tuc/loai-tin-tuc`, 
+            getAllLoaiTinTucActive: `${domainApi}/api/admin/tin-tuc/loai-tin-tuc/active`,
             createLoaiTinTuc: `${domainApi}/api/admin/tin-tuc/loai-tin-tuc/create`,
             getLoaiTinTucById: `${domainApi}/api/admin/tin-tuc/loai-tin-tuc/chi-tiet`,
             updateLoaiTinTuc: `${domainApi}/api/admin/tin-tuc/loai-tin-tuc/update`,

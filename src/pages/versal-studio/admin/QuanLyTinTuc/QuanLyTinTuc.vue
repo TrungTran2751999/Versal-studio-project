@@ -1,5 +1,15 @@
 <style>
-
+    .hover-row:hover{
+        background-color: beige;
+    }
+    .row-duyet{
+        background-color: greenyellow; 
+        color: white; 
+    }
+    .row-chua-duyet{
+        background-color: red; 
+        color: white; 
+    } 
 </style>
 <template>
     <NavAdmin>
@@ -18,15 +28,26 @@
                         <v-select
                         density="compact"
                         variant="outlined"
-                        label="Loại tin tức"
+                        label="Trạng thái"
                         :items = "listStatus"
                         v-model="statusSelected"
                         ></v-select>
                     </v-col>
+                    <v-col cols="12" md="2">
+                        <v-autocomplete
+                        density="compact"
+                        variant="outlined"
+                        label="Loại tin tức"
+                        :items = "listLoaiTinTuc"
+                        v-model="loaiTinTucSelected"
+                        item-title="name"
+                        item-value="value"
+                        ></v-autocomplete>
+                    </v-col>
                 </v-row>
                 <v-row style="margin-top: -40px;">
                     <v-col cols="6" md="10">
-                        <v-btn style="background-color: #dc3545; ">LỌC</v-btn>
+                        <v-btn @click="filter" style="background-color: #dc3545; ">LỌC</v-btn>
                     </v-col>
                     <v-col cols="6" md="1">
                         <RouterLink to="/admin/chi-tiet-quan-ly-tin-tuc">
@@ -58,16 +79,27 @@
                     <th style="min-width: 200px;">Tiêu đề</th>
                     <th style="min-width: 200px;">Ngày tạo</th>
                     <th style="min-width: 200px;">Ngày cập nhật</th>
-                    <th style="min-width: 200px;">Người tạo</th>
+                    <th style="min-width: 200px;">Loại tin tức</th>
+                    <th style="min-width: 200px;">Trạng thái</th>
                 </tr>
             </template>
             <template v-slot:[`item`] = "{item}">
-                <tr @click="xemChiTiet(item.IdUser)">
+                <tr @click="xemChiTiet(item.guid)" class="hover-row">
                     <td>{{ item.Id }}</td>
                     <td>{{ item.TieuDe }}</td>
                     <td>{{ item.NgayTao }}</td>
                     <td>{{ item.NgayCapNhat }}</td>
-                    <td>{{ item.NguoiCapNhat }}</td>
+                    <td>{{ item.TenTinTuc }}</td>
+                    <td><div style="
+                        width: fit-content;
+                        padding: 8px;
+                        font-size: smaller;
+                        font-weight: bolder;
+                        border-radius: 10px;"
+                        :class="item.status == 0 ? 'row-chua-duyet' 
+                        : item.status == 1 ? 'row-duyet' 
+                        :''"
+                        >{{ item.TrangThai }}</div></td>
                 </tr>
             </template>
             </v-data-table-server>
@@ -89,11 +121,13 @@ import { tinTucController } from '@/services/TinTucController';
                     serverItems: [],
                     totalItems:0,
                     page: 0,
-                    loading:true,
+                    loading:false,
                     headers: []
                 },
-                listStatus:[{title:"Tất cả", value:-1},{title:"Đã hủy", value:1}, {title:"Đang hoạt động", value:0}],
-                statusSelected:0,
+                listStatus:[{title:"Tất cả", value:-1},{title:"Đã phê duyệt", value:1}, {title:"Chưa phê duyệt", value:0}],
+                listLoaiTinTuc:[{name:"Tất cả", value:0}],
+                loaiTinTucSelected:0,
+                statusSelected:-1,
                 search:""
             }
         },
@@ -103,14 +137,27 @@ import { tinTucController } from '@/services/TinTucController';
         },
         methods:{
             loadItemsNguoiDung({ page, itemsPerPage }){
+                this.tableNguoiDung.serverItems = []
+                this.tableNguoiDung.loading = false;
                 let obj = {
                     filter:{
                         keyWord: this.search,
-                        status: this.statusSelected
+                        status: this.statusSelected,
+                        loaiTinTucId: this.loaiTinTucSelected
                     },
                     start: (page-1)*itemsPerPage,
                     limit: itemsPerPage
                 }
+                tinTucController.getAllLoaiTinTucActive()
+                .then(res=>{
+                    res.data.map(item=>{
+                        let obj = {
+                            name: item.name,
+                            value: item.id
+                        }
+                        this.listLoaiTinTuc.push(obj)
+                    })
+                })
                 tinTucController.getAll(obj)
                 .then(res=>{
                     this.tableNguoiDung.loading = true;
@@ -118,20 +165,31 @@ import { tinTucController } from '@/services/TinTucController';
                         let obj = {
                             Id: item.id,
                             TieuDe: item.name,
-                            //TrangThai: item.isDeleted == 0 ? "Đang hoạt động" : item.isDeleted == 1 ? "Đã hủy" :""
+                            NgayTao: item.createdAt,
+                            NgayCapNhat: item.updatedAt,
+                            status: item.status,
+                            guid: item.guid,
+                            TrangThai: item.status==0 ? "Chưa duyệt" : item.status==1 ? "Đã duyệt":"",
+                            TenTinTuc: item.tenTinTuc
                         }
                         this.tableNguoiDung.serverItems.push(obj)
                     })
-                    this.tableNguoiDung.page = page
                 })
                 this.tableNguoiDung.page = page
                 this.tableNguoiDung.itemsPerPage = itemsPerPage
-                this.tableNguoiDung.totalItems= this.tableNguoiDung.serverItems.length
+
+                tinTucController.getCount(obj)
+                .then(res=>{
+                    this.tableNguoiDung.totalItems= res.data[0].count
+                })
+                
             },
             xemChiTiet(id){
                 this.$router.push(`/admin/chi-tiet-quan-ly-tin-tuc?id=${id}`);
+            },
+            filter(){
+                this.loadItemsNguoiDung({page:1, itemsPerPage:10})
             }
-            
         }
     }
 </script>
