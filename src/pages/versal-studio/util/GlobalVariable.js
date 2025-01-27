@@ -111,9 +111,12 @@ export const API = {
             updateLoaiTinTuc: `${domainApi}/api/admin/tin-tuc/loai-tin-tuc/update`,
             getCountLoaiTinTuc: `${domainApi}/api/admin/tin-tuc/loai-tin-tuc/count`,
         },
-        giaiDau:{
+        tournament:{
             theLoaiGame:{
-                getAll: `${domainApi}/api/admin/`
+                getAll: `${domainApi}/api/admin/tournament/the-loai-game`,
+                getById: `${domainApi}/api/admin/tournament/the-loai-game/chi-tiet`,
+                create: `${domainApi}/api/admin/tournament/the-loai-game/create`,
+                update: `${domainApi}/api/admin/tournament/the-loai-game/update`,
             }
         }
     },

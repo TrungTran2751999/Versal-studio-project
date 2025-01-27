@@ -3,6 +3,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import VueJwtDecode from 'vue-jwt-decode';
 import * as XLSX from 'xlsx';
+
 function getCookie(name){
     return Cookies.get(name);
 }
@@ -55,11 +56,20 @@ function exportExcel(data){
 function getListProvince(){
     return axios.get(API.UTIL.getProvince)
 }
+function convertFileToBase64(file){
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+}
 export const utilController = {
     debouceComplete,
     checkJWTToken,
     removeJWTToken,
     getCookie,
     exportExcel,
-    getListProvince
+    getListProvince,
+    convertFileToBase64
 }

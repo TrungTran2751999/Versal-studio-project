@@ -55,8 +55,8 @@
                         </RouterLink>
                     </v-col>
                     <v-col cols="6" md="1">
-                        <RouterLink to="/admin/quan-ly-loai-tin-tuc">
-                            <v-btn style="background-color: #dc3545;">Loại tin tức</v-btn>
+                        <RouterLink to="/admin/quan-ly-the-loai-game">
+                            <v-btn style="background-color: #dc3545;">Thể loại game</v-btn>
                         </RouterLink>
                     </v-col>
                 </v-row>

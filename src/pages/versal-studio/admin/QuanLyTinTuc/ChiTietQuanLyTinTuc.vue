@@ -35,7 +35,6 @@
 import { tinTucController } from '@/services/TinTucController';
 import NavAdmin from '../layout/NavAdmin.vue';
 import { QuillEditor } from '@vueup/vue-quill';
-import { ImageResize } from 'quill-image-resize';
 import $ from "jquery";
 
     export default{

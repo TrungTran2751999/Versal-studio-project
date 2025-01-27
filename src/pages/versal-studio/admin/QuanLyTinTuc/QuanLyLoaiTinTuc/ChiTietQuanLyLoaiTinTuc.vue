@@ -36,9 +36,9 @@
                     </v-container>
                 </v-card-actions>
                 <v-card-actions class="justify-center">
-                    <RouterLink to="/admin/chi-tiet-quan-ly-loai-tin-tuc">
+
                         <v-btn :loading="loadingBtn" @click="!isCreate ? update() : createNew()" style="background-color: green; color: white; margin-bottom: 20px;">XÁC NHẬN</v-btn>
-                    </RouterLink>
+
                 </v-card-actions>
             </v-card>
         </v-container>
