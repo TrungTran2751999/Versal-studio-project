@@ -110,7 +110,11 @@ export const API = {
             getLoaiTinTucById: `${domainApi}/api/admin/tin-tuc/loai-tin-tuc/chi-tiet`,
             updateLoaiTinTuc: `${domainApi}/api/admin/tin-tuc/loai-tin-tuc/update`,
             getCountLoaiTinTuc: `${domainApi}/api/admin/tin-tuc/loai-tin-tuc/count`,
-            
+        },
+        giaiDau:{
+            theLoaiGame:{
+                getAll: `${domainApi}/api/admin/`
+            }
         }
     },
     UTIL:{

@@ -14,6 +14,7 @@
                                 <v-radio-group
                                     inline
                                     v-model="loaiTaiKhoanId"
+                                    :disabled="true"
                                 >
                                     <v-radio
                                         label="Quản trị"
@@ -25,6 +26,7 @@
                                 <v-radio-group
                                     inline
                                     v-model="loaiTaiKhoanId"
+                                    :disabled="true"
                                 >
                                     <v-radio
                                         label="Câu lạc bộ Esport"

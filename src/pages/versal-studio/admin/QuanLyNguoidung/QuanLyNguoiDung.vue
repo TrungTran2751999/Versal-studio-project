@@ -146,8 +146,8 @@ import { utilController } from '@/services/Util';
                 },
                 itemLoaiTaiKhoan:[
                     {name: 'Tất cả', value: 0},
-                    {name: 'Cá nhân', value: 2},
-                    {name: 'Câu lạc bộ', value: 3},
+                    {name: 'Cá nhân', value: 3},
+                    {name: 'Câu lạc bộ', value: 2},
                     {name: 'Admin', value: 1}
                 ],
                 itemSelectLoai:  {name: 'Tất cả', value: ''}
@@ -194,7 +194,7 @@ import { utilController } from '@/services/Util';
                             DienThoai: item.dienThoaiCaNhan,
                             NgaySinh: item.ngaySinhCaNhan,
                             LoaiTaiKhoanId: item.loaiTaiKhoanId,
-                            LoaiTaiKhoan: item.loaiTaiKhoanId == "1" ? "QUẢN TRỊ" : item.loaiTaiKhoanId == "2" ? "CÁ NHÂN" : item.loaiTaiKhoanId == "3"? "CÂU LẠC BỘ" :""
+                            LoaiTaiKhoan: item.loaiTaiKhoanId == "1" ? "QUẢN TRỊ" : item.loaiTaiKhoanId == "2" ? "CÂU LẠC BỘ" : item.loaiTaiKhoanId == "3"? "CÁ NHÂN" :""
                         }
                         this.tableNguoiDung.serverItems.push(obj)
                         
