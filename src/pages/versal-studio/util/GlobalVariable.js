@@ -93,6 +93,7 @@ export const API = {
             update: `${domainApi}/api/admin/user/update`,
             filter: `${domainApi}/api/admin/user/filter`,
             count: `${domainApi}/api/admin/user/count`,
+            getAllActive: `${domainApi}/api/admin/user/active`
         },
         role:{
             getAll: `${domainApi}/api/admin/role`
@@ -117,6 +118,13 @@ export const API = {
                 getById: `${domainApi}/api/admin/tournament/the-loai-game/chi-tiet`,
                 create: `${domainApi}/api/admin/tournament/the-loai-game/create`,
                 update: `${domainApi}/api/admin/tournament/the-loai-game/update`,
+                getAllActive: `${domainApi}/api/admin/tournament/the-loai-game/active`
+            },
+            team:{
+                getAll: `${domainApi}/api/admin/tournament/team`,
+                getById: `${domainApi}/api/admin/tournament/team/chi-tiet`,
+                create: `${domainApi}/api/admin/tournament/team/create`,
+                update: `${domainApi}/api/admin/tournament/team/update`,
             }
         }
     },

@@ -43,11 +43,15 @@ function getCount(postData){
         }
     })
 }
+function getAllActive(){
+    return axios.get(API.ADMIN.user.getAllActive);
+}
 export const userController = {
     getAll,
     getById,
     update,
     create,
     filter,
-    getCount
+    getCount,
+    getAllActive
 }

@@ -31,9 +31,13 @@ function updateTheLoaiGame(postData){
         }
     })
 }
+function getAllTheLoaiGameActive(){
+    return axios.get(API.ADMIN.tournament.theLoaiGame.getAllActive);
+}
 export const tournamentController = {
     getTheLoaiGame,
     createTheLoaiGame,
     getTheLoaiGameById,
-    updateTheLoaiGame
+    updateTheLoaiGame,
+    getAllTheLoaiGameActive
 }
