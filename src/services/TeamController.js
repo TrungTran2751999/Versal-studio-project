@@ -27,9 +27,15 @@ function update(postData){
         }
     })
 }
+function getMemberOfTeam(id){
+    return axios.post(API.ADMIN.tournament.team.getMemberOfTeam, {
+        params:{id}
+    })
+}
 export const teamController = {
     getAll,
     getById,
     create,
-    update
+    update,
+    getMemberOfTeam
 }

@@ -97,8 +97,38 @@
                                 <v-list-subheader style="text-align: center;" ></v-list-subheader>
                             </v-col>
                             <v-col cols="8">
-                               <img width="200" height="200" :src="image" />
+                               <img width="200" height="200" :src="image" v-show="visibleAvaratar"/>
                             </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col cols="12">
+                                <v-data-table-server
+                                height="70vh"
+                                fixed-header 
+                                :headers="tableMember.headers" 
+                                :items-length="tableMember.totalItems" 
+                                :items="tableMember.serverItems"
+                                :items-per-page="tableMember.itemsPerPage" 
+                                loading-text="Loading..."
+                                show-select 
+                                return-object 
+                                v-show="tableMember.loading"
+                                >
+                                <template v-slot:[`headers`]>
+                                    <tr>
+                                        <th style="min-width: 200px;">Tên</th>
+                                        <th style="min-width: 200px;">Trạng thái</th>
+                                    </tr>
+                                </template>
+                                <template v-slot:[`item`] = "{item}">
+                                    <tr class="hover-row">
+                                        <td>{{ item.Name }}</td>
+                                        <td>{{ item.Status }}</td>
+                                    </tr>
+                                </template>
+                                </v-data-table-server>
+                            </v-col>
+                            <Loading :loading="!tableMember.loading"></Loading>
                         </v-row>
                     </v-container>
                 </v-card-actions>
@@ -114,8 +144,8 @@ import NavAdmin from '../../layout/NavAdmin.vue';
 import { utilController } from '@/services/Util';
 import { tournamentController } from '@/services/TournamentController';
 import { teamController } from '@/services/TeamController';
-import { tinTucController } from '@/services/TinTucController';
 import { userController } from '@/services/UserController';
+import Loading from '../../layout/TableLoading.vue';
     export default{
         data(){
             return {
@@ -135,7 +165,18 @@ import { userController } from '@/services/UserController';
                 userSelectedGuid:"",
                 listTheLoaigame:[],
                 theLoaiGameSelected:"",
-                linkChiTietUser:""
+                linkChiTietUser:"",
+                visibleAvaratar: false,
+                tableMember:{
+                    itemsPerPage: 10,
+                    serverItems: [],
+                    totalItems:0,
+                    page: 0,
+                    loading:false,
+                    headers: [],
+                    search:"",
+                    statusSelected:""
+                }
             }
         },
         created(){
@@ -191,7 +232,7 @@ import { userController } from '@/services/UserController';
                         const id = urlParams.get("id")
                         const guid = urlParams.get("guid");
                         if(id && guid){
-                            this.linkChiTietUser = `/admin/chi-tiet-quan-ly-user?id=${guid}`
+                            //this.linkChiTietUser = `/admin/chi-tiet-quan-ly-user?id=${guid}`
                             this.loadingBtn = true
                             this.id = id;
                             this.guid = guid;
@@ -205,8 +246,10 @@ import { userController } from '@/services/UserController';
                                 this.userSelected = res.data.userId
                                 this.image = `data:image/png;base64,${res.data.image}`
                                 this.statusSelected = res.data.isBan
-
+                                
                                 this.loadingBtn = false
+                                this.changeUser()
+                                this.visibleAvaratar = true
                             })
                         }
                     })  
@@ -242,8 +285,29 @@ import { userController } from '@/services/UserController';
                 })
            },
            changeUser(){
-                let guid = this.listUser.filter(x=>x.id==this.userSelected)[0].guid;
+                let guid = this.listUser.filter(x=>x.id==this.userSelected)[0]?.guid;
                 this.linkChiTietUser = `/admin/chi-tiet-quan-ly-user?id=${guid}`
+           },
+           getMemberOfTeam({ page, itemsPerPage }){
+                let obj = {
+                    filter:{
+                        keyWord: this.search,
+                        status: this.statusSelected
+                    },
+                    start: (page-1)*itemsPerPage,
+                    limit: itemsPerPage
+                }
+                teamController.getMemberOfTeam(this.id)
+                .then(res=>{
+                    res.data?.members?.map(item=>{
+                        let obj = {
+                            Name: item.name,
+                            Status: item.isDeleted == false ? "ĐANG HỌAT ĐỘNG" : "ĐÃ RỜI"
+                        }
+                        this.tableMember.serverItems.push(obj);
+                        this.tableMember.page = page
+                    })
+                })
            }
         },
         components:{

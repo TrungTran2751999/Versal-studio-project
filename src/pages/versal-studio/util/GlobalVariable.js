@@ -125,6 +125,7 @@ export const API = {
                 getById: `${domainApi}/api/admin/tournament/team/chi-tiet`,
                 create: `${domainApi}/api/admin/tournament/team/create`,
                 update: `${domainApi}/api/admin/tournament/team/update`,
+                getMemberOfTeam: `${domainApi}/api/admin/tournament/team/member`
             }
         }
     },
