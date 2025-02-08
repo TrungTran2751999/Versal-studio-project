@@ -38,6 +38,7 @@
                     </RouterLink>
                 </v-col>
                 <v-col cols="12" md="4">
+                    <RouterLink to="/admin/quan-ly-giai-dau" style="text-decoration: none;">
                     <v-card style="background-color: #6c757d;">
                         <v-card-actions>
                             <v-row>
@@ -50,6 +51,7 @@
                             </v-row>
                         </v-card-actions>
                     </v-card>
+                    </RouterLink>
                 </v-col>
             </v-row>
             <!-- Bang data -->

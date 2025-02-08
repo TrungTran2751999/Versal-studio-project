@@ -22,14 +22,21 @@ function create(postData){
 }
 function update(postData){
     return axios.post(API.ADMIN.tournament.team.update, postData, {
+        
+    })
+}
+function getMemberOfTeam(postData){
+    return axios.post(API.ADMIN.tournament.team.getMemberOfTeam, postData, {
         headers: {
             'Content-Type': 'application/json'
         }
     })
 }
-function getMemberOfTeam(id){
-    return axios.post(API.ADMIN.tournament.team.getMemberOfTeam, {
-        params:{id}
+function addMember(postData){
+    return axios.post(API.ADMIN.tournament.team.addMemberTeam, postData, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
     })
 }
 export const teamController = {
@@ -37,5 +44,6 @@ export const teamController = {
     getById,
     create,
     update,
-    getMemberOfTeam
+    getMemberOfTeam,
+    addMember
 }

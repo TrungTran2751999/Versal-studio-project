@@ -1,3 +1,23 @@
+<style scoped>
+    .row-ban{
+        background-color: red; 
+        color: black; 
+        width: fit-content;
+        padding: 3px;
+        border-radius: 3px;
+        font-size: smaller; 
+        font-weight: bolder; 
+    }   
+    .row-active{
+        background-color: aquamarine; 
+        color: black; 
+        width: fit-content;
+        padding: 3px;
+        border-radius: 3px;
+        font-size: smaller; 
+        font-weight: bolder;  
+    }
+</style>
 <template>
     <NavAdmin>
         <v-container>
@@ -100,43 +120,104 @@
                                <img width="200" height="200" :src="image" v-show="visibleAvaratar"/>
                             </v-col>
                         </v-row>
-                        <v-row>
-                            <v-col cols="12">
-                                <v-data-table-server
-                                height="70vh"
-                                fixed-header 
-                                :headers="tableMember.headers" 
-                                :items-length="tableMember.totalItems" 
-                                :items="tableMember.serverItems"
-                                :items-per-page="tableMember.itemsPerPage" 
-                                loading-text="Loading..."
-                                show-select 
-                                return-object 
-                                v-show="tableMember.loading"
-                                >
-                                <template v-slot:[`headers`]>
-                                    <tr>
-                                        <th style="min-width: 200px;">Tên</th>
-                                        <th style="min-width: 200px;">Trạng thái</th>
-                                    </tr>
-                                </template>
-                                <template v-slot:[`item`] = "{item}">
-                                    <tr class="hover-row">
-                                        <td>{{ item.Name }}</td>
-                                        <td>{{ item.Status }}</td>
-                                    </tr>
-                                </template>
-                                </v-data-table-server>
-                            </v-col>
-                            <Loading :loading="!tableMember.loading"></Loading>
-                        </v-row>
+
+                        
                     </v-container>
                 </v-card-actions>
                 <v-card-actions class="justify-center">
                     <v-btn :loading="loadingBtn" @click="!isCreate ? update() : createNew()" style="background-color: green; color: white; margin-bottom: 20px;">XÁC NHẬN</v-btn>
                 </v-card-actions>
             </v-card>
+            <v-card class="mx-auto" max-width="800" style="margin-top: 20px;">
+                <v-card-title style="text-align: center;">THÔNG TIN TEAM MEMBER</v-card-title>
+                <v-card-actions class="justify-center">
+                    <v-row>
+                        <v-col cols="12" md="4">
+                            <v-text-field
+                            density="compact"
+                            variant="outlined"
+                            label="Tìm kiếm member"
+                            v-model="tableMember.search"
+                            ></v-text-field>
+                            <v-btn style="background-color: red;" @click="filerMember">LỌC</v-btn>
+                            <v-btn style="background-color: green;" @click="openDialog">THÊM MEMBER</v-btn>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-data-table-server
+                            height="70vh"
+                            fixed-header 
+                            :headers="tableMember.headers" 
+                            :items-length="tableMember.totalItems" 
+                            :items="tableMember.serverItems"
+                            :items-per-page="tableMember.itemsPerPage" 
+                            loading-text="Loading..."
+                            show-select 
+                            return-object 
+                            v-show="!tableMember.loading"
+                            >
+                            <template v-slot:[`headers`]>
+                                <tr>
+                                    <th style="min-width: 200px;">Tên thành viên</th>
+                                    <th style="min-width: 200px;">Trạng thái</th>
+                                </tr>
+                            </template>
+                            <template v-slot:[`item`] = "{item}">
+                                <tr class="hover-row">
+                                    <td>{{ item.Name }}</td>
+                                    <td>
+                                        <div :class="item.isDeleted ? 'row-ban' : 'row-active'">
+                                            {{ item.Status }}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                            </v-data-table-server>
+                            <Loading :loading="tableMember.loading"></Loading>
+                        </v-col>
+                    </v-row>
+                </v-card-actions>
+            </v-card>
         </v-container>
+        <v-dialog 
+        v-model="dialogMember"
+        max-width="600"
+        >
+        <v-container 
+            fluid
+        >
+            <v-card
+            title="THÊM MEMBER"
+            >
+            <v-card-actions>
+                <v-row>
+                    <v-col cols="12">
+                        <v-autocomplete
+                            :loading="loadingCanhan"
+                            density="compact"
+                            variant="outlined"
+                            :items = "listCaNhan"
+                            v-model="memberSelected"
+                            item-title="name"
+                            item-value="id"
+                        ></v-autocomplete>
+                        <v-text-field
+                            :loading="loadingCanhan"
+                            density="compact"
+                            variant="outlined"
+                            placeholder="Vị trí"
+                            v-model="memberPosition"
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
+            </v-card-actions>
+            <template v-slot:actions>
+                <v-spacer></v-spacer>
+                <v-btn style="background-color: green;" @click="addMember">THÊM</v-btn>
+                <v-btn @click="dialogMember=false">ĐÓNG</v-btn>
+            </template>
+            </v-card>
+        </v-container>
+        </v-dialog>
     </NavAdmin>
 </template>
 <script>
@@ -146,6 +227,7 @@ import { tournamentController } from '@/services/TournamentController';
 import { teamController } from '@/services/TeamController';
 import { userController } from '@/services/UserController';
 import Loading from '../../layout/TableLoading.vue';
+import { loginInfo } from '@/pages/versal-studio/util/GlobalVariable';
     export default{
         data(){
             return {
@@ -172,11 +254,16 @@ import Loading from '../../layout/TableLoading.vue';
                     serverItems: [],
                     totalItems:0,
                     page: 0,
-                    loading:false,
+                    loading:true,
                     headers: [],
                     search:"",
-                    statusSelected:""
-                }
+                    statusSelected:0
+                },
+                dialogMember:false,
+                listCaNhan:[],
+                memberSelected:"",
+                memberPosition:"",
+                loadingCanhan:false
             }
         },
         created(){
@@ -250,6 +337,7 @@ import Loading from '../../layout/TableLoading.vue';
                                 this.loadingBtn = false
                                 this.changeUser()
                                 this.visibleAvaratar = true
+                                this.getMemberOfTeam({page:1, itemsPerPage:10})
                             })
                         }
                     })  
@@ -291,14 +379,16 @@ import Loading from '../../layout/TableLoading.vue';
            getMemberOfTeam({ page, itemsPerPage }){
                 let obj = {
                     filter:{
-                        keyWord: this.search,
-                        status: this.statusSelected
+                        keyWord: this.tableMember.search,
+                        status: this.tableMember.statusSelected
                     },
                     start: (page-1)*itemsPerPage,
                     limit: itemsPerPage
                 }
-                teamController.getMemberOfTeam(this.id)
+                this.tableMember.loading = true
+                teamController.getMemberOfTeam(obj)
                 .then(res=>{
+                    this.tableMember.serverItems = []
                     res.data?.members?.map(item=>{
                         let obj = {
                             Name: item.name,
@@ -307,11 +397,53 @@ import Loading from '../../layout/TableLoading.vue';
                         this.tableMember.serverItems.push(obj);
                         this.tableMember.page = page
                     })
+                    this.tableMember.totalItems = res.data?.total[0].count
+                    this.tableMember.loading = false
                 })
+           },
+           openDialog(){
+            this.dialogMember = true;
+            if(this.listCaNhan.length == 0){
+                this.loadingCanhan = true;
+                userController.getAllUserActive()
+                .then(res=>{
+                    res.data.map(item=>{
+                        let obj = {
+                            name: item.name,
+                            id: item.id
+                        }
+                        this.listCaNhan.push(obj)
+                    });
+                    this.loadingCanhan = false;
+                })
+            }
+           },
+           addMember(){
+                let obj = {
+                    "userId": this.memberSelected,
+                    "teamId": this.id,
+                    "position": this.memberPosition,
+                    "updatedBy": loginInfo.userName,
+                    "isDeleted":0
+                }
+                teamController.addMember(obj)
+                .then(res=>{
+                    this.$toast.success("Cập nhật thành công !")
+                })
+                .catch(err=>{
+                    this.$toast.error("Cập nhật không thành công !")
+                })
+                .finally(()=>{
+                    this.dialogMember = false
+                })
+           },
+           filerMember(){
+                this.getMemberOfTeam({page:1, itemsPerPage:10})
            }
         },
         components:{
-            NavAdmin
+            NavAdmin,
+            Loading
         }
     }
 </script>
