@@ -39,11 +39,19 @@ function addMember(postData){
         }
     })
 }
+function xoaMember(postData){
+    return axios.post(API.ADMIN.tournament.team.xoaMemberTeam, postData, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
 export const teamController = {
     getAll,
     getById,
     create,
     update,
     getMemberOfTeam,
-    addMember
+    addMember,
+    xoaMember
 }

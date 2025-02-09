@@ -130,7 +130,8 @@ export const API = {
                 create: `${domainApi}/api/admin/tournament/team/create`,
                 update: `${domainApi}/api/admin/tournament/team/update`,
                 getMemberOfTeam: `${domainApi}/api/admin/tournament/team/member`,
-                addMemberTeam: `${domainApi}/api/admin/tournament/team/member/add`
+                addMemberTeam: `${domainApi}/api/admin/tournament/team/member/add`,
+                xoaMemberTeam: `${domainApi}/api/admin/tournament/team/member/delete`
             }
         }
     },

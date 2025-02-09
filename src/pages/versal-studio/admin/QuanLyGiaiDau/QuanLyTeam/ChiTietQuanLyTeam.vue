@@ -83,6 +83,18 @@
                         </v-row>
                         <v-row>
                             <v-col cols="4" class="justify-center">
+                                <v-list-subheader style="text-align: center;" >Position</v-list-subheader>
+                            </v-col>
+                            <v-col cols="8">
+                                <v-text-field
+                                density="compact"
+                                variant="outlined"
+                                v-model="positionLeader"
+                                ></v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col cols="4" class="justify-center">
                                 <v-list-subheader style="text-align: center;" >Trạng thái</v-list-subheader>
                             </v-col>
                             <v-col cols="8">
@@ -128,11 +140,11 @@
                     <v-btn :loading="loadingBtn" @click="!isCreate ? update() : createNew()" style="background-color: green; color: white; margin-bottom: 20px;">XÁC NHẬN</v-btn>
                 </v-card-actions>
             </v-card>
-            <v-card class="mx-auto" max-width="800" style="margin-top: 20px;">
+            <v-card class="mx-auto" max-width="800" style="margin-top: 20px;" v-show="id!=''">
                 <v-card-title style="text-align: center;">THÔNG TIN TEAM MEMBER</v-card-title>
-                <v-card-actions class="justify-center">
+                <v-card-actions>
                     <v-row>
-                        <v-col cols="12" md="4">
+                        <v-col cols="12">
                             <v-text-field
                             density="compact"
                             variant="outlined"
@@ -142,7 +154,11 @@
                             <v-btn style="background-color: red;" @click="filerMember">LỌC</v-btn>
                             <v-btn style="background-color: green;" @click="openDialog">THÊM MEMBER</v-btn>
                         </v-col>
-                        <v-col cols="12">
+                    </v-row>
+                </v-card-actions>
+                <v-card-actions class="justify-center">
+                    <v-row>
+                        <v-col cols="12" style="overflow-x: scroll;">
                             <v-data-table-server
                             height="70vh"
                             fixed-header 
@@ -158,17 +174,30 @@
                             <template v-slot:[`headers`]>
                                 <tr>
                                     <th style="min-width: 200px;">Tên thành viên</th>
+                                    <th style="min-width: 200px;">Position</th>
                                     <th style="min-width: 200px;">Trạng thái</th>
+                                    <th style="min-width: 200px"></th>
                                 </tr>
                             </template>
                             <template v-slot:[`item`] = "{item}">
                                 <tr class="hover-row">
                                     <td>{{ item.Name }}</td>
+                                    <td>{{ item.Position }}</td>
                                     <td>
                                         <div :class="item.isDeleted ? 'row-ban' : 'row-active'">
                                             {{ item.Status }}
                                         </div>
                                     </td>
+                                    <td>
+                                        <v-btn 
+                                        density="compact" 
+                                        icon="mdi-delete" 
+                                        style="background-color: red;" 
+                                        @click="dialogXoaMember = true; tenMemberXoa=item.Name; idXoaMember = item.UserId"
+                                        v-show="item.UserId!=leaderId">
+                                        </v-btn>
+                                    </td>
+
                                 </tr>
                             </template>
                             </v-data-table-server>
@@ -218,6 +247,29 @@
             </v-card>
         </v-container>
         </v-dialog>
+        
+        <v-dialog
+        v-model="dialogXoaMember"
+        max-width="600"
+        >
+            <v-card
+            title="XÓA MEMBER"
+            class="justify-center"
+            >
+                <v-card-actions class="justify-center">
+                    <v-row>
+                        <v-col cols="12" class="justify-center">
+                            <div style="min-width: 100%; text-align: center;">Bạn có muốn xóa {{ tenMemberXoa }}</div>
+                        </v-col>
+                    </v-row>
+                </v-card-actions>
+                <template v-slot:actions>
+                    <v-spacer></v-spacer>
+                    <v-btn style="background-color: green;" @click="xoaMember">XÁC NHẬN</v-btn>
+                    <v-btn @click="dialogXoaMember=false">ĐÓNG</v-btn>
+                </template>
+            </v-card>
+        </v-dialog>
     </NavAdmin>
 </template>
 <script>
@@ -239,6 +291,7 @@ import { loginInfo } from '@/pages/versal-studio/util/GlobalVariable';
                 avartar: null,
                 image:null,
                 description:"",
+                positionLeader:"",
                 statusSelected:0,
                 isCreate: true,
                 listStatus:[{title:"Đang hoạt động", value:0}, {title:"Đã khóa", value:1}],
@@ -263,7 +316,12 @@ import { loginInfo } from '@/pages/versal-studio/util/GlobalVariable';
                 listCaNhan:[],
                 memberSelected:"",
                 memberPosition:"",
-                loadingCanhan:false
+                loadingCanhan:false,
+                // xoa member
+                dialogXoaMember: false,
+                idXoaMember: 0,
+                tenMemberXoa: "",
+                leaderId:""
             }
         },
         created(){
@@ -281,7 +339,8 @@ import { loginInfo } from '@/pages/versal-studio/util/GlobalVariable';
                         image: res.split(",")[1],
                         description: this.description,
                         userId: this.userSelected,
-                        theLoaiGameId: this.theLoaiGameSelected
+                        theLoaiGameId: this.theLoaiGameSelected,
+                        positionLeader: this.positionLeader
                     }
                     teamController.create(obj)
                     .then(res=>{
@@ -332,8 +391,9 @@ import { loginInfo } from '@/pages/versal-studio/util/GlobalVariable';
                                 this.theLoaiGameSelected = res.data.theLoaiGameId
                                 this.userSelected = res.data.userId
                                 this.image = `data:image/png;base64,${res.data.image}`
-                                this.statusSelected = res.data.isBan
-                                
+                                this.statusSelected = res.data.isBan,
+                                this.positionLeader = res.data.positionLeader
+                                this.leaderId = res.data.userId
                                 this.loadingBtn = false
                                 this.changeUser()
                                 this.visibleAvaratar = true
@@ -380,7 +440,8 @@ import { loginInfo } from '@/pages/versal-studio/util/GlobalVariable';
                 let obj = {
                     filter:{
                         keyWord: this.tableMember.search,
-                        status: this.tableMember.statusSelected
+                        status: this.tableMember.statusSelected,
+                        id: this.id
                     },
                     start: (page-1)*itemsPerPage,
                     limit: itemsPerPage
@@ -391,8 +452,10 @@ import { loginInfo } from '@/pages/versal-studio/util/GlobalVariable';
                     this.tableMember.serverItems = []
                     res.data?.members?.map(item=>{
                         let obj = {
+                            UserId: item.id,
                             Name: item.name,
-                            Status: item.isDeleted == false ? "ĐANG HỌAT ĐỘNG" : "ĐÃ RỜI"
+                            Status: item.isDeleted == false ? "ĐANG HỌAT ĐỘNG" : "ĐÃ RỜI",
+                            Position: item.position
                         }
                         this.tableMember.serverItems.push(obj);
                         this.tableMember.page = page
@@ -439,6 +502,23 @@ import { loginInfo } from '@/pages/versal-studio/util/GlobalVariable';
            },
            filerMember(){
                 this.getMemberOfTeam({page:1, itemsPerPage:10})
+           },
+           xoaMember(){
+                let obj = {
+                    userId: this.idXoaMember,
+                    teamId: this.id
+                }
+                teamController.xoaMember(obj)
+                .then(res=>{
+                    this.$toast.success("Xóa thành công !");
+                    this.filerMember()
+                })
+                .catch(err=>{
+                    this.$toast.error("Xóa không thành công !")
+                })
+                .finally(()=>{
+                    this.dialogXoaMember = false
+                })
            }
         },
         components:{
