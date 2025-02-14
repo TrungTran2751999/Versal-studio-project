@@ -46,7 +46,7 @@
                     </v-col>
                 </v-row>
                 <v-row style="margin-top: -40px;">
-                    <v-col cols="6" md="10">
+                    <v-col cols="6" md="9">
                         <v-btn @click="filter" style="background-color: #dc3545; ">LỌC</v-btn>
                     </v-col>
                     <v-col cols="6" md="1">
@@ -56,7 +56,12 @@
                     </v-col>
                     <v-col cols="6" md="1">
                         <RouterLink to="/admin/quan-ly-the-loai-game">
-                            <v-btn style="background-color: #dc3545;">Thể loại game</v-btn>
+                            <v-btn style="background-color: #dc3545; font-size: 12px;">Thể loại game</v-btn>
+                        </RouterLink>
+                    </v-col>
+                    <v-col cols="6" md="1">
+                        <RouterLink to="/admin/quan-ly-team">
+                            <v-btn style="background-color: blue; font-size: 12px;">Team</v-btn>
                         </RouterLink>
                     </v-col>
                 </v-row>

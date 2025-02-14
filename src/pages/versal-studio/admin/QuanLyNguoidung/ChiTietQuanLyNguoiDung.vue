@@ -14,7 +14,7 @@
                                 <v-radio-group
                                     inline
                                     v-model="loaiTaiKhoanId"
-                                    :disabled="true"
+                                    :disabled="!isCreate"
                                 >
                                     <v-radio
                                         label="Quản trị"
@@ -26,7 +26,7 @@
                                 <v-radio-group
                                     inline
                                     v-model="loaiTaiKhoanId"
-                                    :disabled="true"
+                                    :disabled="!isCreate"
                                 >
                                     <v-radio
                                         label="Câu lạc bộ Esport"
@@ -436,6 +436,7 @@ import { utilController } from '@/services/Util';
                 obj.loaiTaiKhoanId = this.loaiTaiKhoanId
                 obj.ngaySinhCaNhan = this.caNhan.ngaySinhCaNhan
                 obj.dienThoaiCaNhan = this.caNhan.dienThoaiCaNhan
+                obj.listRoleId = []
 
                 if(this.loaiTaiKhoanId == "1"){
                     obj.listRoleId = this.listQuyenSelected

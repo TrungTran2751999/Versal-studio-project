@@ -151,7 +151,7 @@ import { tournamentController } from '@/services/TournamentController';
                     this.$toast.success("Cập nhật thành công")
                 })
                 .catch(err=>{
-                    this.loadingBtn = true;
+                    this.loadingBtn = false;
                     this.$toast.error(err.response.data)
                 })   
            },
