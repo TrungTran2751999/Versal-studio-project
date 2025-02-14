@@ -66,6 +66,24 @@ export let listChildrenNav = [
             {name: "Liên hệ hợp tác", link:""}
         ]
     },
+    {
+        name: "KHÁM PHÁ",
+        id:"nav-kham-pha-bigger",
+        idHambug:"nav-kham-pha",
+        idActivator:"",
+        isShowChildren: false,
+        idChidren: "nav-kham-pha-chidren",
+        children:[]
+    },
+    {
+        name: "MANGA/FILM",
+        id:"nav-manga-film-bigger",
+        idHambug:"nav-manga-film",
+        idActivator:"",
+        isShowChildren: false,
+        idChidren: "nav-manga-film-chidren",
+        children:[]
+    },
 ]
 export let listChildrenNavAdmin = [
     {
