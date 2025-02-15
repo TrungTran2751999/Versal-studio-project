@@ -30,115 +30,157 @@
     .card-child-su-kien{
        width: 300px;
     }
+    .container-title-su-kien{
+        margin-top: -30px;
+    }
+    .active-game{
+        background-color: green;
+    }
 </style>
 <template>
     <Nav>
-        <!-- ---------------- -->
+        <!-- --------TIEU DE-------- -->
         <v-card>
             <v-card-actions style="background-color: rgb(42,42,42);">
                 <v-row class="pa-12">
                     <v-col cols="12" md="6">
-                        <v-card style="margin-bottom: 25px; height: 725px;">
-                            <v-card-actions class="container-mg-su-kien">
-                                <v-img :src="listImg[0]" class="img-su-kien"></v-img>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="loai-su-kien">SỰ KIỆN ESPORTS </span> 
-                                    <span class="ngay-to-chuc">16/07/2024</span>
-                                </div>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center pa-6">
-                                <div>
-                                    <span class="title-su-kien" style="font-size: 25px;">Giải đấu Liên Quân Mobile: Back To School 2024 Đà Nẵng</span> 
-                                </div>
-                            </v-card-actions>
-                            <v-card-actions class="pa-6">
-                                <div>
-                                    MỞ ĐĂNG KÝ GIẢI ĐẤU LIÊN QU N MOBILE OFFLINE - BACK TO SCHOOL 2024 | 
- Gửi lời chào đến toàn bộ người chơi Liên Quân Mobile trong khu vực Đà Nẵng. Nhân dịp chào đón các bạn sinh viên, học sinh trở lại học tập sau một khoảng thời gian dài n...
-                                </div>
-                            </v-card-actions>
-                        </v-card>
+                        <RouterLink to="/news">
+                            <v-card style="margin-bottom: 25px; height: 725px;">
+                                <v-card-actions class="container-mg-su-kien">
+                                    <v-img :src="listImg[0]" class="img-su-kien"></v-img>
+                                </v-card-actions>
+                                <v-card-actions class="pa-6">
+                                    <div>
+                                        <span class="loai-su-kien">SỰ KIỆN ESPORTS </span> 
+                                        <span class="ngay-to-chuc">16/07/2024</span>
+                                    </div>
+                                </v-card-actions>
+                                <v-card-actions class="justify-center pa-6" style="margin-top: -30px;">
+                                    <div>
+                                        <span class="title-su-kien" style="font-size: 25px;">TEC 2024: Sự kiện Công nghệ – Esports – Cộng đồng hấp dẫn dành cho sinh viên do Versal Esports tổ chức</span> 
+                                    </div>
+                                </v-card-actions>
+                                <v-card-actions class="pa-6" style="margin-top: -30px;">
+                                    <div style="font-size: 18px;">
+                                        Khu vực triển lãm tại TEC 2024 sẽ là nơi quy tụ các thương hiệu công nghệ lớn như Cooler Master, WD-Black, ViewSonic, cùng với các sản phẩm nổi bật dành riêng cho lĩnh vực Esports. Đặc biệt, gian hàng của nhóm sinh viên Regen Station từ Đại học FPT sẽ giới thiệu chủ đề mới lạ về sức khỏe trong Esports, mang đến góc nhìn đầy sáng tạo và ý nghĩa cho cộng đồng.
+                                    </div>
+                                </v-card-actions>
+                            </v-card>
+                        </RouterLink>
                     </v-col>
 
                     <v-col cols="12" md="3">
-                        <v-card class="card-child">
-                            <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                <v-img :src="listImg[0]" class="img-su-kien"></v-img>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="loai-su-kien">SỰ KIỆN ESPORTSs </span> 
-                                    <span>16/07/2024</span>
-                                </div>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="title-su-kien">SUMMER TEACH BEACH</span> 
-                                </div>
-                            </v-card-actions>
-                        </v-card>
+                        <RouterLink to="/news">
+                            <v-card class="card-child">
+                                
+                                <v-card-actions style="background-color: black;" class="container-mg-su-kien">
+                                    <v-img :src="listImg[0]" class="img-su-kien"></v-img>
+                                </v-card-actions>
+                                <v-card-actions class="pa-6">
+                                    <div>
+                                        <span class="loai-su-kien">SỰ KIỆN ESPORTS </span> 
+                                        <span>16/07/2024</span>
+                                    </div>
+                                </v-card-actions>
+                                <v-card-actions class="pa-6 container-title-su-kien">
+                                    <div>
+                                        <span class="title-su-kien su-kien-con">SUMMER TEACH BEACH</span> 
+                                    </div>
+                                </v-card-actions>
+                            </v-card>
+                        </RouterLink>
 
-                        <v-card class="card-child">
-                            <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                <v-img :src="listImg[0]" class="img-su-kien"></v-img>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="loai-su-kien">SỰ KIỆN ESPORTSs </span> 
-                                    <span>16/07/2024</span>
-                                </div>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="title-su-kien">SUMMER TEACH BEACH</span> 
-                                </div>
-                            </v-card-actions>
-                        </v-card>
+                        <RouterLink to="/news">
+                            <v-card class="card-child">
+                                <v-card-actions style="background-color: black;" class="container-mg-su-kien">
+                                    <v-img :src="listImg[0]" class="img-su-kien"></v-img>
+                                </v-card-actions>
+                                <v-card-actions class="pa-6">
+                                    <div>
+                                        <span class="loai-su-kien">SỰ KIỆN ESPORTS </span> 
+                                        <span>16/07/2024</span>
+                                    </div>
+                                </v-card-actions>
+                                <v-card-actions class="pa-6 container-title-su-kien">
+                                    <div>
+                                        <span class="title-su-kien">SUMMER TEACH BEACH</span> 
+                                    </div>
+                                </v-card-actions>
+                            </v-card>
+                        </RouterLink>                        
                     </v-col>
 
                     <v-col cols="12" md="3">
-                        <v-card class="card-child">
-                            <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                <v-img :src="listImg[0]" class="img-su-kien"></v-img>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="loai-su-kien">SỰ KIỆN ESPORTSs </span> 
-                                    <span>16/07/2024</span>
-                                </div>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="title-su-kien">SUMMER TEACH BEACH</span> 
-                                </div>
-                            </v-card-actions>
-                        </v-card>
-
-                        <v-card class="card-child">
-                            <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                <v-img :src="listImg[0]" class="img-su-kien"></v-img>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="loai-su-kien">SỰ KIỆN ESPORTSs </span> 
-                                    <span>16/07/2024</span>
-                                </div>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="title-su-kien">SUMMER TEACH BEACH</span> 
-                                </div>
-                            </v-card-actions>
-                        </v-card>
+                        <RouterLink to="/news">
+                            <v-card class="card-child">
+                                <v-card-actions style="background-color: black;" class="container-mg-su-kien">
+                                    <v-img :src="listImg[0]" class="img-su-kien"></v-img>
+                                </v-card-actions>
+                                <v-card-actions class="pa-6">
+                                    <div>
+                                        <span class="loai-su-kien">SỰ KIỆN ESPORTS </span> 
+                                        <span>16/07/2024</span>
+                                    </div>
+                                </v-card-actions>
+                                <v-card-actions class="pa-6 container-title-su-kien">
+                                    <div>
+                                        <span class="title-su-kien">SUMMER TEACH BEACH</span> 
+                                    </div>
+                                </v-card-actions>
+                            </v-card>
+                        </RouterLink>
+                        
+                        <RouterLink to="/news">
+                            <v-card class="card-child">
+                                <v-card-actions style="background-color: black;" class="container-mg-su-kien">
+                                    <v-img :src="listImg[0]" class="img-su-kien"></v-img>
+                                </v-card-actions>
+                                <v-card-actions class="pa-6">
+                                    <div>
+                                        <span class="loai-su-kien">SỰ KIỆN ESPORTS </span> 
+                                        <span>16/07/2024</span>
+                                    </div>
+                                </v-card-actions>
+                                <v-card-actions class="pa-6 container-title-su-kien">
+                                    <div>
+                                        <span class="title-su-kien">SUMMER TEACH BEACH</span> 
+                                    </div>
+                                </v-card-actions>
+                            </v-card>
+                        </RouterLink>
+                        
                     </v-col>
                 </v-row>
             </v-card-actions>
 
         </v-card>
-        <!-- ---------------- -->
+        <!-- ------- GAME ---------------->
         <v-card>
+            <v-card-actions class="justify-center">
+                <v-card-title style="font-size: 30px;font-weight: bolder;">DANH SÁCH GAME</v-card-title>
+            </v-card-actions>
+            <v-card-actions class="pa-6" style="margin-top: -30px;">
+                <v-tabs v-for="loaiGame in listInfoGame.LoaiGame" :key="loaiGame.id">
+                    <v-tab 
+                    @click="selectLoaiGame(loaiGame.id)" 
+                    style="margin-right: 20px;" 
+                    :class="(loaiGame.id == loaiGameSelected.id ? 'active-game':'')">{{ loaiGame.name }}</v-tab>
+                </v-tabs>
+            </v-card-actions>
+            <v-card-actions class="pa-6 justify-center" style="overflow-x: scroll;">
+                <v-sheet v-for="game in listDanhSachGame" :key="game">
+                    <v-row>
+                        <div style="margin-right: 50px;">
+                            <img :src="game.image" width="120px" height="120px" style="border-radius: 15px;">
+                            <div style="width: 120px; text-align: center;">{{ game.name }}</div>
+                        </div>
+                    </v-row>
+                </v-sheet>
+            </v-card-actions>
+            
+        </v-card>
+        <!-- -------GIAI DAU--------- -->
+        <v-card v-show="false">
             <v-card-actions class="justify-center">
                 <v-card-title style="font-size: 30px;font-weight: bolder;">GIẢI ĐẤU NỔI BẬT</v-card-title>
             </v-card-actions>
@@ -196,7 +238,7 @@
                     </Carousel>
             </v-card-actions>
         </v-card>
-        <!-- -------------------- -->
+        <!-- ----------TIN TUC---------- -->
          <v-card>
             <v-card-actions class="pa-12" style="background-color: rgb(42,42,42);;">
                 <v-row>
@@ -205,15 +247,15 @@
                             <v-card-actions style="background-color: black;" class="container-mg-su-kien">
                                 <v-img :src="listImg[0]" class="img-su-kien"></v-img>
                             </v-card-actions>
-                            <v-card-actions class="justify-center">
+                            <v-card-actions class="pa-6">
                                 <div>
-                                    <span class="loai-su-kien">SỰ KIỆN ESPORTSs </span> 
+                                    <span class="loai-su-kien">SỰ KIỆN ESPORTS</span> 
                                     <span>16/07/2024</span>
                                 </div>
                             </v-card-actions>
-                            <v-card-actions class="justify-center">
+                            <v-card-actions class="pa-6" style="margin-top: -30px;">
                                 <div>
-                                    <span class="">ESCA và FPT Polytechnic đồng hành cùng giải đấu của CLB Esport Trần Quốc Toản ESCA và FPT Polytechnic đồng hành cùng giải đấu của CLB Esport Trần Quốc Toản </span> 
+                                    <span class="">Với sự chuẩn bị kỹ lưỡng và các hoạt động đa dạng, TEC 2024 là điểm đến lý tưởng cho những ai muốn khám phá thế giới công nghệ hiện đại, ...</span> 
                                 </div>
                             </v-card-actions>
                         </v-card>
@@ -232,6 +274,7 @@ import Nav from './layout/Nav.vue';
 import Footer from './layout/Footer.vue'
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+import { listInfoGames } from './util/GlobalVariable';
     export default{
         data(){
             return{
@@ -244,7 +287,23 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
                 },
                 listImg:[
                     require("../../assets/img-event.png")
-                ]
+                ],
+                listInfoGame:{},
+                loaiGameSelected:{
+                    id: 1
+                },
+                listDanhSachGame:[]
+            }
+        },
+        mounted(){
+            this.listInfoGame = listInfoGames
+            this.listDanhSachGame = this.listInfoGame.DanhSachGame.filter(x=>x.type==1)
+        },
+        methods:{
+            selectLoaiGame(idLoaiGame){
+                this.loaiGameSelected = this.listInfoGame.LoaiGame.filter(x=>x.id==idLoaiGame)[0]
+                console.log(this.loaiGameSelected)
+                this.listDanhSachGame = this.listInfoGame.DanhSachGame.filter(x=>x.type==idLoaiGame)
             }
         },
         components:{

@@ -157,3 +157,137 @@ export const API = {
         getProvince: "https://provinces.open-api.vn/api/" 
     }
 }   
+export let listInfoGames = {
+    LoaiGame : [
+        {
+            name:"MOBILE ESPORTS",
+            id: 1,
+        },
+        {
+            name:"MOBILE CASUAL",
+            id: 2,
+        },
+        {
+            name:"MOBILE NHẬP VAI",
+            id: 3,
+        },
+    ],
+    DanhSachGame: [
+        {
+            name:"Liên Quân Mobile",
+            image: "https://gamek.mediacdn.vn/zoom/90_90/2016/2-1478845016553.png",
+            id:1,
+            type: 1
+        },
+        {
+            name:"Tốc Chiến",
+            image: "https://gamek.mediacdn.vn/zoom/90_90/133514250583805952/2020/11/10/logo-1604977802844585809441.png",
+            id:2,
+            type: 1
+        },
+        {
+            name:"PUBG Mobile VNG",
+            image: "https://gamek.mediacdn.vn/zoom/90_90/2018/11/28/pubg-mobile-ava-15433746905421396826985.jpg",
+            id:3,
+            type: 1
+        },
+        {
+            name:"Badlanders",
+            image: "https://gamek.mediacdn.vn/zoom/90_90/133514250583805952/2022/1/26/200x2000503ea876d-1e02-48c8-9130-6ed1b7310112-16431746694811534053773.png",
+            id:4,
+            type: 1
+        },
+        {
+            name:"Call of Duty Mobile",
+            image: "https://gamek.mediacdn.vn/zoom/90_90/133514250583805952/2020/2/10/786020851190673662262489186172298606936064o-158132226147035152101.jpg",
+            id:5,
+            type: 1
+        },
+        {
+            name:"Mobile Legends",
+            image: "https://gamek.mediacdn.vn/zoom/90_90/2019/3/14/maxresdefault-1552579965996205591617.jpg",
+            id:5,
+            type: 1
+        },
+        {
+            name:"Đấu Trường Chân Lý Mobile",
+            image: "https://gamek.mediacdn.vn/zoom/90_90/133514250583805952/2020/2/8/2game-logo-dau-truong-chan-ly-mobile-1s-15811490351501166826297.jpg",
+            id:5,
+            type: 1
+        },
+
+
+        {
+            name:"Audition X",
+            image: "https://gamek.mediacdn.vn/zoom/90_90/133514250583805952/2020/2/10/827066741313149650164782968600413386833920o-15813219897102055096769.jpg",
+            id:1,
+            type: 2
+        },
+        {
+            name:"Gun Gun Mobile",
+            image: "https://gamek.mediacdn.vn/zoom/90_90/133514250583805952/2020/9/10/gungun-1599729810499775456889.png",
+            id:1,
+            type: 2
+        },
+        {
+            name:"Gun Gun Mobile",
+            image: "https://gamek.mediacdn.vn/zoom/90_90/2019/10/11/1ok7-1ok7-code-game-poki-mobile-1-15707895170181287257685.jpg",
+            id:2,
+            type: 2
+        },
+        {
+            name:"3Q Chạy Ngay Đi",
+            image: "https://gamek.mediacdn.vn/zoom/90_90/2019/10/11/ava-15707673576751603555022.jpg",
+            id:3,
+            type: 2
+        },
+        {
+            name:"Gun Gun Mobile",
+            image: "https://gamek.mediacdn.vn/zoom/90_90/2019/10/11/1ok7-1ok7-code-game-poki-mobile-1-15707895170181287257685.jpg",
+            id:4,
+            type: 2
+        },
+        {
+            name:"Epic Souls",
+            image: "https://gamek.mediacdn.vn/zoom/90_90/2019/10/11/maxresdefault-15707893135831724057834.jpg",
+            id:4,
+            type: 2
+        },
+        {
+            name:"Gun Gun Mobile",
+            image: "https://gamek.mediacdn.vn/zoom/90_90/2019/10/11/1ok7-1ok7-code-game-poki-mobile-1-15707895170181287257685.jpg",
+            id:4,
+            type: 2
+        },
+        {
+            name:"Long Kỷ Nguyên Mobile",
+            image: "https://gamek.mediacdn.vn/zoom/90_90/133514250583805952/2020/2/10/862614031378163377099791218434629342593024o-1581321387186547318355.jpg",
+            id:1,
+            type: 3
+        },
+        {
+            name:"Giang Hồ Chi Mộng",
+            image: "https://gamek.mediacdn.vn/zoom/90_90/133514250583805952/2020/2/10/836408361622819918675656974996596299661312o-1581321114014582642121.jpg",
+            id:1,
+            type: 3
+        },
+        {
+            name:"Thiên Ma Quyết",
+            image: "https://gamek.mediacdn.vn/zoom/90_90/133514250583805952/2020/2/10/791365951552828591550567775542130490998784o-15813216846611627735411.jpg",
+            id:1,
+            type: 3
+        },
+        {
+            name:"Dấu Ấn Rồng",
+            image: "https://gamek.mediacdn.vn/zoom/90_90/133514250583805952/2020/2/10/sg277-avatar-1581329246096917566148-15813292798762139547046.png",
+            id:1,
+            type: 3
+        },
+        {
+            name:"Tiên Duyên Kiếm",
+            image: "https://gamek.mediacdn.vn/zoom/90_90/2020/1/2/773625931055767342622347642801738096836608n-1577951031499802495.png",
+            id:1,
+            type: 3
+        },
+    ]
+}

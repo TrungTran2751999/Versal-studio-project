@@ -4,7 +4,7 @@ import Home from "./pages/versal-studio/Home.vue";
 import TinTuc from "./pages/versal-studio/TinTuc.vue";
 import DangNhap from "./pages/versal-studio/DangNhap.vue";
 import DangKy from "./pages/versal-studio/DangKy.vue";
-import News from "./pages/versal-studio/ChiTietTinTuc.vue";
+import ChiTietTinTuc from "./pages/versal-studio/ChiTietTinTuc.vue";
 import GiaiDau from "./pages/versal-studio/GiaiDau.vue";
 import HoSoTaiKhoan from "./pages/versal-studio/HoSoTaiKhoan.vue";
 import Dashboard from "./pages/versal-studio/admin/Dashboard.vue";
@@ -54,7 +54,7 @@ const routes = [
     {
         path: "/news",
         name: "news",
-        component: News
+        component: ChiTietTinTuc
     },
     {
         path: "/giai-dau",

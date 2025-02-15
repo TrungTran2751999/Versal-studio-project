@@ -69,22 +69,24 @@
             <v-card-actions class="pa-12">
                 <v-row>
                     <v-col cols="12" sm="3" v-for="n in 4" :key="n">
-                        <v-card class="card-child" v-for="m in 2" :key="m">
-                            <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                <v-img :src="listImg[0]" class="img-su-kien"></v-img>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="loai-su-kien">SỰ KIỆN ESPORTSs </span> 
-                                    <span>16/07/2024</span>
-                                </div>
-                            </v-card-actions>
-                            <v-card-actions class="justify-center">
-                                <div>
-                                    <span class="">ESCA và FPT Polytechnic đồng hành cùng giải đấu của CLB Esport Trần Quốc Toản ESCA và FPT Polytechnic đồng hành cùng giải đấu của CLB Esport Trần Quốc Toản </span> 
-                                </div>
-                            </v-card-actions>
-                        </v-card>
+                        <RouterLink to="/news">
+                            <v-card class="card-child" v-for="m in 2" :key="m">
+                                <v-card-actions style="background-color: black;" class="container-mg-su-kien">
+                                    <v-img :src="listImg[0]" class="img-su-kien"></v-img>
+                                </v-card-actions>
+                                <v-card-actions class="pa-6">
+                                    <div>
+                                        <span class="loai-su-kien">SỰ KIỆN ESPORTS </span> 
+                                        <span>16/07/2024</span>
+                                    </div>
+                                </v-card-actions>
+                                <v-card-actions class="pa-6" style="margin-top: -30px;">
+                                    <div>
+                                        <span class="">Với sự chuẩn bị kỹ lưỡng và các hoạt động đa dạng, TEC 2024 là điểm đến lý tưởng cho những ai muốn khám phá thế giới công nghệ hiện đại, ...</span> 
+                                    </div>
+                                </v-card-actions>
+                            </v-card>
+                        </RouterLink>
                     </v-col>
                 </v-row>
             </v-card-actions>

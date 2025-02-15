@@ -35,6 +35,7 @@
     a{
         text-decoration: none;
     }
+
 </style>
 <template>
     <v-app>
@@ -55,12 +56,7 @@
                 </template>
                 <template v-slot:append>
                     <div class="visible">
-                        <RouterLink to="/dang-nhap">
-                            <v-btn style="background-color: green; margin-right: 20px; color: white;">ĐĂNG NHẬP</v-btn>
-                        </RouterLink>
-                        <RouterLink to="/dang-ky">
-                            <v-btn style="background-color: wheat;">ĐĂNG KÝ</v-btn>
-                        </RouterLink>RouterLink>
+                        
                         <v-btn style="background-color: wheat;" id="btn-tai-khoan">
                             <span><v-icon>mdi-account</v-icon></span>
                             TÀI KHOẢN <span><v-icon>mdi-chevron-down</v-icon></span>
@@ -76,9 +72,21 @@
                                 </v-list-item>
                             </RouterLink>
                             <v-divider></v-divider>
-                            <RouterLink to="/">
+                            <!-- <RouterLink to="/">
                                 <v-list-item class="menu-dropdown-container">
                                     <v-list-item-title><span style="margin-right: 7px;"><v-icon>mdi-power</v-icon></span>ĐĂNG XUẤT</v-list-item-title>
+                                </v-list-item>
+                            </RouterLink> -->
+                            <v-divider></v-divider>
+                            <RouterLink to="/dang-nhap">
+                                <v-list-item class="menu-dropdown-container">
+                                    <v-list-item-title><span style="margin-right: 7px;"><v-icon>mdi-account-key</v-icon></span>ĐĂNG NHẬP</v-list-item-title>
+                                </v-list-item>
+                            </RouterLink>
+                            <v-divider></v-divider>
+                            <RouterLink to="/dang-ky">
+                                <v-list-item class="menu-dropdown-container">
+                                    <v-list-item-title><span style="margin-right: 7px;"><v-icon>mdi-account-edit</v-icon></span>ĐĂNG KÝ</v-list-item-title>
                                 </v-list-item>
                             </RouterLink>
                             <v-divider></v-divider>

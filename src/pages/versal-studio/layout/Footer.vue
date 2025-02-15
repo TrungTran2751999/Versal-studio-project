@@ -71,9 +71,11 @@
                                 <v-img src="@/assets/logo-2.png" max-height="70"></v-img>
                             </div>
                         </v-col>
-                        <v-col cols="12" sm="5" style="margin-top: 18px; text-align: center">
-                            <div style="color: white; font-size: 14px; font-weight: 500">CTY TNHH VERSAL STUDIO VIETNAM</div>
-                            <div style="color: white; font-size: 14px; font-weight: 100">TP.HCM: PARC MALL, Tạ Quang Bửu, Q8</div>
+                        <v-col cols="12" sm="9" style="margin-top: 18px">
+                            <div style="color: white; margin-bottom:10px; font-size: 13px; font-weight: 500">CTY TNHH VERSAL STUDIO VIETNAM</div>
+                            <div style="color: white; font-size: 14px; margin-bottom:10px; font-weight: 100"><v-icon>mdi-phone</v-icon> 076.367.2367</div>
+                            <div style="color: white; margin-bottom:10px; font-size: 14px; font-weight: 100"><v-icon>mdi-gmail</v-icon> contact@versalstudio.vn</div>
+                            <div style="color: white; font-size: 14px; font-weight: 100"><v-icon>mdi-map-marker-radius</v-icon> 68/393 Trần Quang Khải, Phường Tân Định, Quận 1,  Thành phố Hồ Chí Minh, Việt Nam</div>
                         </v-col>
                     </v-row>
                 </v-col>
