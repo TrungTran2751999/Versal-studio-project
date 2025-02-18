@@ -36,6 +36,14 @@
     .active-game{
         background-color: green;
     }
+    @media (max-width: 900px) {
+    #card-danh-sach-game {
+        display: none;
+    }
+    .content-su-kien{
+        display: none;
+    }
+}
 </style>
 <template>
     <Nav>
@@ -44,25 +52,25 @@
             <v-card-actions style="background-color: rgb(42,42,42);">
                 <v-row class="pa-12">
                     <v-col cols="12" md="6">
-                        <RouterLink to="/news">
+                        <RouterLink to="/news?id=2">
                             <v-card style="margin-bottom: 25px; height: 725px;">
                                 <v-card-actions class="container-mg-su-kien">
-                                    <v-img :src="listImg[0]" class="img-su-kien"></v-img>
+                                    <v-img :src="baiVietGanNhat.avartar" class="img-su-kien"></v-img>
                                 </v-card-actions>
                                 <v-card-actions class="pa-6">
                                     <div>
                                         <span class="loai-su-kien">SỰ KIỆN ESPORTS </span> 
-                                        <span class="ngay-to-chuc">16/07/2024</span>
+                                        <span class="ngay-to-chuc">{{ baiVietGanNhat.date }}</span>
                                     </div>
                                 </v-card-actions>
                                 <v-card-actions class="justify-center pa-6" style="margin-top: -30px;">
                                     <div>
-                                        <span class="title-su-kien" style="font-size: 25px;">TEC 2024: Sự kiện Công nghệ – Esports – Cộng đồng hấp dẫn dành cho sinh viên do Versal Esports tổ chức</span> 
+                                        <span class="title-su-kien" style="font-size: 25px;">{{ baiVietGanNhat.title }}</span> 
                                     </div>
                                 </v-card-actions>
-                                <v-card-actions class="pa-6" style="margin-top: -30px;">
+                                <v-card-actions class="pa-6 content-su-kien" style="margin-top: -30px;">
                                     <div style="font-size: 18px;">
-                                        Khu vực triển lãm tại TEC 2024 sẽ là nơi quy tụ các thương hiệu công nghệ lớn như Cooler Master, WD-Black, ViewSonic, cùng với các sản phẩm nổi bật dành riêng cho lĩnh vực Esports. Đặc biệt, gian hàng của nhóm sinh viên Regen Station từ Đại học FPT sẽ giới thiệu chủ đề mới lạ về sức khỏe trong Esports, mang đến góc nhìn đầy sáng tạo và ý nghĩa cho cộng đồng.
+                                        
                                     </div>
                                 </v-card-actions>
                             </v-card>
@@ -79,12 +87,12 @@
                                 <v-card-actions class="pa-6">
                                     <div>
                                         <span class="loai-su-kien">SỰ KIỆN ESPORTS </span> 
-                                        <span>16/07/2024</span>
+                                        <span>27/12/2024</span>
                                     </div>
                                 </v-card-actions>
                                 <v-card-actions class="pa-6 container-title-su-kien">
                                     <div>
-                                        <span class="title-su-kien su-kien-con">SUMMER TEACH BEACH</span> 
+                                        <span class="title-su-kien"></span> 
                                     </div>
                                 </v-card-actions>
                             </v-card>
@@ -98,12 +106,12 @@
                                 <v-card-actions class="pa-6">
                                     <div>
                                         <span class="loai-su-kien">SỰ KIỆN ESPORTS </span> 
-                                        <span>16/07/2024</span>
+                                        <span>27/12/2024</span>
                                     </div>
                                 </v-card-actions>
                                 <v-card-actions class="pa-6 container-title-su-kien">
                                     <div>
-                                        <span class="title-su-kien">SUMMER TEACH BEACH</span> 
+                                        <span class="title-su-kien content-su-kien"></span> 
                                     </div>
                                 </v-card-actions>
                             </v-card>
@@ -119,12 +127,12 @@
                                 <v-card-actions class="pa-6">
                                     <div>
                                         <span class="loai-su-kien">SỰ KIỆN ESPORTS </span> 
-                                        <span>16/07/2024</span>
+                                        <span>27/12/2024</span>
                                     </div>
                                 </v-card-actions>
                                 <v-card-actions class="pa-6 container-title-su-kien">
                                     <div>
-                                        <span class="title-su-kien">SUMMER TEACH BEACH</span> 
+                                        <span class="title-su-kien content-su-kien"></span> 
                                     </div>
                                 </v-card-actions>
                             </v-card>
@@ -138,12 +146,12 @@
                                 <v-card-actions class="pa-6">
                                     <div>
                                         <span class="loai-su-kien">SỰ KIỆN ESPORTS </span> 
-                                        <span>16/07/2024</span>
+                                        <span>27/12/2024</span>
                                     </div>
                                 </v-card-actions>
                                 <v-card-actions class="pa-6 container-title-su-kien">
                                     <div>
-                                        <span class="title-su-kien">SUMMER TEACH BEACH</span> 
+                                        <span class="title-su-kien content-su-kien"></span> 
                                     </div>
                                 </v-card-actions>
                             </v-card>
@@ -155,7 +163,7 @@
 
         </v-card>
         <!-- ------- GAME ---------------->
-        <v-card>
+        <v-card id="card-danh-sach-game">
             <v-card-actions class="justify-center">
                 <v-card-title style="font-size: 30px;font-weight: bolder;">DANH SÁCH GAME</v-card-title>
             </v-card-actions>
@@ -243,22 +251,24 @@
             <v-card-actions class="pa-12" style="background-color: rgb(42,42,42);;">
                 <v-row>
                     <v-col cols="12" sm="3" v-for="n in 4" :key="n">
-                        <v-card class="card-child" v-for="m in 2" :key="m">
-                            <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                <v-img :src="listImg[0]" class="img-su-kien"></v-img>
-                            </v-card-actions>
-                            <v-card-actions class="pa-6">
-                                <div>
-                                    <span class="loai-su-kien">SỰ KIỆN ESPORTS</span> 
-                                    <span>16/07/2024</span>
-                                </div>
-                            </v-card-actions>
-                            <v-card-actions class="pa-6" style="margin-top: -30px;">
-                                <div>
-                                    <span class="">Với sự chuẩn bị kỹ lưỡng và các hoạt động đa dạng, TEC 2024 là điểm đến lý tưởng cho những ai muốn khám phá thế giới công nghệ hiện đại, ...</span> 
-                                </div>
-                            </v-card-actions>
-                        </v-card>
+                        <RouterLink to="/news">
+                            <v-card class="card-child" v-for="m in 2" :key="m">
+                                <v-card-actions style="background-color: black;" class="container-mg-su-kien">
+                                    <v-img :src="listImg[0]" class="img-su-kien"></v-img>
+                                </v-card-actions>
+                                <v-card-actions class="pa-6">
+                                    <div>
+                                        <span class="loai-su-kien">SỰ KIỆN ESPORTS</span> 
+                                        <span>27/12/2024</span>
+                                    </div>
+                                </v-card-actions>
+                                <v-card-actions class="pa-6" style="margin-top: -30px;">
+                                    <div>
+                                        <span>Với sự chuẩn bị kỹ lưỡng và các hoạt động đa dạng, TEC 2024 là điểm đến lý tưởng cho những ai muốn khám phá thế giới công nghệ hiện đại, ...</span> 
+                                    </div>
+                                </v-card-actions>
+                            </v-card>
+                        </RouterLink>
                     </v-col>
                 </v-row>
                 
@@ -274,7 +284,8 @@ import Nav from './layout/Nav.vue';
 import Footer from './layout/Footer.vue'
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
-import { listInfoGames } from './util/GlobalVariable';
+import { listBaiViet, listInfoGames } from './util/GlobalVariable';
+import { RouterLink } from 'vue-router';
     export default{
         data(){
             return{
@@ -292,7 +303,8 @@ import { listInfoGames } from './util/GlobalVariable';
                 loaiGameSelected:{
                     id: 1
                 },
-                listDanhSachGame:[]
+                listDanhSachGame:[],
+                baiVietGanNhat: listBaiViet.filter(x=>x.id==2)[0]
             }
         },
         mounted(){
@@ -302,7 +314,6 @@ import { listInfoGames } from './util/GlobalVariable';
         methods:{
             selectLoaiGame(idLoaiGame){
                 this.loaiGameSelected = this.listInfoGame.LoaiGame.filter(x=>x.id==idLoaiGame)[0]
-                console.log(this.loaiGameSelected)
                 this.listDanhSachGame = this.listInfoGame.DanhSachGame.filter(x=>x.type==idLoaiGame)
             }
         },
