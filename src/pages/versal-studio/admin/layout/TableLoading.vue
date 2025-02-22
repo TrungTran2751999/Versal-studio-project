@@ -1,6 +1,7 @@
 
 <template>
     <v-data-table-server
+    style="margin-top: 15px;"
     :loading="this.$props.loading" 
     v-show="this.$props.loading"
     >

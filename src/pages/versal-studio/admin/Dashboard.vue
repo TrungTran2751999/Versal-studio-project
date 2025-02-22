@@ -3,8 +3,8 @@
 </style>
 <template>
     <NavAdmin>
-        <v-container>
-            <v-row>
+        <v-container v-show="false">
+            <v-row class="justify-center">
                 <v-col cols="12" md="4">
                     <RouterLink to="/admin/quan-ly-user" style="text-decoration: none;">
                         <v-card style="background-color: #dc3545;">
@@ -20,8 +20,37 @@
                             </v-card-actions>
                         </v-card>
                     </RouterLink>
+                    
+                    <RouterLink to="/admin/quan-ly-tin-tuc" style="text-decoration: none;">
+                        <v-card style="background-color: #ffc107; margin-top: 15px;">
+                            <v-card-actions>
+                                <v-row>
+                                    <v-col col="12" md="4">
+                                        <v-icon style="font-size: 70px;">mdi-note-text</v-icon>
+                                    </v-col>
+                                    <v-col col="12" md="8">
+                                        <span style="font-size: 40px;">12000</span> <span> tin tức</span>
+                                    </v-col>
+                                </v-row>
+                            </v-card-actions>
+                        </v-card>
+                    </RouterLink>
+                    <RouterLink to="/admin/quan-ly-giai-dau" style="text-decoration: none;">
+                        <v-card style="background-color: #6c757d; margin-top: 15px;">
+                            <v-card-actions>
+                                <v-row>
+                                    <v-col col="12" md="4">
+                                        <v-icon style="font-size: 70px;">mdi-google-controller</v-icon>
+                                    </v-col>
+                                    <v-col col="12" md="8">
+                                        <span style="font-size: 40px;">12000</span> <span> giải đấu</span>
+                                    </v-col>
+                                </v-row>
+                            </v-card-actions>
+                        </v-card>
+                    </RouterLink>
                 </v-col>
-                <v-col cols="12" md="4">
+                <!-- <v-col cols="12" md="4">
                     <RouterLink to="/admin/quan-ly-tin-tuc" style="text-decoration: none;">
                         <v-card style="background-color: #ffc107;">
                             <v-card-actions>
@@ -36,8 +65,8 @@
                             </v-card-actions>
                         </v-card>
                     </RouterLink>
-                </v-col>
-                <v-col cols="12" md="4">
+                </v-col> -->
+                <!-- <v-col cols="12" md="4">
                     <RouterLink to="/admin/quan-ly-giai-dau" style="text-decoration: none;">
                     <v-card style="background-color: #6c757d;">
                         <v-card-actions>
@@ -52,11 +81,11 @@
                         </v-card-actions>
                     </v-card>
                     </RouterLink>
-                </v-col>
+                </v-col> -->
             </v-row>
             <!-- Bang data -->
              <!-- NGUOI DUNG -->
-            <div>
+            <div v-show="false">
                 <v-divider><span style="font-weight: bolder;">NGƯỜI DÙNG</span></v-divider>
                 <v-data-table-server height="60vh"
                 fixed-header 
@@ -100,7 +129,7 @@
                 </v-data-table-server>
             </div>
             <!-- TIN TUC -->
-            <div>
+            <div v-show="false">
                 <v-divider><span style="font-weight: bolder;">TIN TỨC</span></v-divider>
                 <v-data-table-server height="60vh"
                 fixed-header 
@@ -133,7 +162,7 @@
                 </v-data-table-server>
             </div>
             <!-- GIAI DAU -->
-            <div>
+            <div v-show="false">
                 <v-divider><span style="font-weight: bolder;">GIẢI ĐẤU</span></v-divider>
                 <v-data-table-server height="60vh"
                 fixed-header 

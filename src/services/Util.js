@@ -64,6 +64,9 @@ function convertFileToBase64(file){
         reader.onerror = error => reject(error);
     });
 }
+function convertDate(dateStr){
+    return dateStr?.split(" ")[0].split("-").reverse().join("/")
+}
 export const utilController = {
     debouceComplete,
     checkJWTToken,
@@ -71,5 +74,6 @@ export const utilController = {
     getCookie,
     exportExcel,
     getListProvince,
-    convertFileToBase64
+    convertFileToBase64,
+    convertDate
 }

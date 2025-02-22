@@ -10,6 +10,9 @@
         background-color: red; 
         color: white; 
     } 
+    .tieu-de:hover{
+        cursor: pointer;
+    }
 </style>
 <template>
     <NavAdmin>
@@ -45,23 +48,19 @@
                         ></v-autocomplete>
                     </v-col>
                 </v-row>
-                <v-row style="margin-top: -40px;">
-                    <v-col cols="6" md="10">
-                        <v-btn @click="filter" style="background-color: #dc3545; ">LỌC</v-btn>
-                    </v-col>
-                    <v-col cols="6" md="1">
-                        <RouterLink to="/admin/chi-tiet-quan-ly-tin-tuc">
-                            <v-btn  style="background-color: green; margin-left: 15px;">Thêm mới</v-btn>
-                        </RouterLink>
-                    </v-col>
-                    <v-col cols="6" md="1">
-                        <RouterLink to="/admin/quan-ly-loai-tin-tuc">
-                            <v-btn style="background-color: #dc3545;">Loại tin tức</v-btn>
-                        </RouterLink>
-                    </v-col>
+                <v-row style="display: flex; gap: 10px;">
+                    <v-btn @click="filter" style="background-color: #dc3545; ">LỌC</v-btn>
+                    <RouterLink to="/admin/chi-tiet-quan-ly-tin-tuc">
+                        <v-btn  style="background-color: green; margin-left: 15px;">Thêm mới</v-btn>
+                    </RouterLink>
+                    <RouterLink to="/admin/quan-ly-loai-tin-tuc">
+                        <v-btn style="background-color: #dc3545; width: min-content;">Loại tin tức</v-btn>
+                    </RouterLink>
                 </v-row>
             </div>
-            <v-data-table-server height="70vh"
+            <v-data-table-server 
+            style="margin-top: 15px;"
+            height="70vh"
             fixed-header 
             :headers="tableNguoiDung.headers" 
             :items-length="tableNguoiDung.totalItems" 
@@ -84,9 +83,9 @@
                 </tr>
             </template>
             <template v-slot:[`item`] = "{item}">
-                <tr @click="xemChiTiet(item.guid)" class="hover-row">
+                <tr class="hover-row">
                     <td>{{ item.Id }}</td>
-                    <td>{{ item.TieuDe }}</td>
+                    <td @click="xemChiTiet(item.guid)" class="tieu-de">{{ item.TieuDe }}</td>
                     <td>{{ item.NgayTao }}</td>
                     <td>{{ item.NgayCapNhat }}</td>
                     <td>{{ item.TenTinTuc }}</td>
@@ -170,7 +169,7 @@ import { tinTucController } from '@/services/TinTucController';
                             status: item.status,
                             guid: item.guid,
                             TrangThai: item.status==0 ? "Chưa duyệt" : item.status==1 ? "Đã duyệt":"",
-                            TenTinTuc: item.tenTinTuc
+                            TenTinTuc: item.tenLoaiTinTuc
                         }
                         this.tableNguoiDung.serverItems.push(obj)
                     })

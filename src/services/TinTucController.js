@@ -73,6 +73,13 @@ function updateLoaiTinTuc(postData){
         }
     })
 }
+function duyetBai(postData){
+    return axios.post(API.ADMIN.tinTuc.duyetBai, postData,{
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
 export const tinTucController = {
     getAll,
     create,
@@ -84,5 +91,6 @@ export const tinTucController = {
     createLoaiTinTuc,
     getCountLoaiTinTuc,
     updateLoaiTinTuc,
-    getLoaiTinTucById
+    getLoaiTinTucById,
+    duyetBai
 }

@@ -50,22 +50,22 @@
         <!-- --------TIEU DE-------- -->
         <v-card>
             <v-card-actions style="background-color: rgb(42,42,42);">
-                <v-row class="pa-12">
+                <v-row class="pa-12" v-show="listTinTuc.listTinNoiBat2">
                     <v-col cols="12" md="6">
                         <RouterLink to="/news?id=2">
                             <v-card style="margin-bottom: 25px; height: 725px;">
                                 <v-card-actions class="container-mg-su-kien">
-                                    <v-img :src="baiVietGanNhat.avartar" class="img-su-kien"></v-img>
+                                    <v-img :src="listTinTuc.listTinNoiBat1?.avartar" class="img-su-kien"></v-img>
                                 </v-card-actions>
                                 <v-card-actions class="pa-6">
                                     <div>
-                                        <span class="loai-su-kien">SỰ KIỆN ESPORTS </span> 
-                                        <span class="ngay-to-chuc">{{ baiVietGanNhat.date }}</span>
+                                        <span class="loai-su-kien">{{ listTinTuc.listTinNoiBat1?.tenLoaiTinTuc?.toUpperCase() }}</span> 
+                                        <span class="ngay-to-chuc">{{ listTinTuc.listTinNoiBat1?.updatedAt }}</span>
                                     </div>
                                 </v-card-actions>
                                 <v-card-actions class="justify-center pa-6" style="margin-top: -30px;">
                                     <div>
-                                        <span class="title-su-kien" style="font-size: 25px;">{{ baiVietGanNhat.title }}</span> 
+                                        <span class="title-su-kien" style="font-size: 25px;">{{ listTinTuc.listTinNoiBat1?.name }}</span> 
                                     </div>
                                 </v-card-actions>
                                 <v-card-actions class="pa-6 content-su-kien" style="margin-top: -30px;">
@@ -76,87 +76,45 @@
                             </v-card>
                         </RouterLink>
                     </v-col>
-
-                    <v-col cols="12" md="3">
-                        <RouterLink to="/news">
+                    
+                    <v-col cols="12" md="3" v-for="listTinNoiBat2 in listTinTuc.listTinNoiBat2" :key="listTinNoiBat2">
+                        <RouterLink to="/news" v-for="item in listTinNoiBat2" :key="item">
                             <v-card class="card-child">
                                 
                                 <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                    <v-img :src="listImg[0]" class="img-su-kien"></v-img>
+                                    <v-img :src="item?.avartar" class="img-su-kien"></v-img>
                                 </v-card-actions>
                                 <v-card-actions class="pa-6">
                                     <div>
-                                        <span class="loai-su-kien">SỰ KIỆN ESPORTS </span> 
-                                        <span>27/12/2024</span>
+                                        <span class="loai-su-kien">{{ item?.tenLoaiTinTuc }} </span> 
+                                        <span>{{ item?.updatedAt }}</span>
                                     </div>
                                 </v-card-actions>
                                 <v-card-actions class="pa-6 container-title-su-kien">
                                     <div>
-                                        <span class="title-su-kien"></span> 
+                                        <span class="title-su-kien">{{ item?.name }}</span> 
                                     </div>
                                 </v-card-actions>
                             </v-card>
                         </RouterLink>
-
-                        <RouterLink to="/news">
-                            <v-card class="card-child">
-                                <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                    <v-img :src="listImg[0]" class="img-su-kien"></v-img>
-                                </v-card-actions>
-                                <v-card-actions class="pa-6">
-                                    <div>
-                                        <span class="loai-su-kien">SỰ KIỆN ESPORTS </span> 
-                                        <span>27/12/2024</span>
-                                    </div>
-                                </v-card-actions>
-                                <v-card-actions class="pa-6 container-title-su-kien">
-                                    <div>
-                                        <span class="title-su-kien content-su-kien"></span> 
-                                    </div>
-                                </v-card-actions>
-                            </v-card>
-                        </RouterLink>                        
                     </v-col>
 
-                    <v-col cols="12" md="3">
-                        <RouterLink to="/news">
-                            <v-card class="card-child">
-                                <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                    <v-img :src="listImg[0]" class="img-su-kien"></v-img>
-                                </v-card-actions>
-                                <v-card-actions class="pa-6">
-                                    <div>
-                                        <span class="loai-su-kien">SỰ KIỆN ESPORTS </span> 
-                                        <span>27/12/2024</span>
-                                    </div>
-                                </v-card-actions>
-                                <v-card-actions class="pa-6 container-title-su-kien">
-                                    <div>
-                                        <span class="title-su-kien content-su-kien"></span> 
-                                    </div>
-                                </v-card-actions>
-                            </v-card>
-                        </RouterLink>
-                        
-                        <RouterLink to="/news">
-                            <v-card class="card-child">
-                                <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                    <v-img :src="listImg[0]" class="img-su-kien"></v-img>
-                                </v-card-actions>
-                                <v-card-actions class="pa-6">
-                                    <div>
-                                        <span class="loai-su-kien">SỰ KIỆN ESPORTS </span> 
-                                        <span>27/12/2024</span>
-                                    </div>
-                                </v-card-actions>
-                                <v-card-actions class="pa-6 container-title-su-kien">
-                                    <div>
-                                        <span class="title-su-kien content-su-kien"></span> 
-                                    </div>
-                                </v-card-actions>
-                            </v-card>
-                        </RouterLink>
-                        
+                </v-row>
+                <v-row class="pa-12" v-show="!listTinTuc.listTinNoiBat2">
+                    <v-col cols="12" md="6">
+                        <v-skeleton-loader
+                        style="height: 725px;"
+                        class="mx-auto border"
+                        type="image, article"
+                        ></v-skeleton-loader>
+                    </v-col>
+                    <v-col cols="12" md="3" v-for="m in 2" :key="m">
+                        <v-skeleton-loader
+                        style="margin-bottom: 100px;"
+                        v-for="n in 2" :key="n"
+                        class="mx-auto border"
+                        type="image, article"
+                        ></v-skeleton-loader>
                     </v-col>
                 </v-row>
             </v-card-actions>
@@ -249,28 +207,55 @@
         <!-- ----------TIN TUC---------- -->
          <v-card>
             <v-card-actions class="pa-12" style="background-color: rgb(42,42,42);;">
-                <v-row>
-                    <v-col cols="12" sm="3" v-for="n in 4" :key="n">
-                        <RouterLink to="/news">
-                            <v-card class="card-child" v-for="m in 2" :key="m">
-                                <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                    <v-img :src="listImg[0]" class="img-su-kien"></v-img>
-                                </v-card-actions>
-                                <v-card-actions class="pa-6">
-                                    <div>
-                                        <span class="loai-su-kien">SỰ KIỆN ESPORTS</span> 
-                                        <span>27/12/2024</span>
-                                    </div>
-                                </v-card-actions>
-                                <v-card-actions class="pa-6" style="margin-top: -30px;">
-                                    <div>
-                                        <span>Với sự chuẩn bị kỹ lưỡng và các hoạt động đa dạng, TEC 2024 là điểm đến lý tưởng cho những ai muốn khám phá thế giới công nghệ hiện đại, ...</span> 
-                                    </div>
-                                </v-card-actions>
-                            </v-card>
-                        </RouterLink>
-                    </v-col>
-                </v-row>
+                <v-col>
+
+                    <v-row>
+                        <v-col cols="12" sm="3" v-for="n in 4" :key="n">
+                            <RouterLink to="/news">
+                                <v-card class="card-child">
+                                    <v-card-actions style="background-color: black;" class="container-mg-su-kien">
+                                        <v-img :src="listImg[0]" class="img-su-kien"></v-img>
+                                    </v-card-actions>
+                                    <v-card-actions class="pa-6">
+                                        <div>
+                                            <span class="loai-su-kien">SỰ KIỆN ESPORTS</span> 
+                                            <span>27/12/2024</span>
+                                        </div>
+                                    </v-card-actions>
+                                    <v-card-actions class="pa-6" style="margin-top: -30px;">
+                                        <div>
+                                            <span>Với sự chuẩn bị kỹ lưỡng và các hoạt động đa dạng, TEC 2024 là điểm đến lý tưởng cho những ai muốn khám phá thế giới công nghệ hiện đại, ...</span> 
+                                        </div>
+                                    </v-card-actions>
+                                </v-card>
+                            </RouterLink>
+                        </v-col>
+                    </v-row>
+
+                    <v-row>
+                        <v-col cols="12" sm="3" v-for="n in 4" :key="n">
+                            <RouterLink to="/news">
+                                <v-card class="card-child">
+                                    <v-card-actions style="background-color: black;" class="container-mg-su-kien">
+                                        <v-img :src="listImg[0]" class="img-su-kien"></v-img>
+                                    </v-card-actions>
+                                    <v-card-actions class="pa-6">
+                                        <div>
+                                            <span class="loai-su-kien">SỰ KIỆN ESPORTS</span> 
+                                            <span>27/12/2024</span>
+                                        </div>
+                                    </v-card-actions>
+                                    <v-card-actions class="pa-6" style="margin-top: -30px;">
+                                        <div>
+                                            <span>Với sự chuẩn bị kỹ lưỡng và các hoạt động đa dạng, TEC 2024 là điểm đến lý tưởng cho những ai muốn khám phá thế giới công nghệ hiện đại, ...</span> 
+                                        </div>
+                                    </v-card-actions>
+                                </v-card>
+                            </RouterLink>
+                        </v-col>
+                    </v-row>
+                
+                </v-col>
                 
             </v-card-actions>
          </v-card>
@@ -286,6 +271,8 @@ import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import { listBaiViet, listInfoGames } from './util/GlobalVariable';
 import { RouterLink } from 'vue-router';
+import { tinTucController } from '@/services/TinTucController';
+import { utilController } from '@/services/Util';
     export default{
         data(){
             return{
@@ -304,10 +291,12 @@ import { RouterLink } from 'vue-router';
                     id: 1
                 },
                 listDanhSachGame:[],
-                baiVietGanNhat: listBaiViet.filter(x=>x.id==2)[0]
+                baiVietGanNhat: listBaiViet.filter(x=>x.id==2)[0],
+                listTinTuc:{}
             }
         },
         mounted(){
+            this.setData();
             this.listInfoGame = listInfoGames
             this.listDanhSachGame = this.listInfoGame.DanhSachGame.filter(x=>x.type==1)
         },
@@ -315,6 +304,60 @@ import { RouterLink } from 'vue-router';
             selectLoaiGame(idLoaiGame){
                 this.loaiGameSelected = this.listInfoGame.LoaiGame.filter(x=>x.id==idLoaiGame)[0]
                 this.listDanhSachGame = this.listInfoGame.DanhSachGame.filter(x=>x.type==idLoaiGame)
+            },
+            setData(){
+                let postData = {
+                    filter:{
+                        keyWord: "",
+                        status: 1,
+                        loaiTinTucId: null
+                    },
+                    start: 0,
+                    limit: 8
+                }
+                tinTucController.getAll(postData)
+                .then(res=>{
+                    let listTinTucParam = []
+                    let lengthTinTuc = res.data.length;
+                    let lengthTinTucMacDinh = 13 - lengthTinTuc;
+                    res.data.map(item=>{
+                        item.updatedAt = utilController.convertDate(item.updatedAt)
+                    })
+                    listTinTucParam = res.data
+                    //them bai viet fake
+                    for(let i=1; i<=lengthTinTucMacDinh; i++){
+                        let baiVietMacDinh = listBaiViet.filter(x=>x.id==1)[0];
+                        baiVietMacDinh.updatedAt = utilController.convertDate(baiVietMacDinh.updatedAt);
+                        listTinTucParam.push(baiVietMacDinh)
+                    }
+                    this.listTinTuc.listTinNoiBat1 = listTinTucParam[0]
+
+                    this.listTinTuc.listTinNoiBat2 = []
+                    let mangCon = []
+                    for(let i=1; i<=4; i++){
+                        if(i % 2 != 0){
+                            mangCon = []
+                            mangCon.push(listTinTucParam[i])
+                            this.listTinTuc.listTinNoiBat2.push(mangCon)
+                        }else{
+                            mangCon.push(listTinTucParam[i])
+                        }
+                        
+                    } 
+                    // this.listTinTuc.listTinNoiBat3 = {
+                    //     listTinNoiBat31:[],
+                    //     listTinNoiBat32:[]
+                    // }
+                    // for(let i=5; i<=12; i++){
+                    //     this.listTinTuc.listTinNoiBat3.listTinNoiBat31.push(listTinTucParam[i])
+                    // }
+                    // for(let i=9; i<=12; i++){
+                    //     this.listTinTuc.listTinNoiBat3.listTinNoiBat32.push(listTinTucParam[i])
+                    // }
+                })
+                .catch(err=>{
+                    console.log(err)
+                })
             }
         },
         components:{

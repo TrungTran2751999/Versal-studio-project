@@ -20,7 +20,24 @@
                                 item-value = "value"
                                 v-model="loaiTinTucSelected"
                             ></v-autocomplete>
-                            
+                            <v-select
+                                density="compact"
+                                variant="outlined"
+                                label="Trạng thái"
+                                :items="status.listStatus"
+                                v-model="status.statusSelected"
+                                item-title="title"
+                                item-value="value"
+                            ></v-select>
+                            <v-file-input
+                                density="compact"
+                                accept="image/*"
+                                variant="outlined"
+                                v-model="avartar"
+                                label="Avartar"
+                                @change="changeImage"
+                            ></v-file-input>
+                            <img style="text-align: center;" :src="avartar"/>
                             <QuillEditor contentType="html" v-model:content="htmlContent" ref="quillEditor"  style="height: 70vh;" :options="editorOptions"></QuillEditor>
                     </v-container>
                 </v-card-actions>
@@ -36,6 +53,7 @@ import { tinTucController } from '@/services/TinTucController';
 import NavAdmin from '../layout/NavAdmin.vue';
 import { QuillEditor } from '@vueup/vue-quill';
 import $ from "jquery";
+import { utilController } from '@/services/Util';
 
     export default{
         data(){
@@ -46,6 +64,10 @@ import $ from "jquery";
                 loading: false,
                 loaiTinTucSelected:null,
                 listLoaiTinTuc: [] ,
+                status:{
+                    listStatus:[{title:"Đã phê duyệt", value:1}, {title:"Chưa phê duyệt", value:0}],
+                    statusSelected: 0
+                },
                 name:"",
                 quillContent:"",
                 htmlContent:'',
@@ -68,6 +90,7 @@ import $ from "jquery";
                         ],
                     },
                 },
+                avartar:""
             }
         },
         components:{
@@ -99,7 +122,9 @@ import $ from "jquery";
                         this.htmlContent = res.data.content
                         this.loaiTinTucSelected = res.data.loaiTinTucId
                         this.id = res.data.id
-                        this.guid = res.data.guid
+                        this.guid = res.data.guid,
+                        this.avartar = res.data.avartar
+                        this.status.statusSelected = +res.data.status
                     })
                 }
             },
@@ -110,7 +135,8 @@ import $ from "jquery";
                     loaiTinTucId: this.loaiTinTucSelected,
                     content: this.$refs.quillEditor.getHTML(),
                     updatedBy:0,
-                    status: 0
+                    status: this.status.statusSelected,
+                    avartar: this.avartar
                 }
                 tinTucController.create(obj)
                 .then(res=>{
@@ -132,7 +158,8 @@ import $ from "jquery";
                     loaiTinTucId: this.loaiTinTucSelected,
                     content: this.$refs.quillEditor.getHTML(),
                     updatedBy:0,
-                    status: 0
+                    status: this.status.statusSelected,
+                    avartar: this.avartar
                 }
                 tinTucController.update(obj)
                 .then(res=>{
@@ -144,7 +171,13 @@ import $ from "jquery";
                     this.$toast.error(err.message)
                     
                 })
-            }
+            },
+            changeImage(){
+                utilController.convertFileToBase64(this.avartar)
+                .then(res=>{
+                    this.avartar = res
+                })
+           }
         },
         mounted(){
             $(document).ready(()=>{

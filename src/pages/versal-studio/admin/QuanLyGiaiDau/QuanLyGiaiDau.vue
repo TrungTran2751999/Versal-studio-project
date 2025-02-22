@@ -45,28 +45,22 @@
                         ></v-autocomplete>
                     </v-col>
                 </v-row>
-                <v-row style="margin-top: -40px;">
-                    <v-col cols="6" md="9">
-                        <v-btn @click="filter" style="background-color: #dc3545; ">LỌC</v-btn>
-                    </v-col>
-                    <v-col cols="6" md="1">
-                        <RouterLink to="/admin/chi-tiet-quan-ly-tin-tuc">
-                            <v-btn  style="background-color: green; margin-left: 15px;">Thêm mới</v-btn>
-                        </RouterLink>
-                    </v-col>
-                    <v-col cols="6" md="1">
-                        <RouterLink to="/admin/quan-ly-the-loai-game">
-                            <v-btn style="background-color: #dc3545; font-size: 12px;">Thể loại game</v-btn>
-                        </RouterLink>
-                    </v-col>
-                    <v-col cols="6" md="1">
-                        <RouterLink to="/admin/quan-ly-team">
-                            <v-btn style="background-color: blue; font-size: 12px;">Team</v-btn>
-                        </RouterLink>
-                    </v-col>
+                <v-row style="display: flex; gap: 10px;">
+                    <v-btn @click="filter" style="background-color: #dc3545; ">LỌC</v-btn>
+                    <RouterLink to="/admin/chi-tiet-quan-ly-tin-tuc">
+                        <v-btn  style="background-color: green; margin-left: 15px;">Thêm mới</v-btn>
+                    </RouterLink>
+                    <RouterLink to="/admin/quan-ly-the-loai-game">
+                        <v-btn style="background-color: #dc3545; font-size: 12px;">Thể loại game</v-btn>
+                    </RouterLink>
+                    <RouterLink to="/admin/quan-ly-team">
+                        <v-btn style="background-color: blue; font-size: 12px;">Team</v-btn>
+                    </RouterLink>
                 </v-row>
             </div>
-            <v-data-table-server height="70vh"
+            <v-data-table-server 
+            style="margin-top: 15px;"
+            height="70vh"
             fixed-header 
             :headers="tableNguoiDung.headers" 
             :items-length="tableNguoiDung.totalItems" 
