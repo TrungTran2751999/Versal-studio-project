@@ -28,6 +28,14 @@ const checkBefore = (to, from ,next)=>{
         next("/login")
     }
 }
+const checkBeforeFake = (to, from ,next)=>{
+    let result = util.checkJWTToken();
+    if(result){
+        next()
+    }else{
+        next("/admin/login")
+    }
+}
 const routes = [
     {
         path: "/",

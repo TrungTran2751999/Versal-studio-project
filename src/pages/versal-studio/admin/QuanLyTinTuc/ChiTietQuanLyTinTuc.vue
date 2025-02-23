@@ -141,7 +141,8 @@ import { utilController } from '@/services/Util';
                 tinTucController.create(obj)
                 .then(res=>{
                     this.loading = false
-                    this.$toast.success("Cập nhật tin tức thành công")
+                    //this.$toast.success("Cập nhật tin tức thành công")
+                    this.$router.push(`/admin/quan-ly-tin-tuc`);
                 })
                 .catch(err=>{
                     this.loading = false
@@ -165,6 +166,7 @@ import { utilController } from '@/services/Util';
                 .then(res=>{
                     this.loading = false
                     this.$toast.success("Cập nhật tin tức thành công")
+                    this.$router.push(`/admin/quan-ly-tin-tuc`);
                 })
                 .catch(err=>{
                     this.loading = false

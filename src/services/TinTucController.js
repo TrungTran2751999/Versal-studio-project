@@ -80,6 +80,14 @@ function duyetBai(postData){
         }
     })
 }
+function getByIdClient(id, loaiTinTucId){
+    return axios.get(API.ADMIN.tinTuc.getByIdCient, {
+        params:{
+            id:id,
+            loaiTinTucId: loaiTinTucId
+        }
+    });
+}
 export const tinTucController = {
     getAll,
     create,
@@ -92,5 +100,6 @@ export const tinTucController = {
     getCountLoaiTinTuc,
     updateLoaiTinTuc,
     getLoaiTinTucById,
-    duyetBai
+    duyetBai,
+    getByIdClient
 }

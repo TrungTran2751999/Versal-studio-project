@@ -55,7 +55,7 @@
                     </v-row>
                 </template>
                 <template v-slot:append>
-                    <div class="visible">
+                    <div class="visible" v-show="false">
                         
                         <v-btn style="background-color: wheat;" id="btn-tai-khoan">
                             <span><v-icon>mdi-account</v-icon></span>

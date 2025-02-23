@@ -36,14 +36,17 @@
     .active-game{
         background-color: green;
     }
+    .ngay-to-chuc{
+        font-size: 10px;
+    }
     @media (max-width: 900px) {
-    #card-danh-sach-game {
-        display: none;
+        #card-danh-sach-game {
+            display: none;
+        }
+        .content-su-kien{
+            display: none;
+        }
     }
-    .content-su-kien{
-        display: none;
-    }
-}
 </style>
 <template>
     <Nav>
@@ -52,10 +55,10 @@
             <v-card-actions style="background-color: rgb(42,42,42);">
                 <v-row class="pa-12" v-show="listTinTuc.listTinNoiBat2">
                     <v-col cols="12" md="6">
-                        <RouterLink to="/news?id=2">
+                        <RouterLink :to="(`/news?id=${listTinTuc.listTinNoiBat1?.guid}&loaiTinTucId=${listTinTuc.listTinNoiBat1?.loaiTinTucId}`)">
                             <v-card style="margin-bottom: 25px; height: 725px;">
                                 <v-card-actions class="container-mg-su-kien">
-                                    <v-img :src="listTinTuc.listTinNoiBat1?.avartar" class="img-su-kien"></v-img>
+                                    <v-img height="410px" style="background-color: white;" :src="listTinTuc.listTinNoiBat1?.avartar" class="img-su-kien"></v-img>
                                 </v-card-actions>
                                 <v-card-actions class="pa-6">
                                     <div>
@@ -78,16 +81,16 @@
                     </v-col>
                     
                     <v-col cols="12" md="3" v-for="listTinNoiBat2 in listTinTuc.listTinNoiBat2" :key="listTinNoiBat2">
-                        <RouterLink to="/news" v-for="item in listTinNoiBat2" :key="item">
+                        <RouterLink :to="(`/news?id=${item?.guid}&loaiTinTucId=${item?.loaiTinTucId}`)" v-for="item in listTinNoiBat2" :key="item">
                             <v-card class="card-child">
                                 
-                                <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                    <v-img :src="item?.avartar" class="img-su-kien"></v-img>
+                                <v-card-actions style="background-color: white;" class="container-mg-su-kien">
+                                    <v-img height="146px" :src="item?.avartar" class="img-su-kien"></v-img>
                                 </v-card-actions>
                                 <v-card-actions class="pa-6">
                                     <div>
-                                        <span class="loai-su-kien">{{ item?.tenLoaiTinTuc }} </span> 
-                                        <span>{{ item?.updatedAt }}</span>
+                                        <span class="loai-su-kien">{{ item?.tenLoaiTinTuc.toUpperCase() }} </span> 
+                                        <span class="ngay-to-chuc">{{ item?.updatedAt }}</span>
                                     </div>
                                 </v-card-actions>
                                 <v-card-actions class="pa-6 container-title-su-kien">
@@ -100,6 +103,7 @@
                     </v-col>
 
                 </v-row>
+                <!-- skeleton -->
                 <v-row class="pa-12" v-show="!listTinTuc.listTinNoiBat2">
                     <v-col cols="12" md="6">
                         <v-skeleton-loader
@@ -208,55 +212,29 @@
          <v-card>
             <v-card-actions class="pa-12" style="background-color: rgb(42,42,42);;">
                 <v-col>
-
-                    <v-row>
-                        <v-col cols="12" sm="3" v-for="n in 4" :key="n">
-                            <RouterLink to="/news">
+                    <v-row v-for="tinTuc in listTinTuc.listTinNoiBat3" :key="tinTuc">
+                        <v-col cols="12" sm="3" v-for="item in tinTuc" :key="item">
+                            <RouterLink :to="(`/news?id=${item?.guid}&loaiTinTucId=${item?.loaiTinTucId}`)">
                                 <v-card class="card-child">
                                     <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                        <v-img :src="listImg[0]" class="img-su-kien"></v-img>
+                                        <v-img style="background-color: white;" height="147px" :src="item.avartar" class="img-su-kien"></v-img>
                                     </v-card-actions>
                                     <v-card-actions class="pa-6">
                                         <div>
-                                            <span class="loai-su-kien">SỰ KIỆN ESPORTS</span> 
-                                            <span>27/12/2024</span>
+                                            <span class="loai-su-kien">{{item.tenLoaiTinTuc?.toUpperCase()}}</span> 
+                                            <span class="ngay-to-chuc">{{item.updatedAt}}</span>
                                         </div>
                                     </v-card-actions>
                                     <v-card-actions class="pa-6" style="margin-top: -30px;">
                                         <div>
-                                            <span>Với sự chuẩn bị kỹ lưỡng và các hoạt động đa dạng, TEC 2024 là điểm đến lý tưởng cho những ai muốn khám phá thế giới công nghệ hiện đại, ...</span> 
+                                            <span>{{item.name}}</span> 
                                         </div>
                                     </v-card-actions>
                                 </v-card>
                             </RouterLink>
                         </v-col>
                     </v-row>
-
-                    <v-row>
-                        <v-col cols="12" sm="3" v-for="n in 4" :key="n">
-                            <RouterLink to="/news">
-                                <v-card class="card-child">
-                                    <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                        <v-img :src="listImg[0]" class="img-su-kien"></v-img>
-                                    </v-card-actions>
-                                    <v-card-actions class="pa-6">
-                                        <div>
-                                            <span class="loai-su-kien">SỰ KIỆN ESPORTS</span> 
-                                            <span>27/12/2024</span>
-                                        </div>
-                                    </v-card-actions>
-                                    <v-card-actions class="pa-6" style="margin-top: -30px;">
-                                        <div>
-                                            <span>Với sự chuẩn bị kỹ lưỡng và các hoạt động đa dạng, TEC 2024 là điểm đến lý tưởng cho những ai muốn khám phá thế giới công nghệ hiện đại, ...</span> 
-                                        </div>
-                                    </v-card-actions>
-                                </v-card>
-                            </RouterLink>
-                        </v-col>
-                    </v-row>
-                
                 </v-col>
-                
             </v-card-actions>
          </v-card>
          <!-- ----------------------- -->
@@ -313,7 +291,7 @@ import { utilController } from '@/services/Util';
                         loaiTinTucId: null
                     },
                     start: 0,
-                    limit: 8
+                    limit: 13
                 }
                 tinTucController.getAll(postData)
                 .then(res=>{
@@ -344,16 +322,20 @@ import { utilController } from '@/services/Util';
                         }
                         
                     } 
-                    // this.listTinTuc.listTinNoiBat3 = {
-                    //     listTinNoiBat31:[],
-                    //     listTinNoiBat32:[]
-                    // }
-                    // for(let i=5; i<=12; i++){
-                    //     this.listTinTuc.listTinNoiBat3.listTinNoiBat31.push(listTinTucParam[i])
-                    // }
-                    // for(let i=9; i<=12; i++){
-                    //     this.listTinTuc.listTinNoiBat3.listTinNoiBat32.push(listTinTucParam[i])
-                    // }
+                    mangCon = []
+                    this.listTinTuc.listTinNoiBat3 = []
+                    let congSoTinTuc = 1;
+                    for(let i=5; i<=12; i++){
+                        if(congSoTinTuc+4==i){
+                            congSoTinTuc = i
+                            mangCon = []
+                            mangCon.push(listTinTucParam[i])
+                            this.listTinTuc.listTinNoiBat3.push(mangCon)
+                        }else{
+                            mangCon.push(listTinTucParam[i])
+                        }
+                    }
+                    console.log(this.listTinTuc)
                 })
                 .catch(err=>{
                     console.log(err)

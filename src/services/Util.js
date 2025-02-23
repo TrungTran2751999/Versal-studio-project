@@ -64,8 +64,15 @@ function convertFileToBase64(file){
         reader.onerror = error => reject(error);
     });
 }
-function convertDate(dateStr){
-    return dateStr?.split(" ")[0].split("-").reverse().join("/")
+function convertDate(dateStr, type){
+    if(type=="datetime"){
+        let time = dateStr?.split(" ")[1]
+        let date = dateStr?.split(" ")[0].split("-").reverse().join("/")
+        return `${date} ${time}`
+    }else{
+        return dateStr?.split(" ")[0].split("-").reverse().join("/")
+    }
+    
 }
 export const utilController = {
     debouceComplete,

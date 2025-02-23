@@ -84,7 +84,7 @@
             </template>
             <template v-slot:[`item`] = "{item}">
                 <tr class="hover-row">
-                    <td>{{ item.Id }}</td>
+                    <td>{{ item.Index }}</td>
                     <td @click="xemChiTiet(item.guid)" class="tieu-de">{{ item.TieuDe }}</td>
                     <td>{{ item.NgayTao }}</td>
                     <td>{{ item.NgayCapNhat }}</td>
@@ -159,6 +159,7 @@ import { tinTucController } from '@/services/TinTucController';
                 })
                 tinTucController.getAll(obj)
                 .then(res=>{
+                    let i = 1;
                     this.tableNguoiDung.loading = true;
                     res.data.map(item=>{
                         let obj = {
@@ -169,7 +170,8 @@ import { tinTucController } from '@/services/TinTucController';
                             status: item.status,
                             guid: item.guid,
                             TrangThai: item.status==0 ? "Chưa duyệt" : item.status==1 ? "Đã duyệt":"",
-                            TenTinTuc: item.tenLoaiTinTuc
+                            TenTinTuc: item.tenLoaiTinTuc,
+                            Index: i++
                         }
                         this.tableNguoiDung.serverItems.push(obj)
                     })
