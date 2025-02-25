@@ -1,15 +1,21 @@
 import { API } from "@/pages/versal-studio/util/GlobalVariable"
 import axios from "axios"
+import Cookies from "js-cookie"
 
 function getAll(postData){
     return axios.post(API.ADMIN.user.getAll, postData,{
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${Cookies.get("token")}`
         }
     })
 }
 function getById(id){
     return axios.get(API.ADMIN.user.getByUid, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${Cookies.get("token")}`
+        },
         params: {
             id:id
         }
@@ -18,36 +24,57 @@ function getById(id){
 function update(postData){
     return axios.post(API.ADMIN.user.update, postData,{
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${Cookies.get("token")}`
         }
     })
 }
 function create(postData){
     return axios.post(API.ADMIN.user.register, postData, {
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${Cookies.get("token")}`
         }
     })
 }
 function filter(postData){
     return axios.post(API.ADMIN.user.filter, postData, {
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${Cookies.get("token")}`
         }
     })
 }
 function getCount(postData){
     return axios.post(API.ADMIN.user.count, postData, {
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${Cookies.get("token")}`
         }
     })
 }
 function getAllActive(){
-    return axios.get(API.ADMIN.user.getAllActive);
+    return axios.get(API.ADMIN.user.getAllActive, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${Cookies.get("token")}`
+        }
+    });
 }
 function getAllUserActive(){
-    return axios.get(API.ADMIN.user.getAllCaNhanActive);
+    return axios.get(API.ADMIN.user.getAllCaNhanActive, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${Cookies.get("token")}`
+        }
+    });
+}
+function login(postData){
+    return axios.post(API.ADMIN.user.login, postData,{
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
 }
 export const userController = {
     getAll,
@@ -57,5 +84,6 @@ export const userController = {
     filter,
     getCount,
     getAllActive,
-    getAllUserActive
+    getAllUserActive,
+    login
 }

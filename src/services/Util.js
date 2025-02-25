@@ -30,20 +30,22 @@ function debouceComplete(timeDeboucing, value, time, arr, promise){
     }, time)
 }
 function checkJWTToken(){
-    let jwtToken = Cookies.get("tokenJWT");
+    let jwtToken = Cookies.get("token");
     if(!jwtToken){
         return false
     }else{
         try{
             let resultDecode = VueJwtDecode.decode(jwtToken)
-            return jwtToken
+            return resultDecode
         }catch{
             return false
         }    
     }
 }
 function removeJWTToken(){
-    Cookies.remove("tokenJWT");
+    Cookies.remove("token");
+    Cookies.remove("name");
+    Cookies.remove("id");
 }
 function exportExcel(data){
     const worksheet = XLSX.utils.json_to_sheet(data);

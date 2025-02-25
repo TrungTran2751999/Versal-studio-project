@@ -124,7 +124,7 @@ export const API = {
             filter: `${domainApi}/api/admin/user/filter`,
             count: `${domainApi}/api/admin/user/count`,
             getAllActive: `${domainApi}/api/admin/user/active`,
-            getAllCaNhanActive: `${domainApi}/api/admin/user/ca-nhan-active`
+            getAllCaNhanActive: `${domainApi}/api/admin/user/ca-nhan-active`,
         },
         role:{
             getAll: `${domainApi}/api/admin/role`

@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { util } from "./services/Util";
+import { util, utilController } from "./services/Util";
 import Home from "./pages/versal-studio/Home.vue";
 import TinTuc from "./pages/versal-studio/TinTuc.vue";
 import DangNhap from "./pages/versal-studio/DangNhap.vue";
@@ -12,7 +12,6 @@ import QuanLyNguoiDung from "./pages/versal-studio/admin/QuanLyNguoidung/QuanLyN
 import ChiTietQuanLyNguoiDung from "./pages/versal-studio/admin/QuanLyNguoidung/ChiTietQuanLyNguoiDung.vue";
 import QuanLyTinTuc from "./pages/versal-studio/admin/QuanLyTinTuc/QuanLyTinTuc.vue";
 import ChiTietQuanLyTinTuc from "./pages/versal-studio/admin/QuanLyTinTuc/ChiTietQuanLyTinTuc.vue";
-import Login from "./pages/versal-studio/admin/Login.vue";
 import QuanLyLoaiTinTuc from "./pages/versal-studio/admin/QuanLyTinTuc/QuanLyLoaiTinTuc/QuanLyLoaiTinTuc.vue";
 import ChiTietQuanLyLoaiTinTuc from "./pages/versal-studio/admin/QuanLyTinTuc/QuanLyLoaiTinTuc/ChiTietQuanLyLoaiTinTuc.vue";
 import QuanLyGiaiDau from "./pages/versal-studio/admin/QuanLyGiaiDau/QuanLyGiaiDau.vue";
@@ -20,21 +19,20 @@ import QuanLyTheLoaiGame from "./pages/versal-studio/admin/QuanLyGiaiDau/QuanLyT
 import ChiTietQuanLyTheLoaiGame from "./pages/versal-studio/admin/QuanLyGiaiDau/QuanLyTheLoaiGame/ChiTietQuanLyTheLoaiGame.vue";
 import QuanLyTeam from "./pages/versal-studio/admin/QuanLyGiaiDau/QuanLyTeam/QuanLyTeam.vue";
 import ChiTietQuanLyTeam from "./pages/versal-studio/admin/QuanLyGiaiDau/QuanLyTeam/ChiTietQuanLyTeam.vue";
-const checkBefore = (to, from ,next)=>{
-    let result = util.checkJWTToken();
-    if(result){
-        next()
-    }else{
-        next("/login")
+import Login from "./pages/versal-studio/admin/Login.vue";
+import NotFound from "./pages/NotFound.vue";
+const checkBeforeAdmin = (to, from ,next)=>{
+    let result = utilController.checkJWTToken();
+    try{
+        if(result.sub==1){
+            next()
+        }else{
+            next("/404")
+        }
+    }catch{
+        next("/404")
     }
-}
-const checkBeforeFake = (to, from ,next)=>{
-    let result = util.checkJWTToken();
-    if(result){
-        next()
-    }else{
-        next("/admin/login")
-    }
+    
 }
 const routes = [
     {
@@ -75,69 +73,90 @@ const routes = [
         component: HoSoTaiKhoan
     },
     {
+        path: "/admin/login",
+        name:"admin-login",
+        component: Login
+    },
+    {
         path: "/admin",
         name:"admin",
-        component: Dashboard
+        component: Dashboard,
+        beforeEnter: checkBeforeAdmin
     },
     {
         path: "/admin/quan-ly-user",
         name:"admin-quan-ly-nguoi-dung",
-        component: QuanLyNguoiDung
+        component: QuanLyNguoiDung,
+        beforeEnter: checkBeforeAdmin
     },
     {
         path: "/admin/chi-tiet-quan-ly-user",
         name:"admin-chi-tiet-quan-ly-nguoi-dung",
-        component: ChiTietQuanLyNguoiDung
+        component: ChiTietQuanLyNguoiDung,
+        beforeEnter: checkBeforeAdmin
     },
     {
         path: "/admin/quan-ly-tin-tuc",
         name:"admin-quan-ly-tin-tuc",
-        component: QuanLyTinTuc
+        component: QuanLyTinTuc,
+        beforeEnter: checkBeforeAdmin
     },
     {
         path: "/admin/chi-tiet-quan-ly-tin-tuc",
         name:"admin-chi-tiet-quan-ly-tin-tuc",
-        component: ChiTietQuanLyTinTuc
+        component: ChiTietQuanLyTinTuc,
+        beforeEnter: checkBeforeAdmin
     },
     {
         path: "/admin/quan-ly-loai-tin-tuc",
         name:"admin-quan-ly-loai-tin-tuc",
-        component: QuanLyLoaiTinTuc
+        component: QuanLyLoaiTinTuc,
+        beforeEnter: checkBeforeAdmin
     },
     {
         path: "/admin/chi-tiet-quan-ly-loai-tin-tuc",
         name:"chi-tiet-admin-quan-ly-loai-tin-tuc",
-        component: ChiTietQuanLyLoaiTinTuc
+        component: ChiTietQuanLyLoaiTinTuc,
+        beforeEnter: checkBeforeAdmin
     },
     {
         path: "/admin/quan-ly-giai-dau",
         name:"admin-quan-ly-giai-dau",
-        component: QuanLyGiaiDau
+        component: QuanLyGiaiDau,
+        beforeEnter: checkBeforeAdmin
     },
     {
         path: "/admin/quan-ly-the-loai-game",
         name:"admin-quan-ly-the-loai-game",
-        component: QuanLyTheLoaiGame
+        component: QuanLyTheLoaiGame,
+        beforeEnter: checkBeforeAdmin
     },
     {
         path: "/admin/chi-tiet-quan-ly-the-loai-game",
         name:"admin-chi-tiet-quan-ly-the-loai-game",
-        component: ChiTietQuanLyTheLoaiGame
+        component: ChiTietQuanLyTheLoaiGame,
+        beforeEnter: checkBeforeAdmin
     },
     {
         path: "/admin/quan-ly-team",
         name:"admin-quan-ly-team",
-        component: QuanLyTeam
+        component: QuanLyTeam,
+        beforeEnter: checkBeforeAdmin
     },
     {
         path: "/admin/chi-tiet-quan-ly-team",
         name:"chi-tiet-admin-quan-ly-team",
-        component: ChiTietQuanLyTeam
+        component: ChiTietQuanLyTeam,
+        beforeEnter: checkBeforeAdmin
     },
     {
         path: "/admin/login",
         name:"admin-login",
         component: Login
+    },
+    {
+        path: '/:catchAll(.*)', // Catch all unmatched routes
+        component: NotFound,
     },
 ]
 const router = createRouter({

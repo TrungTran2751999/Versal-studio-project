@@ -54,8 +54,32 @@
                     </v-row>
                 </template>
                 <template v-slot:append>
-                    
+                    <div class="visible">
+                        
+                        <v-btn style="background-color: wheat;" id="btn-tai-khoan">
+                            <span><v-icon>mdi-account</v-icon></span>
+                            TÀI KHOẢN <span><v-icon>mdi-chevron-down</v-icon></span>
+                        </v-btn>
+                    </div>
                 </template>
+                <v-menu activator="#btn-tai-khoan">
+                    <v-list>
+                        <v-list-item>
+                            <RouterLink to="/ho-so">
+                                <v-list-item class="menu-dropdown-container">
+                                    <v-list-item-title><span style="margin-right: 7px;"><v-icon>mdi-account</v-icon></span>HỒ SƠ CÁ NHÂN</v-list-item-title>
+                                </v-list-item>
+                            </RouterLink>
+                            <v-divider></v-divider>
+                            <RouterLink to="/admin/login">
+                                <v-list-item class="menu-dropdown-container">
+                                    <v-list-item-title @click="logOut"><span style="margin-right: 7px;"><v-icon>mdi-power</v-icon></span>ĐĂNG XUẤT</v-list-item-title>
+                                </v-list-item>
+                            </RouterLink>
+                            <v-divider></v-divider>
+                        </v-list-item>
+                    </v-list>
+                </v-menu>
                
                 <v-menu v-for="child in listChildrenNav" :activator=child.idActivator :key="child">
                     <v-list>
@@ -105,6 +129,7 @@
 </template>
 <script>
 // import { RouterLink } from 'vue-router';
+import { utilController } from '@/services/Util';
 import { listChildrenNavAdmin } from '../../util/GlobalVariable';
 
 export default {
@@ -133,6 +158,9 @@ export default {
             this.listChildrenNav.map(child=>{
                 child.isShowChildren = false
             })
+        },
+        logOut(){
+            utilController.removeJWTToken()
         }
     }
 }

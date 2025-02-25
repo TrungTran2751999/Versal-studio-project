@@ -36,8 +36,8 @@
 </template>
 <script>
 import Cookies from 'js-cookie';
-import accountController from '@/services/AccountController';
-import { util } from '@/services/Util';
+import { utilController } from '@/services/Util';
+import { userController } from '@/services/UserController';
 export default {
   data: () => ({
     visible: false,
@@ -53,23 +53,41 @@ export default {
     onSubmit() {
       if (!this.form) return
       this.loading = true
-      let body = this.info
       this.isLogin = true
-      setTimeout(() => {
-        accountController.login(body)
-          .then(res => {
-            this.loading = false
-            if (Array.isArray(res)) {
-              this.isSuccess = false
-            } else {
-              Cookies.set('tokenJWT', res, {
-                secure: true,
-                sameSite: 'strict'
-              })
-              window.location.href = "/"
-            }
-          })
+      let obj = {
+        userName: this.info.Username,
+        passWord: this.info.Password
+      }
+      userController.login(obj)
+      .then(res => {
+        window.location.href = "/admin"
+        Cookies.set('token', res.data.token, {
+            secure: true,
+            sameSite: 'strict'
+        })
+        Cookies.set('id', res.data.id, {
+            secure: true,
+            sameSite: 'strict'
+        })
+        Cookies.set('name', res.data.name, {
+            secure: true,
+            sameSite: 'strict'
+        })
+        // this.loading = false
+        // if (Array.isArray(res)) {
+        //   this.isSuccess = false
+        // } else {
+        //   Cookies.set('tokenJWT', res, {
+        //     secure: true,
+        //     sameSite: 'strict'
+        //   })
+        //   window.location.href = "/"
+        // }
       })
+      .catch(err=>{
+        window.location.href = "/"
+      })
+      
     },
     required(v) {
       this.isSuccess = true;
@@ -77,9 +95,9 @@ export default {
     }
   },
   created: () => {
-    let checkJWT = util.checkJWTToken();
+    let checkJWT = utilController.checkJWTToken();
     if (checkJWT) {
-      window.location.href = "/"
+      window.location.href = "/admin"
     }
   },
 }
