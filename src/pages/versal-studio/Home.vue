@@ -238,7 +238,6 @@
             </v-card-actions>
          </v-card>
          <!-- ----------------------- -->
-        <Footer></Footer>
     </Nav>
 </template>
 
@@ -344,7 +343,6 @@ import { utilController } from '@/services/Util';
         },
         components:{
            Nav: Nav,
-           Footer: Footer, 
            Carousel,
            Slide,
            Pagination,

@@ -62,7 +62,6 @@
                 </v-card-text>
             </v-card>
         </v-container>
-        <Footer></Footer>
     </div>
 
 </template>
@@ -79,7 +78,7 @@ export default {
         
     },
     components: {
-        Footer
+        
     }
 }
 </script>

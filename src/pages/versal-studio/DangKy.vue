@@ -317,7 +317,6 @@
                 </v-card-actions>
             </v-card>
         </v-container>
-        <Footer></Footer>
     </div>
     
 </template>
@@ -338,7 +337,7 @@ import Footer from './layout/Footer.vue';
             }
         },
         components:{
-            Footer
+            
         }
     }
 </script>

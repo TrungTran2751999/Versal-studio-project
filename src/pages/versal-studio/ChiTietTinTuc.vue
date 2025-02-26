@@ -97,7 +97,6 @@ img{
                 </v-col>
             </v-card-actions>
         </v-card>
-        <Footer></Footer>
     </Nav>
 </template>
 <script>
@@ -173,8 +172,7 @@ export default {
         }
     },
     components: {
-        Nav,
-        Footer
+        Nav
     }
 }
 </script>

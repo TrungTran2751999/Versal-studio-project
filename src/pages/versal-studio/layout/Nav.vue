@@ -149,10 +149,13 @@
             <slot></slot>
         </div>
     </v-app>
+    <Footer :listChildProps="listChildrenNav"></Footer>
 </template>
 <script>
 import { RouterLink } from 'vue-router';
 import { listChildrenNav } from '../util/GlobalVariable';
+import { tinTucController } from '@/services/TinTucController';
+import Footer from './Footer.vue';
 
 export default {
     data() {
@@ -163,8 +166,17 @@ export default {
                 "nav-tin-tuc":false
             },
             iconListItem:"mdi-chevron-right",
-            listChildrenNav: listChildrenNav
+            listChildrenNav: []
         }
+    },
+    created(){
+        this.setData()
+    },
+    updated(){
+        this.setData()
+    },
+    components:{
+        Footer
     },
     methods:{
         showChidrenTreeView(value){
@@ -179,6 +191,25 @@ export default {
             this.drawer = !this.drawer
             this.listChildrenNav.map(child=>{
                 child.isShowChildren = false
+            })
+        },
+        setData(){
+            this.listChildrenNav = listChildrenNav
+            let listChild = listChildrenNav.filter(x=>x.idHambug=="nav-tin-tuc")[0].children
+            if(listChild.length > 0){
+                return;
+            }
+            tinTucController.getAllLoaiTinTucActive()
+            .then(res=>{
+                this.listChildrenNav.filter(x=>x.idHambug=="nav-tin-tuc")[0].children = []
+                listChild = this.listChildrenNav.filter(x=>x.idHambug=="nav-tin-tuc")[0].children
+                res.data.map(item=>{
+                    let obj = {
+                        "name":item.name,
+                        "link":`/tin-tuc?main=tin-tuc&child=${item.id}`
+                    }
+                    listChild.push(obj)
+                })
             })
         }
     }

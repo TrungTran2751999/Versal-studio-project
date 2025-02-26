@@ -68,7 +68,7 @@
             </template>
             <template v-slot:[`item`] = "{item}">
                 <tr @click="xemChiTiet(item.Id)" class="hover-row">
-                    <td>{{ item.Id }}</td>
+                    <td>{{ item.Index }}</td>
                     <td>{{ item.Name }}</td>
                     <td>{{ item.NgayTao }}</td>
                     <td>{{ item.NgayCapNhat }}</td>
@@ -130,8 +130,10 @@ import Loading from '../../layout/TableLoading.vue';
                 tinTucController.getAllLoaiTintuc(obj)
                 .then(res=>{
                     this.tableNguoiDung.loading = true;
+                    let i=1;
                     res.data.map(item=>{
                         let obj = {
+                            Index: i++,
                             Id: item.id,
                             Name: item.name,
                             NgayTao: item.createdAt,

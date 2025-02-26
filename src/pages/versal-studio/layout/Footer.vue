@@ -54,7 +54,7 @@
     <v-card class="bg-card">
         <v-card-actions style="width: 100%;">
             <v-row justify="center">
-                <v-col cols="12" sm="3" v-for="child in listChildrenNav" :key="child" style="text-align: center;">
+                <v-col cols="12" sm="3" v-for="child in this.$props.listChildProps.filter(x=>x.children.length>0)" :key="child" style="text-align: center;">
                     <div class="title" style="margin-top: 10px;">{{ child.name }}</div>
                     <div style="margin-top: 10px;"  v-for="childOfChild in child.children" :key="childOfChild">
                         <RouterLink class="children" :to="childOfChild.link">{{ childOfChild.name }}</RouterLink>
@@ -107,6 +107,11 @@ import { RouterLink } from 'vue-router';
 import { listChildrenNav } from '../util/GlobalVariable';
 
      export default{
+        props:{
+            listChildProps:{
+                type:Object
+            }
+        },
         data(){
             return{
                 config : {
@@ -116,8 +121,14 @@ import { listChildrenNav } from '../util/GlobalVariable';
                     wrapAround: true,
                     pauseAutoplayOnHover: true,
                 },
-                listChildrenNav: listChildrenNav.filter(x=>x.children.length>0)
+                listChildrenNav: this.listChildProps.filter(x=>x.children.length>0)
             }
+        },
+        created(){
+            
+        },
+        updated(){
+            
         },
         mounted(){
             window.scrollTo({

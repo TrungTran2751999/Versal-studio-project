@@ -77,7 +77,6 @@
                 </v-col>
             </v-row>
         </v-container>
-        <Footer></Footer>
     </Nav>
 </template>
 <script>
@@ -89,8 +88,7 @@ import Nav from './layout/Nav.vue';
             }
         },
         components:{
-            Nav,
-            Footer
+            Nav
         }
     }
 </script>

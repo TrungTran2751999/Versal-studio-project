@@ -7,12 +7,12 @@ export let listChildrenNav = [
         isShowChildren: false,
         idChidren: "nav-tin-tuc-chidren",
         children:[
-            {name: "Esport 360", link:"/tin-tuc?main=tin-tuc&child=esport-360"},
-            {name: "Tin cộng đồng", link:"/tin-tuc?main=tin-tuc&child=tin-cong-dong"},
-            {name: "Kiến thức và đào tạo", link:"/tin-tuc?main=tin-tuc&child=kien-thuc-dao-tao"},
-            {name: "Diễn đàn eTalk", link:"/tin-tuc?main=tin-tuc&child=dien-dan-etalk"},
-            {name: "Human of Esport", link:"/tin-tuc?main=tin-tuc&child=human-of-esport"},
-            {name: "Hoạt động Versal-studio", link:"/tin-tuc?main=tin-tuc&child=hoat-dong"}
+            // {name: "Esport 360", link:"/tin-tuc?main=tin-tuc&child=esport-360"},
+            // {name: "Tin cộng đồng", link:"/tin-tuc?main=tin-tuc&child=tin-cong-dong"},
+            // {name: "Kiến thức và đào tạo", link:"/tin-tuc?main=tin-tuc&child=kien-thuc-dao-tao"},
+            // {name: "Diễn đàn eTalk", link:"/tin-tuc?main=tin-tuc&child=dien-dan-etalk"},
+            // {name: "Human of Esport", link:"/tin-tuc?main=tin-tuc&child=human-of-esport"},
+            // {name: "Hoạt động Versal-studio", link:"/tin-tuc?main=tin-tuc&child=hoat-dong"}
         ]
     },
     {
@@ -109,7 +109,8 @@ export let listChildrenNavAdmin = [
         ]
     }
 ]
-let domainApi = "http://127.0.0.1:8000"
+//let domainApi = "http://127.0.0.1:8000"
+let domainApi = "https://versalstudio.vn"
 export const loginInfo = {
     userName:0
 }

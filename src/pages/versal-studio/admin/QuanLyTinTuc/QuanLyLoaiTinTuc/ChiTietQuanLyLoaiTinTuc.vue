@@ -69,6 +69,7 @@ import NavAdmin from '../../layout/NavAdmin.vue';
                 tinTucController.createLoaiTinTuc(obj)
                 .then(res=>{
                     this.$toast.success("Cập nhật thành công")
+                    this.$router.push("/admin/quan-ly-loai-tin-tuc")
                 })
                 .catch(err=>{
                     this.$toast.error("Cập nhật lỗi")
@@ -97,9 +98,9 @@ import NavAdmin from '../../layout/NavAdmin.vue';
                 tinTucController.updateLoaiTinTuc(obj)
                 .then(res=>{
                     this.$toast.success("Cập nhật thành công")
+                    this.$router.push("/admin/quan-ly-loai-tin-tuc")
                 })
                 .catch(err=>{
-                    console.log(err)
                     this.$toast.error(err.response.data)
                 })   
            }

@@ -195,7 +195,6 @@
                  </v-sheet>
             </v-card>
         </v-container>
-        <Footer></Footer>
     </div>
 
 </template>
@@ -226,7 +225,7 @@ export default {
         }
     },
     components: {
-        Footer
+        
     }
 }
 </script>

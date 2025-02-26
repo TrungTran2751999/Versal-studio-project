@@ -102,7 +102,6 @@
                 </v-card>
             </v-card-actions>
         </v-card>
-        <Footer></Footer>
     </Nav>
 </template>
 <script>
@@ -185,8 +184,7 @@ import Footer from './layout/Footer.vue';
             }
         },
         components:{
-            Nav:Nav,
-            Footer:Footer
+            Nav:Nav
         }
     }
 </script>
