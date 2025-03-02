@@ -68,7 +68,7 @@
                     <v-row>
                         <v-col cols="12" sm="3">
                             <div style="color: rgb(42,42,42); font-size: 20px;">
-                                <v-img src="@/assets/logo-2.png" max-height="70"></v-img>
+                                <v-img style="scale:1.1" src="@/assets/logo-2.png" max-height="1000" max-width="1000"></v-img>
                             </div>
                         </v-col>
                         <v-col cols="12" sm="9" style="margin-top: 18px">

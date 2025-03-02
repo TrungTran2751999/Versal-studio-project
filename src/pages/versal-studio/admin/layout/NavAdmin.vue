@@ -58,14 +58,14 @@
                         
                         <v-btn style="background-color: wheat;" id="btn-tai-khoan">
                             <span><v-icon>mdi-account</v-icon></span>
-                            TÀI KHOẢN <span><v-icon>mdi-chevron-down</v-icon></span>
+                            <span style="font-size: smaller;">Hi, {{ userName }}</span> <span><v-icon>mdi-chevron-down</v-icon></span>
                         </v-btn>
                     </div>
                 </template>
                 <v-menu activator="#btn-tai-khoan">
                     <v-list>
                         <v-list-item>
-                            <RouterLink to="/ho-so">
+                            <RouterLink to="/admin/ho-so-ca-nhan">
                                 <v-list-item class="menu-dropdown-container">
                                     <v-list-item-title><span style="margin-right: 7px;"><v-icon>mdi-account</v-icon></span>HỒ SƠ CÁ NHÂN</v-list-item-title>
                                 </v-list-item>
@@ -131,6 +131,7 @@
 // import { RouterLink } from 'vue-router';
 import { utilController } from '@/services/Util';
 import { listChildrenNavAdmin } from '../../util/GlobalVariable';
+import Cookies from 'js-cookie';
 
 export default {
     data() {
@@ -141,8 +142,12 @@ export default {
                 "nav-tin-tuc":false
             },
             iconListItem:"mdi-chevron-right",
-            listChildrenNav: listChildrenNavAdmin
+            listChildrenNav: listChildrenNavAdmin,
+            userName:""
         }
+    },
+    created(){
+        this.setData()
     },
     methods:{
         showChidrenTreeView(value){
@@ -161,7 +166,11 @@ export default {
         },
         logOut(){
             utilController.removeJWTToken()
+        },
+        setData(){
+            this.userName = Cookies.get("name")
         }
+        
     }
 }
 </script>

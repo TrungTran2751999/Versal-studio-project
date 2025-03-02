@@ -1,7 +1,7 @@
 <template>
     <NavAdmin>
         <v-container>
-            <v-card class="mx-auto" max-width="1500">
+            <v-card class="mx-auto" max-width="1500" v-show="!loadingData">
                 <v-card-title style="text-align: center;">THÔNG TIN TIN TỨC</v-card-title>
                 <v-card-actions class="justify-center">
                         <v-container fuild>
@@ -45,6 +45,11 @@
                     <v-btn @click="isCreate ? createTinTuc() : updateTinTuc()" :loading="loading" style="background-color: green; color: white; margin-bottom: 20px;">XÁC NHẬN</v-btn>
                 </v-card-actions>
             </v-card>
+            <v-skeleton-loader
+            type="paragraph"
+            v-show="loadingData"
+            v-for="n in 7" :key="n"
+            ></v-skeleton-loader>
         </v-container>
     </NavAdmin>
 </template>
@@ -90,7 +95,8 @@ import { utilController } from '@/services/Util';
                         ],
                     },
                 },
-                avartar:""
+                avartar:"",
+                loadingData: false
             }
         },
         components:{
@@ -115,6 +121,7 @@ import { utilController } from '@/services/Util';
                 const urlParams = new URLSearchParams(window.location.search)
                 const id = urlParams.get("id")
                 if(id){
+                    this.loadingData = true
                     this.isCreate = false;
                     tinTucController.getById(id)
                     .then(res=>{
@@ -125,6 +132,7 @@ import { utilController } from '@/services/Util';
                         this.guid = res.data.guid,
                         this.avartar = res.data.avartar
                         this.status.statusSelected = +res.data.status
+                        this.loadingData = false
                     })
                 }
             },

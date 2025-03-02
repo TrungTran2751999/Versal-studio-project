@@ -98,7 +98,7 @@
                         <div v-for="item in child.children" :key="item">
                             <RouterLink :to="item.link">
                                 <v-list-item class="menu-dropdown-container">
-                                    <v-list-item-title class="menu-dropdown">{{ item.name }}</v-list-item-title>
+                                    <v-list-item-title class="menu-dropdown">{{ item.name.toUpperCase() }}</v-list-item-title>
                                 </v-list-item>
                             </RouterLink>
                             <v-divider></v-divider>

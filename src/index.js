@@ -21,6 +21,7 @@ import QuanLyTeam from "./pages/versal-studio/admin/QuanLyGiaiDau/QuanLyTeam/Qua
 import ChiTietQuanLyTeam from "./pages/versal-studio/admin/QuanLyGiaiDau/QuanLyTeam/ChiTietQuanLyTeam.vue";
 import Login from "./pages/versal-studio/admin/Login.vue";
 import NotFound from "./pages/NotFound.vue";
+import HoSoCaNhan from "./pages/versal-studio/admin/HoSoCaNhan.vue";
 const checkBeforeAdmin = (to, from ,next)=>{
     let result = utilController.checkJWTToken();
     try{
@@ -81,6 +82,12 @@ const routes = [
         path: "/admin",
         name:"admin",
         component: Dashboard,
+        beforeEnter: checkBeforeAdmin
+    },
+    {
+        path: "/admin/ho-so-ca-nhan",
+        name:"admin-ho-so-ca-nhan",
+        component: HoSoCaNhan,
         beforeEnter: checkBeforeAdmin
     },
     {

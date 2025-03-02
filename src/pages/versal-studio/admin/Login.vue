@@ -56,7 +56,7 @@ export default {
       this.isLogin = true
       let obj = {
         userName: this.info.Username,
-        passWord: this.info.Password
+        password: this.info.Password
       }
       userController.login(obj)
       .then(res => {
@@ -70,6 +70,10 @@ export default {
             sameSite: 'strict'
         })
         Cookies.set('name', res.data.name, {
+            secure: true,
+            sameSite: 'strict'
+        })
+        Cookies.set('guid', res.data.guid, {
             secure: true,
             sameSite: 'strict'
         })

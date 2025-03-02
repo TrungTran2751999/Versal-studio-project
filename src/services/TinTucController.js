@@ -9,6 +9,13 @@ function getAll(postData){
         }
     })
 }
+function getAllClient(){
+    return axios.get(API.CLIENT.tinTuc.getAllTinTucClient,{
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+}
 function create(postData){
     return axios.post(API.ADMIN.tinTuc.createTinTuc, postData,{
         headers: {
@@ -102,7 +109,7 @@ function duyetBai(postData){
     })
 }
 function getByIdClient(id, loaiTinTucId){
-    return axios.get(API.ADMIN.tinTuc.getByIdCient, {
+    return axios.get(API.CLIENT.tinTuc.getByIdCient, {
         headers: {
             'Authorization': `Bearer ${Cookies.get("token")}`,
             'Content-Type': 'application/json'
@@ -113,8 +120,23 @@ function getByIdClient(id, loaiTinTucId){
         }
     });
 }
+function getAllTinTucByLoaiTinTuc(postData){
+    return axios.post(API.CLIENT.tinTuc.getTinTucByLoaiTinTuc, postData,{
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+function getByLoaiTinTuc(loaiTinTucId){
+    return axios.get(API.CLIENT.loaiTinTuc.getById, {
+        params:{
+            id:loaiTinTucId
+        }
+    });
+}
 export const tinTucController = {
     getAll,
+    getAllClient,
     create,
     update,
     getCount,
@@ -126,5 +148,7 @@ export const tinTucController = {
     updateLoaiTinTuc,
     getLoaiTinTucById,
     duyetBai,
-    getByIdClient
+    getByIdClient,
+    getAllTinTucByLoaiTinTuc,
+    getByLoaiTinTuc
 }

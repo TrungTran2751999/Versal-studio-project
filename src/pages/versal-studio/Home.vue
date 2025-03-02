@@ -47,18 +47,23 @@
             display: none;
         }
     }
+    @media (max-width: 480px) {
+        .bai-viet{
+            padding: 0px !important;
+        }
+    }
 </style>
 <template>
     <Nav>
         <!-- --------TIEU DE-------- -->
         <v-card>
             <v-card-actions style="background-color: rgb(42,42,42);">
-                <v-row class="pa-12" v-show="listTinTuc.listTinNoiBat2">
+                <v-row class="pa-12 bai-viet" v-show="listTinTuc.listTinNoiBat2">
                     <v-col cols="12" md="6">
                         <RouterLink :to="(`/news?id=${listTinTuc.listTinNoiBat1?.guid}&loaiTinTucId=${listTinTuc.listTinNoiBat1?.loaiTinTucId}`)">
                             <v-card style="margin-bottom: 25px; height: 725px;">
                                 <v-card-actions class="container-mg-su-kien">
-                                    <v-img height="410px" style="background-color: white;" :src="listTinTuc.listTinNoiBat1?.avartar" class="img-su-kien"></v-img>
+                                    <v-img height="100%" style="background-color: white;" :src="listTinTuc.listTinNoiBat1?.avartar" class="img-su-kien"></v-img>
                                 </v-card-actions>
                                 <v-card-actions class="pa-6">
                                     <div>
@@ -94,7 +99,7 @@
                                     </div>
                                 </v-card-actions>
                                 <v-card-actions class="pa-6 container-title-su-kien">
-                                    <div>
+                                    <div> 
                                         <span class="title-su-kien">{{ item?.name }}</span> 
                                     </div>
                                 </v-card-actions>
@@ -104,7 +109,7 @@
 
                 </v-row>
                 <!-- skeleton -->
-                <v-row class="pa-12" v-show="!listTinTuc.listTinNoiBat2">
+                <v-row class="pa-12 bai-viet" v-show="!listTinTuc.listTinNoiBat2">
                     <v-col cols="12" md="6">
                         <v-skeleton-loader
                         style="height: 725px;"
@@ -210,7 +215,7 @@
         </v-card>
         <!-- ----------TIN TUC---------- -->
          <v-card>
-            <v-card-actions class="pa-12" style="background-color: rgb(42,42,42);;">
+            <v-card-actions class="pa-12 bai-viet" style="background-color: rgb(42,42,42);;">
                 <v-col>
                     <v-row v-for="tinTuc in listTinTuc.listTinNoiBat3" :key="tinTuc">
                         <v-col cols="12" sm="3" v-for="item in tinTuc" :key="item">
@@ -283,16 +288,16 @@ import { utilController } from '@/services/Util';
                 this.listDanhSachGame = this.listInfoGame.DanhSachGame.filter(x=>x.type==idLoaiGame)
             },
             setData(){
-                let postData = {
-                    filter:{
-                        keyWord: "",
-                        status: 1,
-                        loaiTinTucId: null
-                    },
-                    start: 0,
-                    limit: 13
-                }
-                tinTucController.getAll(postData)
+                // let postData = {
+                //     filter:{
+                //         keyWord: "",
+                //         status: 1,
+                //         loaiTinTucId: null
+                //     },
+                //     start: 0,
+                //     limit: 13
+                // }
+                tinTucController.getAllClient()
                 .then(res=>{
                     let listTinTucParam = []
                     let lengthTinTuc = res.data.length;
@@ -334,7 +339,6 @@ import { utilController } from '@/services/Util';
                             mangCon.push(listTinTucParam[i])
                         }
                     }
-                    console.log(this.listTinTuc)
                 })
                 .catch(err=>{
                     console.log(err)

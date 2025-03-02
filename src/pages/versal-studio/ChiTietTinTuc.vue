@@ -21,13 +21,23 @@ img{
 .ngay-to-chuc{
     font-size: 13px;
 }
+@media (min-width: 600px) {
+    .content-tin-tuc {
+        padding: 0px 100px !important;
+    }
+}
+@media (max-width: 480px) {
+    .bai-viet{
+        padding: 0px !important;
+    }
+}
 </style>
 <template>
     
     <Nav>
         <v-container>
-            <v-row class="pa-12" v-show="baiVietSelected.updatedAt!=undefined">
-                <v-col cols="12" style="padding-right: 15px;" class="pa-1">
+            <v-row class="pa-12 bai-viet" v-show="baiVietSelected.updatedAt!=undefined">
+                <v-col cols="12" class="pa-1 content-tin-tuc">
                     <v-img :src="baiVietSelected?.avartar" 
                         max-width="4000"
                         max-height="2000"></v-img>
@@ -36,8 +46,6 @@ img{
                         <span class="ngay-to-chuc">{{ baiVietSelected?.updatedAt }}</span>
                     </div>
                     <div style="font-size: 30px; font-weight: 900; margin-top: 15px; margin-bottom: 25px;">
-                        <!-- TEC 2024: Sự kiện Công nghệ – Esports – Cộng đồng hấp dẫn dành cho sinh viên do Versal Esports
-                        tổ chức -->
                         {{ baiVietSelected?.name }}
                     </div>
                     <v-divider></v-divider>
@@ -101,7 +109,6 @@ img{
 </template>
 <script>
 import { tinTucController } from '@/services/TinTucController';
-import Footer from './layout/Footer.vue';
 import Nav from './layout/Nav.vue';
 import { listBaiViet } from './util/GlobalVariable';
 import { utilController } from '@/services/Util';
@@ -143,7 +150,6 @@ export default {
                 .then(res=>{
                     this.baiVietSelected = res.data.selected[0]
                     let listLienQuan = res.data.lienQuan
-                    console.log(listLienQuan)
                     this.baiVietSelected.updatedAt = utilController.convertDate(this.baiVietSelected.updatedAt)
 
                     res.data.lienQuan.map(item=>{

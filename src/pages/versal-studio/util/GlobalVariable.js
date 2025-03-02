@@ -126,6 +126,7 @@ export const API = {
             count: `${domainApi}/api/admin/user/count`,
             getAllActive: `${domainApi}/api/admin/user/active`,
             getAllCaNhanActive: `${domainApi}/api/admin/user/ca-nhan-active`,
+            updateAdmin: `${domainApi}/api/admin/user/update-admin`
         },
         role:{
             getAll: `${domainApi}/api/admin/role`
@@ -135,7 +136,6 @@ export const API = {
             createTinTuc: `${domainApi}/api/admin/tin-tuc/create`,
             updateTinTuc: `${domainApi}/api/admin/tin-tuc/update`,
             getById: `${domainApi}/api/admin/tin-tuc/chi-tiet`,
-            getByIdCient: `${domainApi}/api/admin/tin-tuc/chi-tiet/client`,
             getCount: `${domainApi}/api/admin/tin-tuc/count`,
 
             getAllLoaiTinTuc: `${domainApi}/api/admin/tin-tuc/loai-tin-tuc`, 
@@ -164,6 +164,16 @@ export const API = {
                 addMemberTeam: `${domainApi}/api/admin/tournament/team/member/add`,
                 xoaMemberTeam: `${domainApi}/api/admin/tournament/team/member/delete`
             }
+        }
+    },
+    CLIENT:{
+        tinTuc:{
+            getAllTinTucClient: `${domainApi}/api/tin-tuc`,
+            getByIdCient: `${domainApi}/api/tin-tuc/chi-tiet`,
+            getTinTucByLoaiTinTuc: `${domainApi}/api/tin-tuc/by-loai-tin-tuc`,
+        },
+        loaiTinTuc:{
+            getById: `${domainApi}/api/loai-tin-tuc/chi-tiet`
         }
     },
     UTIL:{

@@ -76,6 +76,14 @@ function login(postData){
         }
     })
 }
+function updateAdmin(postData){
+    return axios.post(API.ADMIN.user.updateAdmin, postData,{
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${Cookies.get("token")}`
+        }
+    })
+}
 export const userController = {
     getAll,
     getById,
@@ -85,5 +93,6 @@ export const userController = {
     getCount,
     getAllActive,
     getAllUserActive,
-    login
+    login,
+    updateAdmin
 }

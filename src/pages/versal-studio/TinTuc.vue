@@ -52,6 +52,15 @@
             text-align: center;
         }
     }
+    .bai-viet{
+        min-height: 100vh
+    }
+    @media (max-width: 480px) {
+        .bai-viet{
+            padding: 0px !important;
+            min-height: 100%
+        }
+    }
 </style>
 <template>
     <Nav>
@@ -59,128 +68,138 @@
             <v-img src="@/assets/bg-img.jpg" max-width="2000" max-height="1000">
                 <v-card-actions class="pa-8">
                     <v-col>
-                        <div class="title">{{ title }}</div>
+                        <div class="title">{{ title?.toUpperCase() }}</div>
                         <div class="visible" style="color: white; font-weight: bolder; font-size: 15px;">{{ description }}</div>
                     </v-col>
                 </v-card-actions>
             </v-img>
         </v-card>
-        <v-card style="background-color: rgb(43,43,43);">
-            <v-card-actions class="pa-12">
-                <v-row>
-                    <v-col cols="12" sm="3" v-for="n in 4" :key="n">
-                        <RouterLink to="/news">
-                            <v-card class="card-child" v-for="m in 2" :key="m">
-                                <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                    <v-img :src="listImg[0]" class="img-su-kien"></v-img>
-                                </v-card-actions>
-                                <v-card-actions class="pa-6">
-                                    <div>
-                                        <span class="loai-su-kien">SỰ KIỆN ESPORTS </span> 
-                                        <span>16/07/2024</span>
-                                    </div>
-                                </v-card-actions>
-                                <v-card-actions class="pa-6" style="margin-top: -30px;">
-                                    <div>
-                                        <span class="">Với sự chuẩn bị kỹ lưỡng và các hoạt động đa dạng, TEC 2024 là điểm đến lý tưởng cho những ai muốn khám phá thế giới công nghệ hiện đại, ...</span> 
-                                    </div>
-                                </v-card-actions>
-                            </v-card>
-                        </RouterLink>
-                    </v-col>
-                </v-row>
+        <v-card style="background-color: rgb(43,43,43);" class="pa-12 bai-viet">
+            <v-card-actions>
+                <v-col v-show="!loading">
+                    <v-row v-for="datas in listData" :key="datas" class="justify-center">
+                        <v-col cols="12" sm="3" v-for="item in datas" :key="item" class="justify-center">
+                            <RouterLink :to="(`/news?id=${item.guid}`)">
+                                <v-card class="card-child">
+                                    <v-card-actions style="background-color: black;" class="container-mg-su-kien">
+                                        <v-img height="146px" :src="item.avartar" class="img-su-kien"></v-img>
+                                    </v-card-actions>
+                                    <v-card-actions class="pa-6">
+                                        <div>
+                                            <span class="loai-su-kien">{{ item.loaiTinTuc?.toUpperCase() }}</span> 
+                                            <span style="font-size: 10px">{{ item.updatedAt }}</span>
+                                        </div>
+                                    </v-card-actions>
+                                    <v-card-actions class="pa-6" style="margin-top: -30px;">
+                                        <div>
+                                            <span>{{ item.name }}</span> 
+                                        </div>
+                                    </v-card-actions>
+                                </v-card>
+                            </RouterLink>
+                        </v-col>
+                    </v-row>
+                </v-col>
+
+                <v-col v-show="loading">
+                    <v-row v-for="n in 2" :key="n">
+                        <v-col cols="12" md="3" v-for="m in 4" :key="m">
+                            <v-skeleton-loader
+                            type="card"
+                            ></v-skeleton-loader>
+                        </v-col>
+                    </v-row>
+                </v-col>
             </v-card-actions>
 
-            <v-card-actions class="justify-center" style="margin-top: -40px;">
+            <v-card-actions class="justify-center" style="margin-top: -40px;" v-show="Math.ceil(count)>1">
                 <v-card>
                     <v-pagination
                         v-model="page"
-                        :length="15"
-                        :total-visible="7"
+                        :length="count"
+                        :total-visible="Math.ceil(count)"
                         style="background-color: white;"
+                        @click="setData"
                     ></v-pagination>
                 </v-card>
             </v-card-actions>
         </v-card>
+        
     </Nav>
 </template>
 <script>
 import Nav from './layout/Nav.vue';
 import Footer from './layout/Footer.vue';
+import { tinTucController } from '@/services/TinTucController';
+import { utilController } from '@/services/Util';
 
     export default{
         data(){
             return{
                 page:1,
                 title: "",
-                description:"",
-                listTitle: [
-                    {
-                        "tin-tuc":
-                        [
-                           {
-                             name: "esport-360",
-                             title: "ESPORT-360",
-                             des: "Tin tức chung về esports, cập nhật các sự kiện, giải đấu đang diễn ra trong nước và quốc tế."
-                           },
-                           {
-                             name: "tin-cong-dong",
-                             title: "TIN CỘNG ĐỒNG",
-                             des: "Tin tức chung về esports, cập nhật các sự kiện, giải đấu đang diễn ra trong nước và quốc tế."
-                           },
-                           {
-                             name: "kien-thuc-dao-tao",
-                             title: "KIẾN THỨC ĐÀO TẠO",
-                             des: "Tin tức chung về esports, cập nhật các sự kiện, giải đấu đang diễn ra trong nước và quốc tế."
-                           }, 
-                           {
-                             name: "dien-dan-etalk",
-                             title: "DIỄN ĐÀN E-TALK",
-                             des: "Tin tức chung về esports, cập nhật các sự kiện, giải đấu đang diễn ra trong nước và quốc tế."
-                           },    
-                           {
-                             name: "human-of-esport",
-                             title: "HUMAN OF ESPORT",
-                             des: "Tin tức chung về esports, cập nhật các sự kiện, giải đấu đang diễn ra trong nước và quốc tế."
-                           },
-                           {
-                             name: "hoat-dong",
-                             title: "HOẠT ĐỘNG",
-                             des: "Tin tức chung về esports, cập nhật các sự kiện, giải đấu đang diễn ra trong nước và quốc tế."
-                           },           
-                        ]   
-                    }
-                ],
-                listImg:[
-                    require("../../assets/img-event.png")
-                ]
+                description:"Tin tức chung về esports, cập nhật các sự kiện, giải đấu đang diễn ra trong nước và quốc tế.",
+                count:"",
+                listData:[],
+                loading:true
             }
         },
         mounted(){
-            this.setTitle();
+            //this.setTitle();
         },
         updated(){
-            this.setTitle();
+            this.setData();
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth' // Thêm 'smooth' để cuộn mượt mà
             });
 
         },
+        created(){
+            this.setData()
+        },
         methods:{
-            setTitle(){
+            setData(){
+                this.loading = true
                 const currentUrl = window.location.href;
                 const url = new URL(currentUrl);
                 const params = new URLSearchParams(url.search);
-                const main = params.get('main');
-                const child = params.get('child');
-                const childrenParam = this.listTitle.filter(x=>x[main].length > 0)
-                let listChildrenParam = childrenParam[0][main];
-                if(listChildrenParam){
-                    const childParam = listChildrenParam.filter(x=>x.name==child)
-                    this.title = childParam[0].title
-                    this.description = childParam[0].des
+                let loaiTinTucId = params.get("child");
+                if(loaiTinTucId!=null){
+                    let postData = {
+                        loaiTinTucId: loaiTinTucId,
+                        limit:8,
+                        start:(this.page-1)*8
+                    }
+                    tinTucController.getAllTinTucByLoaiTinTuc(postData)
+                    .then(res=>{
+                        this.title = res.data.loaiTinTuc[0]?.name
+                        let listResult = res.data.list
+                        this.count = Math.ceil(res.data.count[0].count/8)
+                        res.data.list.map(item=>{
+                            item.updatedAt = utilController.convertDate(item.updatedAt)
+                        })
+                        let mangCon = []
+                        this.listData = []
+                        for(let i=0; i<listResult.length; i++){
+                            if(i % 4==0){
+                                mangCon = []
+                                mangCon.push(listResult[i])
+                                this.listData.push(mangCon)
+                            }else{
+                                mangCon.push(listResult[i])
+                            }
+                        }
+                        if(this.listData.length > 0) this.loading = false
+                    })
+                    .catch(err=>{
+                        console.log(err)
+                    })
                 }
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth' // Thêm 'smooth' để cuộn mượt mà
+                });
             }
         },
         components:{
