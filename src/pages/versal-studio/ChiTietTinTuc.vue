@@ -21,14 +21,21 @@ img{
 .ngay-to-chuc{
     font-size: 13px;
 }
-@media (min-width: 600px) {
-    .content-tin-tuc {
+</style>
+<style scoped>
+@media (min-width: 300px) {
+    .bai-viet{
+        padding: 0px !important;
+    }
+}
+@media (min-width: 1023px) {
+    .bai-viet {
         padding: 0px 100px !important;
     }
 }
-@media (max-width: 480px) {
+@media (min-width: 1600px) {
     .bai-viet{
-        padding: 0px !important;
+        padding: 0px 350px !important;
     }
 }
 </style>
@@ -55,7 +62,7 @@ img{
                 </v-col>
             </v-row>
             <!-- SKELETON-LOADING -->
-            <v-row class="pa-12" v-show="baiVietSelected.updatedAt==undefined">
+            <v-row class="pa-12 bai-viet" v-show="baiVietSelected.updatedAt==undefined">
                 <v-col cols="12">
                     <v-skeleton-loader
                     class="mx-auto border"
@@ -78,14 +85,14 @@ img{
             <v-card-actions class="justify-center">
                 <div style="text-align: center; font-size: 22px; font-weight: bold; color: wheat;">TIN TỨC LIÊN QUAN</div>
             </v-card-actions>
-            <v-card-actions class="pa-12 justify-center" style="margin-top: -30px;">
+            <v-card-actions class="pa-12 bai-viet justify-center" >
                 <v-col>
                     <v-row v-for="tinTucs in listTinTuc" :key="tinTucs" class="justify-center">
                         <v-col cols="12" sm="3" v-for="item in tinTucs" :key="item">
                             <RouterLink :to="(`/news?id=${item?.guid}&loaiTinTucId=${item?.loaiTinTucId}`)" >
                                 <v-card class="card-child">
                                     <v-card-actions class="container-mg-su-kien">
-                                        <v-img height="146px" :src="item?.avartar" class="img-su-kien"></v-img>
+                                        <v-img cover height="146px" :src="item?.avartar" class="img-su-kien"></v-img>
                                     </v-card-actions>
                                     <v-card-actions class="pa-6">
                                         <div>

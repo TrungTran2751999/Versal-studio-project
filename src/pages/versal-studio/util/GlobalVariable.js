@@ -66,33 +66,33 @@ export let listChildrenNav = [
             {name: "Liên hệ hợp tác", link:""}
         ]
     },
-    {
-        name: "KHÁM PHÁ",
-        id:"nav-kham-pha-bigger",
-        idHambug:"nav-kham-pha",
-        idActivator:"",
-        isShowChildren: false,
-        idChidren: "nav-kham-pha-chidren",
-        children:[]
-    },
-    {
-        name: "MANGA/FILM",
-        id:"nav-manga-film-bigger",
-        idHambug:"nav-manga-film",
-        idActivator:"",
-        isShowChildren: false,
-        idChidren: "nav-manga-film-chidren",
-        children:[]
-    },
-    {
-        name: "CÔNG NGHỆ",
-        id:"nav-mang-cong-nghe-bigger",
-        idHambug:"nav-mang-cong-nghe-film",
-        idActivator:"",
-        isShowChildren: false,
-        idChidren: "nav-mang-cong-nghe-chidren",
-        children:[]
-    },
+    // {
+    //     name: "KHÁM PHÁ",
+    //     id:"nav-kham-pha-bigger",
+    //     idHambug:"nav-kham-pha",
+    //     idActivator:"",
+    //     isShowChildren: false,
+    //     idChidren: "nav-kham-pha-chidren",
+    //     children:[]
+    // },
+    // {
+    //     name: "MANGA/FILM",
+    //     id:"nav-manga-film-bigger",
+    //     idHambug:"nav-manga-film",
+    //     idActivator:"",
+    //     isShowChildren: false,
+    //     idChidren: "nav-manga-film-chidren",
+    //     children:[]
+    // },
+    // {
+    //     name: "CÔNG NGHỆ",
+    //     id:"nav-mang-cong-nghe-bigger",
+    //     idHambug:"nav-mang-cong-nghe-film",
+    //     idActivator:"",
+    //     isShowChildren: false,
+    //     idChidren: "nav-mang-cong-nghe-chidren",
+    //     children:[]
+    // },
 ]
 export let listChildrenNavAdmin = [
     {
@@ -171,6 +171,7 @@ export const API = {
             getAllTinTucClient: `${domainApi}/api/tin-tuc`,
             getByIdCient: `${domainApi}/api/tin-tuc/chi-tiet`,
             getTinTucByLoaiTinTuc: `${domainApi}/api/tin-tuc/by-loai-tin-tuc`,
+            getListTinTucTheoLoai: `${domainApi}/api/tin-tuc/allow-loai-tin-tuc`
         },
         loaiTinTuc:{
             getById: `${domainApi}/api/loai-tin-tuc/chi-tiet`

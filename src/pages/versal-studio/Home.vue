@@ -63,7 +63,7 @@
                         <RouterLink :to="(`/news?id=${listTinTuc.listTinNoiBat1?.guid}&loaiTinTucId=${listTinTuc.listTinNoiBat1?.loaiTinTucId}`)">
                             <v-card style="margin-bottom: 25px; height: 725px;">
                                 <v-card-actions class="container-mg-su-kien">
-                                    <v-img height="100%" style="background-color: white;" :src="listTinTuc.listTinNoiBat1?.avartar" class="img-su-kien"></v-img>
+                                    <v-img cover height="330" style="background-color: white;" :src="listTinTuc.listTinNoiBat1?.avartar" class="img-su-kien"></v-img>
                                 </v-card-actions>
                                 <v-card-actions class="pa-6">
                                     <div>
@@ -90,7 +90,7 @@
                             <v-card class="card-child">
                                 
                                 <v-card-actions style="background-color: white;" class="container-mg-su-kien">
-                                    <v-img height="146px" :src="item?.avartar" class="img-su-kien"></v-img>
+                                    <v-img cover height="146px" :src="item?.avartar" class="img-su-kien"></v-img>
                                 </v-card-actions>
                                 <v-card-actions class="pa-6">
                                     <div>
@@ -222,7 +222,7 @@
                             <RouterLink :to="(`/news?id=${item?.guid}&loaiTinTucId=${item?.loaiTinTucId}`)">
                                 <v-card class="card-child">
                                     <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                        <v-img style="background-color: white;" height="147px" :src="item.avartar" class="img-su-kien"></v-img>
+                                        <v-img cover style="background-color: white;" height="146px" :src="item.avartar" class="img-su-kien"></v-img>
                                     </v-card-actions>
                                     <v-card-actions class="pa-6">
                                         <div>
@@ -339,6 +339,7 @@ import { utilController } from '@/services/Util';
                             mangCon.push(listTinTucParam[i])
                         }
                     }
+
                 })
                 .catch(err=>{
                     console.log(err)

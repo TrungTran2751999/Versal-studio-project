@@ -68,7 +68,9 @@
                     <v-row>
                         <v-col cols="12" sm="3">
                             <div style="color: rgb(42,42,42); font-size: 20px;">
-                                <v-img style="scale:1.1" src="@/assets/logo-2.png" max-height="1000" max-width="1000"></v-img>
+                                <RouterLink to="/">
+                                    <v-img style="scale:1.1" src="@/assets/logo-2.png" max-height="1000" max-width="1000"></v-img>
+                                </RouterLink>
                             </div>
                         </v-col>
                         <v-col cols="12" sm="9" style="margin-top: 18px">
