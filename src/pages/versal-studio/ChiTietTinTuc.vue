@@ -161,7 +161,7 @@ export default {
                 .then(res=>{
                     this.baiVietSelected = res.data.selected[0]
                     let listLienQuan = res.data.lienQuan
-                    this.baiVietSelected.updatedAt = utilController.convertDate(this.baiVietSelected.updatedAt)
+                    this.baiVietSelected.updatedAt = utilController.convertDate(this.baiVietSelected.updatedAt, "datetime")
 
                     res.data.lienQuan.map(item=>{
                         item.updatedAt = utilController.convertDate(item.updatedAt, "datetime")

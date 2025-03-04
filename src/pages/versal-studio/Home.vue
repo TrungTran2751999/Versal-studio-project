@@ -39,6 +39,14 @@
     .ngay-to-chuc{
         font-size: 10px;
     }
+    .title-tin-tuc-cac-loai{
+        font-size: 20px;
+        font-weight: bolder;
+        color: wheat;
+        text-align: center;
+        margin-bottom: 15px;
+        max-width: 100vw;
+    }
     @media (max-width: 900px) {
         #card-danh-sach-game {
             display: none;
@@ -239,28 +247,40 @@
          <v-card>
             <v-card-actions class="pa-12 bai-viet" style="background-color: rgb(42,42,42);;">
                 <v-col>
-                    <v-row v-for="tinTuc in listTinTuc.listTinNoiBat3" :key="tinTuc">
-                        <v-col cols="12" sm="3" v-for="item in tinTuc" :key="item">
-                            <RouterLink :to="(`/news?id=${item?.guid}&loaiTinTucId=${item?.loaiTinTucId}`)">
-                                <v-card class="card-child">
-                                    <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                        <v-img cover style="background-color: white;" height="146px" :src="item.avartar" class="img-su-kien"></v-img>
-                                    </v-card-actions>
-                                    <v-card-actions class="pa-6">
-                                        <div>
-                                            <span class="loai-su-kien">{{item.tenLoaiTinTuc?.toUpperCase()}}</span> 
-                                            <span class="ngay-to-chuc">{{item.updatedAt}}</span>
-                                        </div>
-                                    </v-card-actions>
-                                    <v-card-actions class="pa-6" style="margin-top: -30px;">
-                                        <div>
-                                            <span>{{item.name}}</span> 
-                                        </div>
-                                    </v-card-actions>
-                                </v-card>
-                            </RouterLink>
-                        </v-col>
-                    </v-row>
+                    <v-col v-for="tinTucs in listTinTuc.listTinNoiBat3" :key="tinTucs" v-show="!loadingTinTucCacLoai">
+                        <div class="title-tin-tuc-cac-loai">{{ tinTucs.loaiTinTucId }}</div>
+                        <v-row class="justify-center">
+                            <v-col cols="12" sm="3" v-for="item in tinTucs.listTinTuc" :key="item" class="justify-center">
+                                <RouterLink :to="(`/news?id=${item?.guid}&loaiTinTucId=${item?.loaiTinTucId}`)">
+                                    <v-card class="card-child">
+                                        <v-card-actions style="background-color: black;" class="container-mg-su-kien">
+                                            <v-img cover style="background-color: white;" height="146px" :src="item.avartar" class="img-su-kien"></v-img>
+                                        </v-card-actions>
+                                        <v-card-actions class="pa-6">
+                                            <div>
+                                                <span class="loai-su-kien">{{item.loaiTinTucName?.toUpperCase()}}</span> 
+                                                <span class="ngay-to-chuc">{{item.updatedAt}}</span>
+                                            </div>
+                                        </v-card-actions>
+                                        <v-card-actions class="pa-6" style="margin-top: -30px;">
+                                            <div>
+                                                <span>{{item.name}}</span> 
+                                            </div>
+                                        </v-card-actions>
+                                    </v-card>
+                                </RouterLink>
+                            </v-col>
+                        </v-row>
+                    </v-col>
+                    <v-col v-for="n in 5" :key="n" v-show="loadingTinTucCacLoai">
+                        <v-skeleton-loader type="paragraph" style="margin-bottom: 15px;"></v-skeleton-loader>
+                        <v-row>
+                            <v-col cols=12 md="3" v-for="m in 4" :key="m">
+                                <v-skeleton-loader  type="card">
+                                </v-skeleton-loader>
+                            </v-col>
+                        </v-row>
+                    </v-col>
                 </v-col>
             </v-card-actions>
          </v-card>
@@ -296,7 +316,8 @@ import { utilController } from '@/services/Util';
                 },
                 listDanhSachGame:[],
                 baiVietGanNhat: listBaiViet.filter(x=>x.id==2)[0],
-                listTinTuc:{}
+                listTinTuc:{},
+                loadingTinTucCacLoai: true
             }
         },
         mounted(){
@@ -325,13 +346,13 @@ import { utilController } from '@/services/Util';
                     let lengthTinTuc = res.data.length;
                     let lengthTinTucMacDinh = 13 - lengthTinTuc;
                     res.data.map(item=>{
-                        item.updatedAt = utilController.convertDate(item.updatedAt)
+                        item.updatedAt = utilController.convertDate(item.updatedAt, "datetime")
                     })
                     listTinTucParam = res.data
                     //them bai viet fake
                     for(let i=1; i<=lengthTinTucMacDinh; i++){
                         let baiVietMacDinh = listBaiViet.filter(x=>x.id==1)[0];
-                        baiVietMacDinh.updatedAt = utilController.convertDate(baiVietMacDinh.updatedAt);
+                        baiVietMacDinh.updatedAt = utilController.convertDate(baiVietMacDinh.updatedAt, "datetime");
                         listTinTucParam.push(baiVietMacDinh)
                     }
                     this.listTinTuc.listTinNoiBat1 = listTinTucParam[0]
@@ -349,19 +370,31 @@ import { utilController } from '@/services/Util';
                         
                     } 
                     mangCon = []
-                    this.listTinTuc.listTinNoiBat3 = []
-                    let congSoTinTuc = 1;
-                    for(let i=5; i<=12; i++){
-                        if(congSoTinTuc+4==i){
-                            congSoTinTuc = i
-                            mangCon = []
-                            mangCon.push(listTinTucParam[i])
-                            this.listTinTuc.listTinNoiBat3.push(mangCon)
-                        }else{
-                            mangCon.push(listTinTucParam[i])
-                        }
-                    }
 
+                })
+                .catch(err=>{
+                    console.log(err)
+                })
+
+
+                this.listTinTuc.listTinNoiBat3 = []
+                tinTucController.getListTinTucByLoai()
+                .then(res=>{
+                    let listLoaiTinTucId = res.data.listLoaiTinTucId
+                    let listTinTuc = res.data.listTinTuc
+                    listLoaiTinTucId.map(item=>{
+                        let obj = {
+                            loaiTinTucId: item.name,
+                            listTinTuc: listTinTuc.filter(x=>x.loaiTinTucId == item.id)
+                        }
+                        obj.listTinTuc.map(item=>{
+                            item.updatedAt = utilController.convertDate(item.updatedAt, "datetime")
+                        })
+                        if(obj.listTinTuc.length > 0){
+                            this.listTinTuc.listTinNoiBat3.push(obj);
+                        }
+                        this.loadingTinTucCacLoai = false
+                    })
                 })
                 .catch(err=>{
                     console.log(err)

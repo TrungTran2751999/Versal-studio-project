@@ -134,6 +134,9 @@ function getByLoaiTinTuc(loaiTinTucId){
         }
     });
 }
+function getListTinTucByLoai(){
+    return axios.get(API.CLIENT.tinTuc.getListTinTucTheoLoai)
+}
 export const tinTucController = {
     getAll,
     getAllClient,
@@ -150,5 +153,6 @@ export const tinTucController = {
     duyetBai,
     getByIdClient,
     getAllTinTucByLoaiTinTuc,
-    getByLoaiTinTuc
+    getByLoaiTinTuc,
+    getListTinTucByLoai
 }

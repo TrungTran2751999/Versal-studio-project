@@ -179,7 +179,7 @@ import { utilController } from '@/services/Util';
                         let listResult = res.data.list
                         this.count = Math.ceil(res.data.count[0].count/8)
                         res.data.list.map(item=>{
-                            item.updatedAt = utilController.convertDate(item.updatedAt)
+                            item.updatedAt = utilController.convertDate(item.updatedAt, "datetime")
                         })
                         let mangCon = []
                         this.listData = []
