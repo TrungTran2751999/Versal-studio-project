@@ -18,6 +18,10 @@ img{
     width: 100%;
     height: auto;
 }
+iframe{
+    width: 100%;
+    height: 600px;
+}
 .ngay-to-chuc{
     font-size: 13px;
 }
@@ -92,7 +96,7 @@ img{
                             <RouterLink :to="(`/news?id=${item?.guid}&loaiTinTucId=${item?.loaiTinTucId}`)" >
                                 <v-card class="card-child">
                                     <v-card-actions class="container-mg-su-kien">
-                                        <v-img cover height="146px" :src="item?.avartar" class="img-su-kien"></v-img>
+                                        <v-img cover height="180px" :src="item?.avartar" class="img-su-kien"></v-img>
                                     </v-card-actions>
                                     <v-card-actions class="pa-6">
                                         <div>

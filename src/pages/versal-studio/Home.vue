@@ -4,7 +4,7 @@
         padding: 0;
     }
     .img-su-kien{
-        
+        height: 500px;
     }   
     .loai-su-kien{
         background-color: black;
@@ -46,10 +46,32 @@
         .content-su-kien{
             display: none;
         }
+        .img-su-kien{
+            height: 200px;
+        } 
     }
     @media (max-width: 480px) {
         .bai-viet{
             padding: 0px !important;
+        }
+        .img-su-kien{
+            height: 200px;
+        } 
+    }
+
+    @media (min-width: 300px) {
+        .img-su-kien{
+            height: 400px;
+        } 
+    }
+    @media (min-width: 1023px) {
+        .img-su-kien {
+            height: 400px;
+        }
+    }
+    @media (min-width: 1600px) {
+        .img-su-kien{
+            height: 500px;
         }
     }
 </style>
@@ -63,7 +85,7 @@
                         <RouterLink :to="(`/news?id=${listTinTuc.listTinNoiBat1?.guid}&loaiTinTucId=${listTinTuc.listTinNoiBat1?.loaiTinTucId}`)">
                             <v-card style="margin-bottom: 25px; height: 725px;">
                                 <v-card-actions class="container-mg-su-kien">
-                                    <v-img cover height="330" style="background-color: white;" :src="listTinTuc.listTinNoiBat1?.avartar" class="img-su-kien"></v-img>
+                                    <v-img cover style="background-color: white;" :src="listTinTuc.listTinNoiBat1?.avartar" class="img-su-kien"></v-img>
                                 </v-card-actions>
                                 <v-card-actions class="pa-6">
                                     <div>

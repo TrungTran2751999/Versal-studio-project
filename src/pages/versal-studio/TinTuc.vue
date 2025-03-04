@@ -55,17 +55,19 @@
     .bai-viet{
         min-height: 100vh
     }
-    @media (max-width: 480px) {
+    @media (min-width: 300px) {
         .bai-viet{
             padding: 0px !important;
-            min-height: 100%
+        }
+        .img-title{
+            padding: 15px 0px;
         }
     }
 </style>
 <template>
     <Nav>
         <v-card class="bg-title">
-            <v-img src="@/assets/bg-img.jpg" max-width="2000" max-height="1000">
+            <v-img cover src="@/assets/bg-img.jpg" class="img-title">
                 <v-card-actions class="pa-8">
                     <v-col>
                         <div class="title">{{ title?.toUpperCase() }}</div>
@@ -82,7 +84,7 @@
                             <RouterLink :to="(`/news?id=${item.guid}`)">
                                 <v-card class="card-child">
                                     <v-card-actions style="background-color: black;" class="container-mg-su-kien">
-                                        <v-img cover height="146px" :src="item.avartar" class="img-su-kien"></v-img>
+                                        <v-img cover height="200px" :src="item.avartar" class="img-su-kien"></v-img>
                                     </v-card-actions>
                                     <v-card-actions class="pa-6">
                                         <div>

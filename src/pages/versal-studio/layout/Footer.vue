@@ -2,7 +2,8 @@
     .bg-card{
         font-size: 20px;
         font-weight: 900;
-        background-image: url("../../../assets/bg-card-footer.jpg");
+        /* background-image: url("../../../assets/bg-card-footer.jpg"); */
+        background-color: black;
         background-size: cover;
         background-position:center;
         background-repeat: no-repeat;
@@ -67,13 +68,18 @@
                 <v-col cols="12" sm="6">
                     <v-row>
                         <v-col cols="12" sm="3">
-                            <div style="color: rgb(42,42,42); font-size: 20px;">
+                            <!-- <div style="color: rgb(42,42,42); font-size: 20px;">
                                 <RouterLink to="/">
                                     <v-img style="scale:1.1" src="@/assets/logo-2.png" max-height="1000" max-width="1000"></v-img>
                                 </RouterLink>
-                            </div>
+                            </div> -->
                         </v-col>
                         <v-col cols="12" sm="9" style="margin-top: 18px">
+                            <div style="color: rgb(42,42,42); font-size: 20px;">
+                                <RouterLink to="/">
+                                    <v-img src="@/assets/logo-2.png" max-height="300" max-width="300"></v-img>
+                                </RouterLink>
+                            </div>
                             <div style="color: white; margin-bottom:10px; font-size: 13px; font-weight: 500">CTY TNHH VERSAL STUDIO VIETNAM</div>
                             <div style="color: white; font-size: 14px; margin-bottom:10px; font-weight: 100"><v-icon>mdi-phone</v-icon> 076.367.2367</div>
                             <div style="color: white; margin-bottom:10px; font-size: 14px; font-weight: 100"><v-icon>mdi-gmail</v-icon> contact@versalstudio.vn</div>
