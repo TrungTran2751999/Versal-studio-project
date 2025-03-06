@@ -8,6 +8,16 @@
         background-position:center;
         background-repeat: no-repeat;
     }
+    @media (min-width: 1023px) {
+        .title-footer{
+            padding: 0px 200px !important;
+        }
+    }
+    @media (min-width: 1600px) {
+        .title-footer{
+            padding: 0px 400px !important;
+        }
+    }
     .title{
         color: white;
     }
@@ -53,7 +63,7 @@
 </style>
 <template>
     <v-card class="bg-card">
-        <v-card-actions style="width: 100%;">
+        <v-card-actions style="width: 100%;" class="title-footer">
             <v-row justify="center">
                 <v-col cols="12" sm="3" v-for="child in this.$props.listChildProps.filter(x=>x.children.length>0)" :key="child" style="text-align: center;">
                     <div class="title" style="margin-top: 10px;">{{ child.name }}</div>

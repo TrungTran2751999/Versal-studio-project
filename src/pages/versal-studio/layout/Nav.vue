@@ -43,12 +43,12 @@
             <v-app-bar :elevation="2" style="background-color: black;" class="pa-1">
                 <template v-slot:prepend>
                     <v-app-bar-nav-icon @click="showHamburgMenu()" class="nav-font hidden"></v-app-bar-nav-icon>
+                    <div class="nav-font" style="gap:20px; margin-left: 20px;">
+                        <a href="/">
+                            <v-img :src="require('@/assets/logo-2.png')" style="width: 100px; height: 50px;"></v-img>
+                        </a>
+                    </div>
                     <v-row style="gap:20px; margin-left: 20px;" class="visible">
-                        <div class="nav-font">
-                            <RouterLink to="/">
-                                <v-img :src="require('@/assets/logo-2.png')" style="width: 100px; height: 50px;"></v-img>
-                            </RouterLink>
-                        </div>
                         <div class="nav-font" :id=child.id v-for="child in listChildrenNav" :key="child" style="margin-top: 15px;">
                             {{ child.name }} <span><v-icon>mdi-chevron-down</v-icon></span>
                         </div>

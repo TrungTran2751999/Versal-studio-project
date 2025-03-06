@@ -34,12 +34,12 @@ iframe{
 }
 @media (min-width: 1023px) {
     .bai-viet {
-        padding: 0px 100px !important;
+        padding: 0px 50px !important;
     }
 }
 @media (min-width: 1600px) {
     .bai-viet{
-        padding: 0px 350px !important;
+        padding: 0px 100px !important;
     }
 }
 </style>
@@ -89,7 +89,7 @@ iframe{
             <v-card-actions class="justify-center">
                 <div style="text-align: center; font-size: 22px; font-weight: bold; color: wheat;">TIN TỨC LIÊN QUAN</div>
             </v-card-actions>
-            <v-card-actions class="pa-12 bai-viet justify-center" >
+            <v-card-actions class="bai-viet justify-center" >
                 <v-col>
                     <v-row v-for="tinTucs in listTinTuc" :key="tinTucs" class="justify-center">
                         <v-col cols="12" sm="3" v-for="item in tinTucs" :key="item">
@@ -100,7 +100,7 @@ iframe{
                                     </v-card-actions>
                                     <v-card-actions class="pa-6">
                                         <div>
-                                            <span class="loai-su-kien">{{ item?.tenLoaiTinTuc?.toUpperCase() }}</span> 
+                                            <span class="loai-su-kien" style="font-size: 11px;">{{ item?.tenLoaiTinTuc?.toUpperCase() }}</span> 
                                             <span style="font-size: 10px; font-weight: bold;">{{ item?.updatedAt }}</span>
                                         </div>
                                     </v-card-actions>

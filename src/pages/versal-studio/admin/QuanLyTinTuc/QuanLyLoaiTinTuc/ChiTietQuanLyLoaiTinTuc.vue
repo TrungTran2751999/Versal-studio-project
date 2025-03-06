@@ -33,6 +33,21 @@
                             </v-col>
                         </v-row>
 
+                        <v-row>
+                            <v-col cols="4" class="justify-center">
+                                <v-list-subheader style="text-align: center;" >Thứ tự hiển thị</v-list-subheader>
+                            </v-col>
+                            <v-col cols="8">
+                                <v-text-field
+                                 density="compact"
+                                 variant="outlined"
+                                 placeholder="Thứ tự hiển thị"
+                                 v-model="thuTuHienThi"
+                                 type="number"
+                                ></v-text-field>
+                            </v-col>
+                        </v-row>
+
                     </v-container>
                 </v-card-actions>
                 <v-card-actions class="justify-center">
@@ -54,7 +69,8 @@ import NavAdmin from '../../layout/NavAdmin.vue';
                 name:"",
                 statusSelected:0,
                 isCreate: true,
-                listStatus:[{title:"Đang hoạt động", value:0}, {title:"Đã hủy", value:1}]
+                listStatus:[{title:"Đang hoạt động", value:0}, {title:"Đã hủy", value:1}],
+                thuTuHienThi:0
             }
         },
         created(){
@@ -64,7 +80,8 @@ import NavAdmin from '../../layout/NavAdmin.vue';
             createNew(){
                 let obj = {
                     name: this.name,
-                    updatedBy: 0
+                    updatedBy: 0,
+                    display:this.thuTuHienThi
                 }
                 tinTucController.createLoaiTinTuc(obj)
                 .then(res=>{
@@ -85,6 +102,7 @@ import NavAdmin from '../../layout/NavAdmin.vue';
                     .then(res=>{
                         this.name = res.data.name
                         this.statusSelected = res.data.isDeleted
+                        this.thuTuHienThi = res.data.display
                     })
                 }
            },
@@ -93,7 +111,8 @@ import NavAdmin from '../../layout/NavAdmin.vue';
                     id: this.id,
                     name: this.name,
                     updatedBy: 0,
-                    isDeleted: this.statusSelected
+                    isDeleted: this.statusSelected,
+                    display:this.thuTuHienThi
                 }
                 tinTucController.updateLoaiTinTuc(obj)
                 .then(res=>{

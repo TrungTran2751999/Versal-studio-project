@@ -33,7 +33,6 @@ const checkBeforeAdmin = (to, from ,next)=>{
     }catch{
         next("/404")
     }
-    
 }
 const routes = [
     {

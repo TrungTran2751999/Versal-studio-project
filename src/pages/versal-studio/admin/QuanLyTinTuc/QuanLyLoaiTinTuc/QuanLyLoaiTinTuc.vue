@@ -129,6 +129,7 @@ import Loading from '../../layout/TableLoading.vue';
                 }
                 tinTucController.getAllLoaiTintuc(obj)
                 .then(res=>{
+                    console.log(res)
                     this.tableNguoiDung.loading = true;
                     let i=1;
                     res.data.map(item=>{
