@@ -109,8 +109,8 @@ export let listChildrenNavAdmin = [
         ]
     }
 ]
-//let domainApi = "http://127.0.0.1:8000"
-let domainApi = "https://versalstudio.vn"
+let domainApi = "http://127.0.0.1:8000"
+//let domainApi = "https://versalstudio.vn"
 export const loginInfo = {
     userName:0
 }

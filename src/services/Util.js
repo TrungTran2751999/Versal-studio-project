@@ -68,9 +68,9 @@ function convertFileToBase64(file){
 }
 function convertDate(dateStr, type){
     if(type=="datetime"){
-        let time = dateStr?.split(" ")[1]
+        let time = dateStr?.split(" ")[1].split(":")
         let date = dateStr?.split(" ")[0].split("-").reverse().join("/")
-        return `${date} ${time}`
+        return `${date} ${time[0]}:${time[1]}`
     }else{
         return dateStr?.split(" ")[0].split("-").reverse().join("/")
     }

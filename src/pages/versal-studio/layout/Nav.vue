@@ -35,7 +35,34 @@
     a{
         text-decoration: none;
     }
-
+    .btn-dang-nhap{
+        color: black;
+        font-weight: bold;
+        background-color: black;
+        height: 100%;
+        font-size: 15px;
+        border-radius: 0px;
+        color: wheat;
+    }
+    .btn-icon-dang-nhap{
+        color: wheat;
+    }
+    @media(min-width: 1023px) {
+        .btn-icon-dang-nhap{
+            display: none;
+        }
+        .btn-dang-nhap{
+            display: block;
+        }
+    }
+    @media(max-width: 800px) {
+        .btn-dang-nhap{
+            display: none;
+        }
+        .btn-icon-dang-nhap{
+            display: block;
+        }
+    }
 </style>
 <template>
     <v-app>
@@ -55,13 +82,14 @@
                     </v-row>
                 </template>
                 <template v-slot:append>
-                    <div class="visible" v-show="false">
-                        
-                        <v-btn style="background-color: wheat;" id="btn-tai-khoan">
-                            <span><v-icon>mdi-account</v-icon></span>
-                            TÀI KHOẢN <span><v-icon>mdi-chevron-down</v-icon></span>
-                        </v-btn>
-                    </div>
+                    <RouterLink to="/dang-nhap">
+                        <v-btn class="btn-dang-nhap" id="">ĐĂNG NHẬP</v-btn>
+                        <v-btn icon="mdi-login-variant" class="btn-icon-dang-nhap"></v-btn>
+                    </RouterLink>
+                    <RouterLink to="/dang-ky">
+                        <v-btn class="btn-dang-nhap">ĐĂNG KÝ</v-btn>
+                        <v-btn icon="mdi-account-plus" class="btn-icon-dang-nhap"></v-btn>
+                    </RouterLink>
                 </template>
                 <v-menu activator="#btn-tai-khoan">
                     <v-list>
@@ -106,13 +134,6 @@
                     </v-list>
                 </v-menu>
 
-                <!-- <template v-slot:append>
-                    <v-btn icon="mdi-heart"></v-btn>
-
-                    <v-btn icon="mdi-magnify"></v-btn>
-
-                    <v-btn icon="mdi-dots-vertical"></v-btn>
-                </template> -->
             </v-app-bar>
 
             <v-navigation-drawer v-model="drawer" class="hidden" style="z-index: 99999999999; background-color: black;">

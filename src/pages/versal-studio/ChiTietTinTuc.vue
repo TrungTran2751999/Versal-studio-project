@@ -34,12 +34,12 @@ iframe{
 }
 @media (min-width: 1023px) {
     .bai-viet {
-        padding: 0px 50px !important;
+        padding: 0px 250px !important;
     }
 }
 @media (min-width: 1600px) {
     .bai-viet{
-        padding: 0px 100px !important;
+        padding: 0px 350px !important;
     }
 }
 </style>
