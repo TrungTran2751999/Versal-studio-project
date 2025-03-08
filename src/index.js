@@ -22,17 +22,16 @@ import ChiTietQuanLyTeam from "./pages/versal-studio/admin/QuanLyGiaiDau/QuanLyT
 import Login from "./pages/versal-studio/admin/Login.vue";
 import NotFound from "./pages/NotFound.vue";
 import HoSoCaNhan from "./pages/versal-studio/admin/HoSoCaNhan.vue";
+import { userController } from "./services/UserController";
 const checkBeforeAdmin = (to, from ,next)=>{
-    let result = utilController.checkJWTToken();
-    try{
-        if(result.sub==1){
-            next()
-        }else{
-            next("/404")
-        }
-    }catch{
+    userController.authorizedUser()
+    .then(()=>{
+        next()
+    })
+    .catch((err)=>{
+        console.log(err)
         next("/404")
-    }
+    })
 }
 const routes = [
     {

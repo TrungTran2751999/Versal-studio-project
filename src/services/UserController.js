@@ -2,6 +2,14 @@ import { API } from "@/pages/versal-studio/util/GlobalVariable"
 import axios from "axios"
 import Cookies from "js-cookie"
 
+function authorizedUser(){
+    return axios.get(API.ADMIN.authorize.admin, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${Cookies.get("token")}`
+        }
+    })
+}
 function getAll(postData){
     return axios.post(API.ADMIN.user.getAll, postData,{
         headers: {
@@ -94,5 +102,6 @@ export const userController = {
     getAllActive,
     getAllUserActive,
     login,
-    updateAdmin
+    updateAdmin,
+    authorizedUser
 }

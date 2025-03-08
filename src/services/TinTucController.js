@@ -5,6 +5,7 @@ import Cookies from "js-cookie"
 function getAll(postData){
     return axios.post(API.ADMIN.tinTuc.getAllTinTuc, postData,{
         headers: {
+            'Authorization': `Bearer ${Cookies.get("token")}`,
             'Content-Type': 'application/json'
         }
     })

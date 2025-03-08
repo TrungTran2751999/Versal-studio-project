@@ -116,6 +116,9 @@ export const loginInfo = {
 }
 export const API = {
     ADMIN:{
+        authorize:{
+            admin: `${domainApi}/api/authorize/admin`,
+        },
         user:{
             login: `${domainApi}/api/admin/login`,
             register: `${domainApi}/api/admin/register`,
@@ -126,7 +129,7 @@ export const API = {
             count: `${domainApi}/api/admin/user/count`,
             getAllActive: `${domainApi}/api/admin/user/active`,
             getAllCaNhanActive: `${domainApi}/api/admin/user/ca-nhan-active`,
-            updateAdmin: `${domainApi}/api/admin/user/update-admin`
+            updateAdmin: `${domainApi}/api/admin/user/update-admin`,
         },
         role:{
             getAll: `${domainApi}/api/admin/role`
